@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using Internal;
+using static BankApp2.Program;
 
 // Användaren ska mata in sitt användarnummer/användarnamn (valfritt hur detta ser ut)...
 //och en pin-kod som ska avgöra vilken användare det är som vill använda bankomaten
+
 //När användaren lyckats logga in ska bankomaten fråga vad användaren vill göra. Det ska finnas fyra val:
 //se konton o saldo överföringar mellan konton, ta ut pengar, logga ut
+
 //TODONär en funktion har kört klart ska användaren få upp texten "Tryck enter för att komma till huvudmenyn".
 //När användaren tryckt enter kommer menyn upp igen.
-//TODO Om användaren väljer "Logga ut" ska programmet inte stänga av. Användaren ska komma till inloggningen igen.
-//TODO Om användaren skriver ett nummer som inte finns i menyn, eller något annat än ett nummer,
+//Om användaren väljer "Logga ut" ska programmet inte stänga av. Användaren ska komma till inloggningen igen.
+//Om användaren skriver ett nummer som inte finns i menyn, eller något annat än ett nummer,
 //ska systemet meddela att det är ett "ogiltigt val".
 //TODO när anv väljer se konton o saldo Användaren ska få en utskrift av de olika konton som
 //användaren har och hur mycket pengar det finns på dessa i kr och ören
@@ -38,7 +41,7 @@ class Program
     {
         //CREATE ARRAY OF USERS
         User[] users = new User[]
-        
+
         {
            //FILL ARRAY med _5_ ANVÄNDARE MED FÖRPROGRAMMERADE NAMN, ANVNAMN, PINKOD
            //OCH EN INNER ARRAY AV KONTON VAR                                  
@@ -193,66 +196,69 @@ class Program
             }
         };
 
-        
+        logInMenu();
 
         //LOG IN
-        Console.WriteLine("Log in");
-        bool logInMenu = true;
-        do {
-            Console.WriteLine("Please enter your username");
-            string? userName = Console.ReadLine();
-            Console.WriteLine("Please enter your pinconde");
-            string? input = Console.ReadLine();
-            int userPincode = Int32.Parse(input);
+        void logInMenu() {
+            Console.WriteLine("Log in");
+            bool logInMenu = true;
+            do {
+                Console.WriteLine("Please enter your username");
+                string? userName = Console.ReadLine();
+                Console.WriteLine("Please enter your pinconde");
+                string? input = Console.ReadLine();
+                int userPincode = Int32.Parse(input);
 
-            //LOOP USER ARRAY CHECK IF USERNAME AND PINCODE MATCH
-            //User[] users = new User[]
+                //LOOP USER ARRAY CHECK IF USERNAME AND PINCODE MATCH
+                //User[] users = new User[]
 
-            for (int i = 0; i < users.Length; i++)
-            {
-                if (users[i].Name.Equals("A") && (users[i].UserName.Equals("Arvin") && (users[i].PinCode.Equals("1111"))))
+                for (int i = 0; i < users.Length; i++)
                 {
-                    Console.WriteLine("Welcome Arvin you have successfully logged in");
-                    loggedInUser = "A";
-                    logInMenu = false;
+                    if (users[i].Name.Equals("A") && (users[i].UserName.Equals("Arvin") && (users[i].PinCode.Equals("1111"))))
+                    {
+                        Console.WriteLine("Welcome Arvin you have successfully logged in");
+                        loggedInUser = "A";
+                        logInMenu = false;
+                    }
+                    else if (users[i].Name.Equals("B") && (users[i].UserName.Equals("Billy") && (users[i].PinCode.Equals("2222"))))
+                    {
+                        Console.WriteLine("Welcome Arvin you have successfully logged in");
+                        loggedInUser = "B";
+                        logInMenu = false;
+                    }
+                    else if (users[i].Name.Equals("C") && (users[i].UserName.Equals("Camilla") && (users[i].PinCode.Equals("3333"))))
+                    {
+                        Console.WriteLine("Welcome Arvin you have successfully logged in");
+                        loggedInUser = "C";
+                        logInMenu = false;
+                    }
+                    else if (users[i].Name.Equals("D") && (users[i].UserName.Equals("Daniel") && (users[i].PinCode.Equals("4444"))))
+                    {
+                        Console.WriteLine("Welcome Arvin you have successfully logged in");
+                        loggedInUser = "D";
+                        logInMenu = false;
+                    }
+                    else if (users[i].Name.Equals("E") && (users[i].UserName.Equals("Emily") && (users[i].PinCode.Equals("5555"))))
+                    {
+                        Console.WriteLine("Welcome Arvin you have successfully logged in");
+                        loggedInUser = "E";
+                        logInMenu = false;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Sorry, you were unable to log in, you must have entered the wrong username or pincode, " +
+                            "please try again");
+                    }
                 }
-                else if (users[i].Name.Equals("B") && (users[i].UserName.Equals("Billy") && (users[i].PinCode.Equals("2222"))))
-                {
-                    Console.WriteLine("Welcome Arvin you have successfully logged in");
-                    loggedInUser = "B";
-                    logInMenu = false;
-                }
-                else if (users[i].Name.Equals("C") && (users[i].UserName.Equals("Camilla") && (users[i].PinCode.Equals("3333"))))
-                {
-                    Console.WriteLine("Welcome Arvin you have successfully logged in");
-                    loggedInUser = "C";
-                    logInMenu = false;
-                }
-                else if (users[i].Name.Equals("D") && (users[i].UserName.Equals("Daniel") && (users[i].PinCode.Equals("4444"))))
-                {
-                    Console.WriteLine("Welcome Arvin you have successfully logged in");
-                    loggedInUser = "D";
-                    logInMenu = false;
-                }
-                else if (users[i].Name.Equals("E") && (users[i].UserName.Equals("Emily") && (users[i].PinCode.Equals("5555"))))
-                {
-                    Console.WriteLine("Welcome Arvin you have successfully logged in");
-                    loggedInUser = "E";
-                    logInMenu = false;
-                }
-                else
-                {
-                    Console.WriteLine("Sorry, you were unable to log in, you must have entered the wrong username or pincode, " +
-                        "please try again");
-                }
-            }
 
             } while (logInMenu);
-        
+
+        }
 
 
 
         //MAIN MENU
+
         Console.WriteLine("Menu system");
         bool mainMenu = true;
         while (mainMenu)
@@ -273,30 +279,30 @@ class Program
                 //AccountValue = 0
                 case "1":
                     Console.WriteLine("Listing all accounts");
-                    for (int i =0; i<accounts.Length; i++)
+                    for (int i = 0; i < accounts.Length; i++)
                     {
                         Console.WriteLine("name: " + loggedInUser.accounts[i].Name + "health: " +
-                            monsters[i].Health + "defense " + monsters[i].Defense);
+                            monsters[i].Health + "defense " + accounts[i].Defense);
                         //users?
-                        Attack[]monsterAttacks = monsters[i].Attacks;
-                        for(int j = 0; j<monsterAttacks.Length; j++)
+                        Attack[] monsterAttacks = monsters[i].Attacks;
+                        for (int j = 0; j < monsterAttacks.Length; j++)
                         {
-                            Console.WriteLine("Index: " + j+1 + "monster: " + monsterAttacks[j].Name + " attackvalue: " + monsterAttacks[j].AttackValue);
+                            Console.WriteLine("Index: " + j + 1 + "monster: " + monsterAttacks[j].Name + " attackvalue: " + monsterAttacks[j].AttackValue);
                             //kontonamnen?
                         }
                     }
                     Console.WriteLine();
                     break;
 
-                    /*for (int row = 0; row < accounts.Length; row++)
+                /*for (int row = 0; row < accounts.Length; row++)
+                {
+                    for (int column = 0; column < accounts[row].Length; column++)
                     {
-                        for (int column = 0; column < accounts[row].Length; column++)
-                        {
-                            display += intArray[row][column].ToString() + " ";
-                        }
-                        display += "\n";
+                        display += intArray[row][column].ToString() + " ";
                     }
-                    break;*/
+                    display += "\n";
+                }
+                break;*/
 
                 //CREATE NEW ACCOUNT / USER?
                 case "2":
@@ -314,66 +320,78 @@ class Program
                 case "E":
                     Console.WriteLine("E selected");
                     mainMenu = false;
+                    logInMenu();
                     break;
                 default:
-                    Console.WriteLine("Please type either 1 oe E and press enter");
+                    Console.WriteLine("Ogiltigt val. Please type either 1 oe E and press enter");
                     break;
 
-                    //SKAPAR PLATS FÖR ETT NYTT KONTO I ARRAYEN AV KONTON OCH LÄGGER TILL ETT KONTO??
-                    //metod addMonster som får en array av monster (oldMonsters) och ett nytt att lägga till (monsterToadd)
-                    //returnerar en ny array av monster med ett extra tillagt
-
-                    User[] addUser(User[] oldUsers, User userToAdd)
-                    {
-                        int a = users.Length;
-                        int numberOfUsers = oldUsers.Length;                            //spara längden av gamla kontoarrayen oldMonsters  
-                        User[] newUsers = new User[numberOfUsers + 1];    //skapa ny array newMonsters med en til plats
-                        for (int l = 0; l < numberOfUsers; l++)
-                        {
-                            newUsers[l] = oldUsers[l];                          //kopiera värdena till den nya
-                        }
-                        newUsers[numberOfUsers] = userToAdd;                 //lägger till ett nytt monster
-                        return newUsers;
-                    }
-
-                    //CREATE NEW ACCOUNT MONSTER?
-                    // monsters = addMonster(monsters, parseRow("Tobbe, 20,1+,12"));
-                    //Console.WriteLine("Monster successfully added to database");
-
-                    User parseRow(string monsterRow)       //får in tex stringen "Tobbe, 20,1+,12"
-                    {
-                        var cols = monsterRow.Split(',');      //splittar den 
-                        User m = new User();             //skapar ett nytt monsterobjekt
-
-                        for (int k = 0; k < cols.Length; k++)             //lopar igenom antal vrden man skickade
-                        {
-                            Console.WriteLine("Inner for each loop" + k + "col" + cols[k]);       //skriver ut varje index k och dess värde
-                            switch (k)
-                            {
-                                case 0:
-                                    m.Name = cols[k];          //sätter 0 värdet (tobbe) till name
-                                    break;
-                                case 1:
-                                    m.Health = int.Parse(cols[k]);      //sätter andra värdet (20) till health
-                                    break;
-                                case 2:
-                                    break;
-                                case 3:
-                                    m.Defense = int.Parse(cols[k]);       //sätter sista värdet till defense
-                                    break;
-                            }
-                        }
-                        return m;     //returnerar det nya monster objektet
-                    }
-
-                    //updatedUser = Users[0];
-                    //Om vi relaterar det till banken kan users [0] va ett antal users som vi stegar igenom
-                    //Ungefär som login labben att man scannar alla users och kollar om anv fyllt i rätt
-                    //anvnamn och pinkod för en viss user då ör det luoggedin / current user då brukar man
-                    //lägga den i en egen variabel eller det är ett sätt iaf (ganska tidigt i 15/12).....
             }
         }
-    }
+        //SKAPAR PLATS FÖR ETT NYTT KONTO I ARRAYEN AV KONTON OCH LÄGGER TILL ETT KONTO??
+        //metod addMonster som får en array av monster (oldMonsters) och ett nytt att lägga till (monsterToadd)
+        //returnerar en ny array av monster med ett extra tillagt
+
+        User[] addUser(User[] oldUsers, User userToAdd)
+        {
+            int a = users.Length;
+            int numberOfUsers = oldUsers.Length;                            //spara längden av gamla kontoarrayen oldMonsters  
+            User[] newUsers = new User[numberOfUsers + 1];    //skapa ny array newMonsters med en til plats
+            for (int l = 0; l < numberOfUsers; l++)
+            {
+                newUsers[l] = oldUsers[l];                          //kopiera värdena till den nya
+            }
+            newUsers[numberOfUsers] = userToAdd;                 //lägger till ett nytt monster
+            return newUsers;
+        }
+
+        //LIST ALL ACCOUNTS
+
+
+
+
+
+
+        //CREATE NEW ACCOUNT MONSTER?
+        // monsters = addMonster(monsters, parseRow("Tobbe, 20,1+,12"));
+        //Console.WriteLine("Monster successfully added to database");
+
+        User parseRow(string monsterRow)       //får in tex stringen "Tobbe, 20,1+,12"
+        {
+            var cols = monsterRow.Split(',');      //splittar den 
+            User m = new User();             //skapar ett nytt monsterobjekt
+
+            for (int k = 0; k < cols.Length; k++)             //lopar igenom antal vrden man skickade
+            {
+                Console.WriteLine("Inner for each loop" + k + "col" + cols[k]);       //skriver ut varje index k och dess värde
+                switch (k)
+                {
+                    case 0:
+                        m.Name = cols[k];          //sätter 0 värdet (tobbe) till name
+                        break;
+                    case 1:
+                        m.Health = int.Parse(cols[k]);      //sätter andra värdet (20) till health
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        m.Defense = int.Parse(cols[k]);       //sätter sista värdet till defense
+                        break;
+                }
+            }
+        }
+            return m;     //returnerar det nya monster objektet
+        
+
+        //updatedUser = Users[0];
+        //Om vi relaterar det till banken kan users [0] va ett antal users som vi stegar igenom
+        //Ungefär som login labben att man scannar alla users och kollar om anv fyllt i rätt
+        //anvnamn och pinkod för en viss user då ör det luoggedin / current user då brukar man
+        //lägga den i en egen variabel eller det är ett sätt iaf (ganska tidigt i 15/12).....
+
+
+      
+
     public class Account
     {
         private string accountname;    //va name innan 
@@ -402,6 +420,8 @@ class Program
             }
         }
     }
+}
+
     public class User
     {
         private string name;
