@@ -30,6 +30,9 @@ class Program
 //helth = username
 //defense = pincode
 {
+    private static string loggedInUser;
+    
+
     static void Main(string[] args)
     {
         //CREATE ARRAY OF USERS
@@ -199,6 +202,16 @@ class Program
         string? input = Console.ReadLine();
         int userPincode = Int32.Parse(input);
 
+        //LOOP USER ARRAY
+        //User[] users = new User[]
+        for (int i = 0; i < users.Length; i++) 
+        {
+            if (users[i].Name.Equals("A") && (users[i].UserName.Equals("Arvin") && (users[i].PinCode.Equals("1111")))){ 
+                Console.WriteLine("Welcome Arvin you have successfully logged in");
+                loggedInUser = "A";
+            }
+        }
+
         //MAIN MENU
         Console.WriteLine("Menu system");
         bool mainMenu = true;
@@ -343,6 +356,10 @@ class Program
         private string name;
         private int userName;
         private int pinCode;
+
+        public object UserName { get; internal set; }
+        public object PinCode { get; internal set; }
+
         private Account[] accounts;
 
         public Account[] Accounts
@@ -389,6 +406,9 @@ class Program
                 pinCode = value;
             }
         }
+
+        //public object UserName { get; internal set; }
+        //public object PinCode { get; internal set; }
     }
 }
 
