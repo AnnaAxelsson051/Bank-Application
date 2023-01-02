@@ -10,21 +10,28 @@ using static BankApp2.Program;
 //När användaren lyckats logga in ska bankomaten fråga vad användaren vill göra. Det ska finnas fyra val:
 //se konton o saldo överföringar mellan konton, ta ut pengar, logga ut
 
-//TODONär en funktion har kört klart ska användaren få upp texten "Tryck enter för att komma till huvudmenyn".
+//----När en funktion har kört klart ska användaren få upp texten "Tryck enter för att komma till huvudmenyn".
 //När användaren tryckt enter kommer menyn upp igen.
+
 //Om användaren väljer "Logga ut" ska programmet inte stänga av. Användaren ska komma till inloggningen igen.
 //Om användaren skriver ett nummer som inte finns i menyn, eller något annat än ett nummer,
 //ska systemet meddela att det är ett "ogiltigt val".
+
 //TODO när anv väljer se konton o saldo Användaren ska få en utskrift av de olika konton som
 //användaren har och hur mycket pengar det finns på dessa i kr och ören
-//TODO Saldon för alla konton sätts vid starten av programmet (du ställer in en en summa som
+
+// Saldon för alla konton sätts vid starten av programmet (du ställer in en en summa som
 //finns på varje konto i koden) så om programmet startas om återställs alla saldon.
+
 //TODO när anv väljer överföringar mellan konton ska hen kunna välja ett konto att ta pengar från,
 //ett konto att flytta pengarna till och sen en summa som ska flyttas mellan dessa, efter summan flyttas
 //ska användaren få se vilken summa som finns på dessa två konton som påverkades
+
 //TODO Det måste finnas täckning på konton man vill flytta pengar från för beloppet man vill flytta
+
 //TODO när anv väljer ta ut pengar Användaren ska kunna välja ett av sina konton samt en summa
 //Efter detta måste användaren skriva in sin pinkod för att bekräfta att de vill ta ut pengar
+
 //TODO Pengarna ska sedan tas bort från det konto som valdes Sist av allt ska systemet skriva ut det nya
 //saldot på det kontot
 
@@ -55,12 +62,12 @@ class Program
                     new Account
                     {
                         AccountName = "Lönekonto",
-                        AccountValue = 300
+                        AccountValue = 100
                     },
                     new Account
                     {
                         AccountName = "Sparkonto",
-                        AccountValue = 400
+                        AccountValue = 200
                     },
                 }
             },
@@ -73,18 +80,18 @@ class Program
                 {
                     new Account
                     {
-                        AccountName = "Mimic",
-                        AccountValue = 40
+                        AccountName = "Lönekonto",
+                        AccountValue = 100
                     },
                     new Account
                     {
-                        AccountName = "Mime",
-                        AccountValue = 20
+                        AccountName = "Sparkonto",
+                        AccountValue = 200
                     },
                     new Account
                     {
-                        AccountName = "Run away",
-                        AccountValue= 0
+                        AccountName = "Resekonto",
+                        AccountValue= 300
                     },
 
                 }
@@ -98,17 +105,17 @@ class Program
                 {
                     new Account
                     {
-                        AccountName = "Mimic",
-                        AccountValue = 40
+                        AccountName = "Lönekonto",
+                        AccountValue = 100
                     },
                     new Account
                     {
-                        AccountName = "Mime",
-                        AccountValue = 20
+                        AccountName = "Sparkonto",
+                        AccountValue = 200
                     },
                     new Account
                     {
-                        AccountName = "Run away",
+                        AccountName = "Resekonto",
                         AccountValue= 0
                     },
                      new Account
@@ -129,8 +136,8 @@ class Program
                 {
                     new Account
                     {
-                        AccountName = "Mimic",
-                        AccountValue = 40
+                        AccountName = "Lönekonto",
+                        AccountValue = 100
                     },
                     new Account
                     {
@@ -163,8 +170,8 @@ class Program
                 {
                     new Account
                     {
-                        AccountName = "Mimic",
-                        AccountValue = 40
+                        AccountName = "Lönekonto",
+                        AccountValue = 100
                     },
                     new Account
                     {
@@ -199,10 +206,12 @@ class Program
         logInMenu();
 
         //LOG IN
-        void logInMenu() {
+        void logInMenu()
+        {
             Console.WriteLine("Log in");
             bool logInMenu = true;
-            do {
+            do
+            {
                 Console.WriteLine("Please enter your username");
                 string? userName = Console.ReadLine();
                 Console.WriteLine("Please enter your pinconde");
@@ -252,81 +261,90 @@ class Program
                 }
 
             } while (logInMenu);
-
+            mainMenu();
         }
 
 
-
         //MAIN MENU
-
-        Console.WriteLine("Menu system");
-        bool mainMenu = true;
-        while (mainMenu)
+        void mainMenu()
         {
-            Console.WriteLine("Welcome");
-            Console.WriteLine("Please select one of the following");
-            Console.WriteLine("1 Se konton och saldon");
-            Console.WriteLine("2 Överföringar");
-            Console.WriteLine("3 Ta ut pengar");
-            Console.WriteLine("E Exit");
-            string? choice = Console.ReadLine().ToUpper();
-            switch (choice)
+            Console.WriteLine("Menu system");
+            bool mainMenu = true;
+            while (mainMenu)
             {
-
-                //LIST ACCOUNTS?
-                //Accounts = new Account[]
-                //AccountName = "Run away",
-                //AccountValue = 0
-                case "1":
-                    Console.WriteLine("Listing all accounts");
-                    for (int i = 0; i < accounts.Length; i++)
-                    {
-                        Console.WriteLine("name: " + loggedInUser.accounts[i].Name + "health: " +
-                            monsters[i].Health + "defense " + accounts[i].Defense);
-                        //users?
-                        Attack[] monsterAttacks = monsters[i].Attacks;
-                        for (int j = 0; j < monsterAttacks.Length; j++)
-                        {
-                            Console.WriteLine("Index: " + j + 1 + "monster: " + monsterAttacks[j].Name + " attackvalue: " + monsterAttacks[j].AttackValue);
-                            //kontonamnen?
-                        }
-                    }
-                    Console.WriteLine();
-                    break;
-
-                /*for (int row = 0; row < accounts.Length; row++)
+                Console.WriteLine("Welcome");
+                Console.WriteLine("Please select one of the following");
+                Console.WriteLine("1 Se konton och saldon");
+                Console.WriteLine("2 Överföringar");
+                Console.WriteLine("3 Ta ut pengar");
+                Console.WriteLine("E Exit");
+                string? choice = Console.ReadLine().ToUpper();
+                switch (choice)
                 {
-                    for (int column = 0; column < accounts[row].Length; column++)
-                    {
-                        display += intArray[row][column].ToString() + " ";
-                    }
-                    display += "\n";
+
+                    //LIST ACCOUNTS?
+                    //Accounts = new Account[]
+                    //AccountName = "Run away",
+                    //AccountValue = 0
+                    case "1":
+                        listAccounts();
+                        break;
+
+                    //CREATE NEW ACCOUNT / USER?
+                    case "2":
+                        Console.WriteLine("Creating a new monster");
+                        users = addUser(users, parseRow("Tobbe, 20,1+,12"));
+                        Console.WriteLine("User successfully added to database");
+                        break;
+                    case "3":
+                        Console.WriteLine("Update selected");
+                        User updateUser = users[1];
+                        Account updateAccount = users[1].Accounts[0];
+                        updateUser.Name = "johan";
+                        updateAccount.AccountValue = 15;
+                        break;
+                    case "E":
+                        Console.WriteLine("E selected");
+                        mainMenu = false;
+                        logInMenu();
+                        break;
+                    default:
+                        Console.WriteLine("Ogiltigt val. Please type either 1 oe E and press enter");
+                        break;
+
                 }
-                break;*/
-
-                //CREATE NEW ACCOUNT / USER?
-                case "2":
-                    Console.WriteLine("Creating a new monster");
-                    users = addUser(users, parseRow("Tobbe, 20,1+,12"));
-                    Console.WriteLine("User successfully added to database");
-                    break;
-                case "3":
-                    Console.WriteLine("Update selected");
-                    User updateUser = users[1];
-                    Account updateAccount = users[1].Accounts[0];
-                    updateUser.Name = "johan";
-                    updateAccount.AccountValue = 15;
-                    break;
-                case "E":
-                    Console.WriteLine("E selected");
-                    mainMenu = false;
-                    logInMenu();
-                    break;
-                default:
-                    Console.WriteLine("Ogiltigt val. Please type either 1 oe E and press enter");
-                    break;
-
             }
+        }
+
+        void listAccounts()
+        {
+            //helth = username
+            //defense = pincode
+            Console.WriteLine("Listing all accounts");
+            for (int i = 0; i < accounts.Length; i++)
+            {
+                Console.WriteLine("name: " + loggedInUser.accounts[i].Name + "salary account: " +
+                    accounts[i].salaryAccount + "savings account " + accounts[i].savingsAccount);
+                //users?
+                Attack[] monsterAttacks = monsters[i].Attacks;
+                for (int j = 0; j < monsterAttacks.Length; j++)
+                {
+                    Console.WriteLine("Index: " + j + 1 + "monster: " + monsterAttacks[j].Name + " attackvalue: " + monsterAttacks[j].AttackValue);
+                    //kontonamnen?
+                }
+            }
+            Console.WriteLine();
+            mainMenu();
+
+            /*for (int row = 0; row < accounts.Length; row++)
+            {
+                for (int column = 0; column < accounts[row].Length; column++)
+                {
+                    display += intArray[row][column].ToString() + " ";
+                }
+                display += "\n";
+            }
+            break;*/
         }
         //SKAPAR PLATS FÖR ETT NYTT KONTO I ARRAYEN AV KONTON OCH LÄGGER TILL ETT KONTO??
         //metod addMonster som får en array av monster (oldMonsters) och ett nytt att lägga till (monsterToadd)
@@ -345,7 +363,7 @@ class Program
             return newUsers;
         }
 
-        //LIST ALL ACCOUNTS
+        
 
 
 
@@ -377,10 +395,15 @@ class Program
                     case 3:
                         m.Defense = int.Parse(cols[k]);       //sätter sista värdet till defense
                         break;
+
+
                 }
+
             }
-        }
             return m;     //returnerar det nya monster objektet
+        }
+    
+            
         
 
         //updatedUser = Users[0];
