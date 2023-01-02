@@ -47,17 +47,55 @@ class Program
     static void Main(string[] args)
     {
         //CREATE ARRAY OF USERS
-        User[] users = new User[]
+        //User[] users = new User[]
+        User[][][] users = new int[5][][]
+                            {
+                                new User[2][]
+                                {
+                                    new string[3] { "a", "b", "c"},
+                                    new int[2] { 4, 5}
+                                },
+                                new User[1][]
+                                {
+                                    new int[3] { 7, 8, 9}
+                                }
+                            },
+                            new User[2][]
+                                {
+                                    new int[3] { 1, 2, 3},
+                                    new int[2] { 4, 5}
+                                },
+                                new User[2][]
+                                {
+                                    new int[3] { 1, 2, 3},
+                                    new int[2] { 4, 5}
+                                },
 
+
+
+
+
+        User[][] users = new User[4][]{
+           new UserName [5]
+            {"Arvin", "Billy", "Camilla", "Daniel", "Emily"},
+           new AccountName [5]
+            {"Lönekonto", "Sparkonto", "Resekonto", "Välgörenhetskonto", "Emily"},
+            new Pincode[5]
+            {1111,2222,3333,4444,5555},
+            new AccountValue[5]
+            {200,300,400,500,600},
+        };
+               
+
+           
+
+
+        /*new User
         {
-           //FILL ARRAY med _5_ ANVÄNDARE MED FÖRPROGRAMMERADE NAMN, ANVNAMN, PINKOD
-           //OCH EN INNER ARRAY AV KONTON VAR                                  
-           new User
-            {
-                Name = "A",
-                UserName = "Arvin",
-                PinCode = 1111,
-                Accounts = new Account[]          //user accounts
+            Name = "A",
+            UserName = "Arvin",
+            PinCode = 1111,
+            Accounts = new Account[]          //user accounts
                 {
                     new Account
                     {
@@ -69,16 +107,9 @@ class Program
                         AccountName = "Sparkonto",
                         AccountValue = 200
                     },
-
-                    /*
-                     * int[][] jaggedArray2 = new int[][]
-{
-new int[] { 1, 3, 5, 7, 9 },
-new int[] { 0, 2, 4, 6 },
-new int[] { 11, 22 }
-}; */
                 }
-            },
+        },*/
+
             new User
             {
                 Name = "B",
@@ -551,8 +582,10 @@ new int[] { 11, 22 }
             }
         }
 
-        //public object UserName { get; internal set; }
-        //public object PinCode { get; internal set; }
-    }
+    
+
+    //public object UserName { get; internal set; }
+    //public object PinCode { get; internal set; }
+}
 }
 
