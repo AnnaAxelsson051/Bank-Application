@@ -36,12 +36,13 @@ class Program
         User[] users = new User[]
         
         {
-           //SKAPAR _5_ ANVÄNDARE MED FÖRPROGRAMMERADE NAMN, ANVNAMN, PINKOD OCH EN ARRAY AV KONTON VAR                                  
+           //FILL ARRAY med _5_ ANVÄNDARE MED FÖRPROGRAMMERADE NAMN, ANVNAMN, PINKOD
+           //OCH EN INNER ARRAY AV KONTON VAR                                  
             new User
             {
                 Name = "A",
-                UserName = 20,
-                PinCode = 10,
+                UserName = "Arvin",
+                PinCode = 1111,
                 Accounts = new Account[]          //user accounts
                 {
                     new Account
@@ -59,8 +60,8 @@ class Program
             new User
             {
                 Name = "B",
-                UserName = 24,
-                PinCode = 13,
+                UserName = "Billy",
+                PinCode = 2222,
                 Accounts = new Account[]
                 {
                     new Account
@@ -84,8 +85,8 @@ class Program
             new User
             {
                 Name = "C",
-                UserName = 24,
-                PinCode = 13,
+                UserName = "Camilla",
+                PinCode = 3333,
                 Accounts = new Account[]
                 {
                     new Account
@@ -115,8 +116,8 @@ class Program
             new User
             {
                 Name = "D",
-                UserName = 24,
-                PinCode = 13,
+                UserName = "Daniel",
+                PinCode = 4444,
                 Accounts = new Account[]
                 {
                     new Account
@@ -149,8 +150,8 @@ class Program
             },new User
             {
                 Name = "E",
-                UserName = 24,
-                PinCode = 13,
+                UserName = "Emily",
+                PinCode = 5555,
                 Accounts = new Account[]
                 {
                     new Account
@@ -188,58 +189,7 @@ class Program
             }
         };
 
-        //SKAPAR PLATS FÖR ETT NYTT KONTO I ARRAYEN AV KONTON OCH LÄGGER TILL ETT KONTO??
-        //metod addMonster som får en array av monster (oldMonsters) och ett nytt att lägga till (monsterToadd)
-        //returnerar en ny array av monster med ett extra tillagt
-
-        User[] addUser(User[] oldUsers, User userToAdd)
-        {
-            int a = users.Length;
-            int numberOfUsers = oldUsers.Length;                            //spara längden av gamla kontoarrayen oldMonsters  
-            User[] newUsers = new User[numberOfUsers + 1];    //skapa ny array newMonsters med en til plats
-            for (int l = 0; l < numberOfUsers; l++)
-            {
-                newUsers[l] = oldUsers[l];                          //kopiera värdena till den nya
-            }
-            newUsers[numberOfUsers] = userToAdd;                 //lägger till ett nytt monster
-            return newUsers;
-        }
-
-        //CREATE NEW ACCOUNT MONSTER?
-        // monsters = addMonster(monsters, parseRow("Tobbe, 20,1+,12"));
-        //Console.WriteLine("Monster successfully added to database");
-
-        User parseRow(string monsterRow)       //får in tex stringen "Tobbe, 20,1+,12"
-        {
-            var cols = monsterRow.Split(',');      //splittar den 
-            User m = new User();             //skapar ett nytt monsterobjekt
-
-            for (int k = 0; k < cols.Length; k++)             //lopar igenom antal vrden man skickade
-            {
-                Console.WriteLine("Inner for each loop" + k + "col" + cols[k]);       //skriver ut varje index k och dess värde
-                switch (k)
-                {
-                    case 0:
-                        m.Name = cols[k];          //sätter 0 värdet (tobbe) till name
-                        break;
-                    case 1:
-                        m.Health = int.Parse(cols[k]);      //sätter andra värdet (20) till health
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        m.Defense = int.Parse(cols[k]);       //sätter sista värdet till defense
-                        break;
-                }
-            }
-            return m;     //returnerar det nya monster objektet
-        }
-
-        //updatedUser = Users[0];
-        //Om vi relaterar det till banken kan users [0] va ett antal users som vi stegar igenom
-        //Ungefär som login labben att man scannar alla users och kollar om anv fyllt i rätt
-        //anvnamn och pinkod för en viss user då ör det luoggedin / current user då brukar man
-        //lägga den i en egen variabel eller det är ett sätt iaf (ganska tidigt i 15/12).....
+        
 
         //LOG IN
         Console.WriteLine("Log in");
@@ -305,7 +255,58 @@ class Program
                     Console.WriteLine("Please type either 1 oe E and press enter");
                     break;
 
+                    //SKAPAR PLATS FÖR ETT NYTT KONTO I ARRAYEN AV KONTON OCH LÄGGER TILL ETT KONTO??
+                    //metod addMonster som får en array av monster (oldMonsters) och ett nytt att lägga till (monsterToadd)
+                    //returnerar en ny array av monster med ett extra tillagt
 
+                    User[] addUser(User[] oldUsers, User userToAdd)
+                    {
+                        int a = users.Length;
+                        int numberOfUsers = oldUsers.Length;                            //spara längden av gamla kontoarrayen oldMonsters  
+                        User[] newUsers = new User[numberOfUsers + 1];    //skapa ny array newMonsters med en til plats
+                        for (int l = 0; l < numberOfUsers; l++)
+                        {
+                            newUsers[l] = oldUsers[l];                          //kopiera värdena till den nya
+                        }
+                        newUsers[numberOfUsers] = userToAdd;                 //lägger till ett nytt monster
+                        return newUsers;
+                    }
+
+                    //CREATE NEW ACCOUNT MONSTER?
+                    // monsters = addMonster(monsters, parseRow("Tobbe, 20,1+,12"));
+                    //Console.WriteLine("Monster successfully added to database");
+
+                    User parseRow(string monsterRow)       //får in tex stringen "Tobbe, 20,1+,12"
+                    {
+                        var cols = monsterRow.Split(',');      //splittar den 
+                        User m = new User();             //skapar ett nytt monsterobjekt
+
+                        for (int k = 0; k < cols.Length; k++)             //lopar igenom antal vrden man skickade
+                        {
+                            Console.WriteLine("Inner for each loop" + k + "col" + cols[k]);       //skriver ut varje index k och dess värde
+                            switch (k)
+                            {
+                                case 0:
+                                    m.Name = cols[k];          //sätter 0 värdet (tobbe) till name
+                                    break;
+                                case 1:
+                                    m.Health = int.Parse(cols[k]);      //sätter andra värdet (20) till health
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    m.Defense = int.Parse(cols[k]);       //sätter sista värdet till defense
+                                    break;
+                            }
+                        }
+                        return m;     //returnerar det nya monster objektet
+                    }
+
+                    //updatedUser = Users[0];
+                    //Om vi relaterar det till banken kan users [0] va ett antal users som vi stegar igenom
+                    //Ungefär som login labben att man scannar alla users och kollar om anv fyllt i rätt
+                    //anvnamn och pinkod för en viss user då ör det luoggedin / current user då brukar man
+                    //lägga den i en egen variabel eller det är ett sätt iaf (ganska tidigt i 15/12).....
             }
         }
     }
