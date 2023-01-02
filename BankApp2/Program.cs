@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using Internal;
 
-//TODO Användaren ska mata in sitt användarnummer/användarnamn (valfritt hur detta ser ut)...
+// Användaren ska mata in sitt användarnummer/användarnamn (valfritt hur detta ser ut)...
 //och en pin-kod som ska avgöra vilken användare det är som vill använda bankomaten
-//TODO När användaren lyckats logga in ska bankomaten fråga vad användaren vill göra. Det ska finnas fyra val:
+//När användaren lyckats logga in ska bankomaten fråga vad användaren vill göra. Det ska finnas fyra val:
 //se konton o saldo överföringar mellan konton, ta ut pengar, logga ut
 //TODONär en funktion har kört klart ska användaren få upp texten "Tryck enter för att komma till huvudmenyn".
 //När användaren tryckt enter kommer menyn upp igen.
@@ -31,7 +32,7 @@ class Program
 //defense = pincode
 {
     private static string loggedInUser;
-    
+    private static object accounts;
 
     static void Main(string[] args)
     {
@@ -196,21 +197,60 @@ class Program
 
         //LOG IN
         Console.WriteLine("Log in");
-        Console.WriteLine("Please enter your username");
-        string? userName = Console.ReadLine();
-        Console.WriteLine("Please enter your pinconde");
-        string? input = Console.ReadLine();
-        int userPincode = Int32.Parse(input);
+        bool logInMenu = true;
+        do {
+            Console.WriteLine("Please enter your username");
+            string? userName = Console.ReadLine();
+            Console.WriteLine("Please enter your pinconde");
+            string? input = Console.ReadLine();
+            int userPincode = Int32.Parse(input);
 
-        //LOOP USER ARRAY
-        //User[] users = new User[]
-        for (int i = 0; i < users.Length; i++) 
-        {
-            if (users[i].Name.Equals("A") && (users[i].UserName.Equals("Arvin") && (users[i].PinCode.Equals("1111")))){ 
-                Console.WriteLine("Welcome Arvin you have successfully logged in");
-                loggedInUser = "A";
+            //LOOP USER ARRAY CHECK IF USERNAME AND PINCODE MATCH
+            //User[] users = new User[]
+
+            for (int i = 0; i < users.Length; i++)
+            {
+                if (users[i].Name.Equals("A") && (users[i].UserName.Equals("Arvin") && (users[i].PinCode.Equals("1111"))))
+                {
+                    Console.WriteLine("Welcome Arvin you have successfully logged in");
+                    loggedInUser = "A";
+                    logInMenu = false;
+                }
+                else if (users[i].Name.Equals("B") && (users[i].UserName.Equals("Billy") && (users[i].PinCode.Equals("2222"))))
+                {
+                    Console.WriteLine("Welcome Arvin you have successfully logged in");
+                    loggedInUser = "B";
+                    logInMenu = false;
+                }
+                else if (users[i].Name.Equals("C") && (users[i].UserName.Equals("Camilla") && (users[i].PinCode.Equals("3333"))))
+                {
+                    Console.WriteLine("Welcome Arvin you have successfully logged in");
+                    loggedInUser = "C";
+                    logInMenu = false;
+                }
+                else if (users[i].Name.Equals("D") && (users[i].UserName.Equals("Daniel") && (users[i].PinCode.Equals("4444"))))
+                {
+                    Console.WriteLine("Welcome Arvin you have successfully logged in");
+                    loggedInUser = "D";
+                    logInMenu = false;
+                }
+                else if (users[i].Name.Equals("E") && (users[i].UserName.Equals("Emily") && (users[i].PinCode.Equals("5555"))))
+                {
+                    Console.WriteLine("Welcome Arvin you have successfully logged in");
+                    loggedInUser = "E";
+                    logInMenu = false;
+                }
+                else
+                {
+                    Console.WriteLine("Sorry, you were unable to log in, you must have entered the wrong username or pincode, " +
+                        "please try again");
+                }
             }
-        }
+
+            } while (logInMenu);
+        
+
+
 
         //MAIN MENU
         Console.WriteLine("Menu system");
@@ -228,14 +268,15 @@ class Program
             {
 
                 //LIST ACCOUNTS?
+                //Accounts = new Account[]
+                //AccountName = "Run away",
+                //AccountValue = 0
                 case "1":
                     Console.WriteLine("Listing all accounts");
-
-
-
-                    /*for (int i =0; i<monsters.Length; i++)
+                    for (int i =0; i<accounts.Length; i++)
                     {
-                        Console.WriteLine("name: " + monsters[i].Name + "health: " + monsters[i].Health + "defense " + monsters[i].Defense);
+                        Console.WriteLine("name: " + loggedInUser.accounts[i].Name + "health: " +
+                            monsters[i].Health + "defense " + monsters[i].Defense);
                         //users?
                         Attack[]monsterAttacks = monsters[i].Attacks;
                         for(int j = 0; j<monsterAttacks.Length; j++)
@@ -244,8 +285,18 @@ class Program
                             //kontonamnen?
                         }
                     }
-                    Console.WriteLine();*/
+                    Console.WriteLine();
                     break;
+
+                    /*for (int row = 0; row < accounts.Length; row++)
+                    {
+                        for (int column = 0; column < accounts[row].Length; column++)
+                        {
+                            display += intArray[row][column].ToString() + " ";
+                        }
+                        display += "\n";
+                    }
+                    break;*/
 
                 //CREATE NEW ACCOUNT / USER?
                 case "2":
