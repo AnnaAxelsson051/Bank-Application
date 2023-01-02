@@ -32,7 +32,9 @@ class Program
 {
     static void Main(string[] args)
     {
+        //CREATE ARRAY OF USERS
         User[] users = new User[]
+        
         {
            //SKAPAR _5_ ANVÄNDARE MED FÖRPROGRAMMERADE NAMN, ANVNAMN, PINKOD OCH EN ARRAY AV KONTON VAR                                  
             new User
@@ -238,6 +240,14 @@ class Program
         //Ungefär som login labben att man scannar alla users och kollar om anv fyllt i rätt
         //anvnamn och pinkod för en viss user då ör det luoggedin / current user då brukar man
         //lägga den i en egen variabel eller det är ett sätt iaf (ganska tidigt i 15/12).....
+
+        //LOG IN
+        Console.WriteLine("Log in");
+        Console.WriteLine("Please enter your username");
+        string? userName = Console.ReadLine();
+        Console.WriteLine("Please enter your pinconde");
+        string? input = Console.ReadLine();
+        int userPincode = Int32.Parse(input);
 
         //MAIN MENU
         Console.WriteLine("Menu system");
