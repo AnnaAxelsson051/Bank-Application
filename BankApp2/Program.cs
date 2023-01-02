@@ -47,19 +47,28 @@ class Program
     static void Main(string[] args)
     {
         //CREATE ARRAY OF USERS
+
+
+        string[] userNames = new string[]
+        {"Arvin", "Billy", "Camilla", "Daniel", "Emily"};
+        int[] Pincodes = new int[]
+        {1111,2222,3333,4444,5555};
+
         //User[] users = new User[]
-        User[][][] users = new int[5][][]
+        User[][][] users = new User[][][]
                             {
-                                new User[2][]
+                                new User[][]
                                 {
-                                    new string[3] { "a", "b", "c"},
-                                    new int[2] { 4, 5}
+                                    new kontoNamn[] { "akonto", "bkonto"},
+                                    new konstSaldo[] { 400, 500}
                                 },
-                                new User[1][]
+                                new User[][]
                                 {
-                                    new int[3] { 7, 8, 9}
+                                    new kontoNamn[] { "akonto", "bkonto", "ckonto"},
+                                    new konstSaldo[] { 400, 500, 600}
                                 }
-                            },
+                                },
+
                             new User[2][]
                                 {
                                     new int[3] { 1, 2, 3},
