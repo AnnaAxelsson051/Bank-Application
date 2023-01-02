@@ -116,12 +116,12 @@ class Program
                     new Account
                     {
                         AccountName = "Resekonto",
-                        AccountValue= 0
+                        AccountValue= 300
                     },
                      new Account
                     {
-                        AccountName = "Run away",
-                        AccountValue= 0
+                        AccountName = "Välgörenhetskonto",
+                        AccountValue= 400
                     },
 
                 }
@@ -141,23 +141,23 @@ class Program
                     },
                     new Account
                     {
-                        AccountName = "Mime",
-                        AccountValue = 20
+                        AccountName = "Sparkonto",
+                        AccountValue = 200
                     },
                     new Account
                     {
-                        AccountName = "Run away",
-                        AccountValue= 0
+                        AccountName = "Resekonto",
+                        AccountValue= 300
                     },
                     new Account
                     {
-                        AccountName = "Run away",
-                        AccountValue= 0
+                        AccountName = "Välgörenhetskonto",
+                        AccountValue= 400
                     },
                     new Account
                     {
-                        AccountName = "Run away",
-                        AccountValue= 0
+                        AccountName = "Renoveringskonto",
+                        AccountValue= 500
                     },
 
                 }
@@ -175,28 +175,28 @@ class Program
                     },
                     new Account
                     {
-                        AccountName = "Mime",
-                        AccountValue = 20
+                        AccountName = "Sparkonto",
+                        AccountValue = 200
                     },
                     new Account
                     {
-                        AccountName = "Run away",
-                        AccountValue= 0
+                        AccountName = "Resekonto",
+                        AccountValue= 300
                     },
                     new Account
                     {
-                        AccountName = "Run away",
-                        AccountValue= 0
+                        AccountName = "Välgörenhetskonto",
+                        AccountValue= 400
                     },
                     new Account
                     {
-                        AccountName = "Run away",
-                        AccountValue= 0
+                        AccountName = "Renoveringskonto",
+                        AccountValue= 500
                     },
                     new Account
                     {
-                        AccountName = "Run away",
-                        AccountValue= 0
+                        AccountName = "Reparationskonto",
+                        AccountValue= 600
                     },
 
                 }
