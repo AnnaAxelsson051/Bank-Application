@@ -52,7 +52,7 @@ class Program
         {
            //FILL ARRAY med _5_ ANVÄNDARE MED FÖRPROGRAMMERADE NAMN, ANVNAMN, PINKOD
            //OCH EN INNER ARRAY AV KONTON VAR                                  
-            new User
+            new User 
             {
                 Name = "A",
                 UserName = "Arvin",
