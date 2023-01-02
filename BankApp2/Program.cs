@@ -27,7 +27,7 @@ using static BankApp2.Program;
 //ett konto att flytta pengarna till och sen en summa som ska flyttas mellan dessa, efter summan flyttas
 //ska användaren få se vilken summa som finns på dessa två konton som påverkades
 
-//TODO Det måste finnas täckning på konton man vill flytta pengar från för beloppet man vill flytta
+//Det måste finnas täckning på konton man vill flytta pengar från för beloppet man vill flytta
 
 //TODO när anv väljer ta ut pengar Användaren ska kunna välja ett av sina konton samt en summa
 //Efter detta måste användaren skriva in sin pinkod för att bekräfta att de vill ta ut pengar
@@ -69,6 +69,14 @@ class Program
                         AccountName = "Sparkonto",
                         AccountValue = 200
                     },
+
+                    /*
+                     * int[][] jaggedArray2 = new int[][]
+{
+new int[] { 1, 3, 5, 7, 9 },
+new int[] { 0, 2, 4, 6 },
+new int[] { 11, 22 }
+}; */
                 }
             },
             new User
@@ -226,7 +234,7 @@ class Program
                     if (users[i].Name.Equals("A") && (users[i].UserName.Equals("Arvin") && (users[i].PinCode.Equals("1111"))))
                     {
                         Console.WriteLine("Welcome Arvin you have successfully logged in");
-                        loggedInUser = "A";
+                        loggedInUser = users[0];
                         logInMenu = false;
                     }
                     else if (users[i].Name.Equals("B") && (users[i].UserName.Equals("Billy") && (users[i].PinCode.Equals("2222"))))
@@ -284,8 +292,7 @@ class Program
 
                     //LIST ACCOUNTS?
                     //Accounts = new Account[]
-                    //AccountName = "Run away",
-                    //AccountValue = 0
+                 
                     case "1":
                         listAccounts();
                         break;
