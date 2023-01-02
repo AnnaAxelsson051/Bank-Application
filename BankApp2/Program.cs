@@ -10,7 +10,7 @@ using static BankApp2.Program;
 //När användaren lyckats logga in ska bankomaten fråga vad användaren vill göra. Det ska finnas fyra val:
 //se konton o saldo överföringar mellan konton, ta ut pengar, logga ut
 
-//----När en funktion har kört klart ska användaren få upp texten "Tryck enter för att komma till huvudmenyn".
+//TODONär en funktion har kört klart ska användaren få upp texten "Tryck enter för att komma till huvudmenyn".
 //När användaren tryckt enter kommer menyn upp igen.
 
 //Om användaren väljer "Logga ut" ska programmet inte stänga av. Användaren ska komma till inloggningen igen.
@@ -52,7 +52,7 @@ class Program
         {
            //FILL ARRAY med _5_ ANVÄNDARE MED FÖRPROGRAMMERADE NAMN, ANVNAMN, PINKOD
            //OCH EN INNER ARRAY AV KONTON VAR                                  
-            new User 
+           new User
             {
                 Name = "A",
                 UserName = "Arvin",
@@ -346,6 +346,51 @@ class Program
             }
             break;*/
         }
+
+        //TRANSFER FUNDS BETWEEN ACCOUNTS
+        void transferFunds()
+        {
+            //lista personens konton
+            foreach (Account in loggedInUser.accounts)
+            {
+                Console.WriteLine(Account.accountValue);
+            }
+            //fråga från vilket konto
+            Console.WriteLine("Please enter what account you would like to transfer the sumb from: ");
+            string? input1 = Console.ReadLine();
+            int withdrawalAccount = Int32.Parse(input);
+            if (withdrawalAccount.amount < 0)
+            {
+                throw new InvalidOperationException("Not sufficient funds for this withdrawal");
+            }
+            //fråga om summa
+            Console.WriteLine("Please enter the amount you would like to transfer: ");
+            string? input = Console.ReadLine();
+            int transferAmount = Int32.Parse(input);
+            if (transferAmount <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(transferAmount), "amount of withdrawan must be positive");
+            }
+            //fråga till vilket konto
+            Console.WriteLine("Please enter what account you would like to transfer the sumb to: ");
+            string? input2 = Console.ReadLine();
+            int destinationAccount = Int32.Parse(input);
+
+
+
+            int newSumbOnDestinationAccount = destinationAccount + withdrawalAccount;
+            Console.WriteLine("You have successfylly transferred " + transferAmount);
+            Console.WriteLine(+" now contains " + );
+            Console.WriteLine(+" now contains " + );
+
+            Console.WriteLine("Tryck enter för att komma till huvudmenyn");
+            //if (e.Key == Key.Return)
+            if (e.KeyValue == 13)
+            {
+                mainMenu();
+            }
+        }
+
         //SKAPAR PLATS FÖR ETT NYTT KONTO I ARRAYEN AV KONTON OCH LÄGGER TILL ETT KONTO??
         //metod addMonster som får en array av monster (oldMonsters) och ett nytt att lägga till (monsterToadd)
         //returnerar en ny array av monster med ett extra tillagt
@@ -364,8 +409,6 @@ class Program
         }
 
         
-
-
 
 
 
