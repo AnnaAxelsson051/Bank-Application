@@ -268,19 +268,23 @@ class Program
                 string? userName = Console.ReadLine();
                 Console.WriteLine("Please enter your pinconde");
                 string? input = Console.ReadLine();
-                int userPincode = Int32.Parse(input);
+                int userPinCode = Int32.Parse(input);
+
 
                 //LOOP USER ARRAY CHECK IF USERNAME AND PINCODE MATCH
                 //User[] users = new User[]
 
 
-                foreach (var user in users[1].GetType().GetProperties())
+                foreach (object user in users.GetType().GetProperties())
                 {
-                    if (var UserName.E elem.Id;
-                        var PinCode = elem.Names;)
+                    if ((userName.Equals(user.UserName)) && (userPinCode == user.PinCode))
+                    {
+                        loggedInUser =
                     }
-                    
+
                 }
+
+           
 
                 for (int i = 0; i < users.Length; i++)
                 {
