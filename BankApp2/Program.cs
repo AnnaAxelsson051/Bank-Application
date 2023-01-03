@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
+using System.Threading;
 using Internal;
 using static BankApp2.Program;
 
@@ -49,7 +50,7 @@ class Program
         //CREATE ARRAY OF USERS
 
 
-        string[] userNames = new string[]
+        /*string[] userNames = new string[]
         {"Arvin", "Billy", "Camilla", "Daniel", "Emily"};
         int[] Pincodes = new int[]
         {1111,2222,3333,4444,5555};
@@ -59,8 +60,8 @@ class Program
                             {
                                 new User[][]
                                 {
-                                    new kontoNamn[] { "akonto", "bkonto"},
-                                    new konstSaldo[] { 400, 500}
+                                    new User[] { "akonto", "bkonto"},
+                                    new User[] { 400, 500}
                                 },
                                 new User[][]
                                 {
@@ -93,13 +94,14 @@ class Program
             {1111,2222,3333,4444,5555},
             new AccountValue[5]
             {200,300,400,500,600},
-        };
-               
-
-           
+        };*/
 
 
-        /*new User
+
+
+        User[] monsters = new User[]
+        {
+        new User
         {
             Name = "A",
             UserName = "Arvin",
@@ -117,7 +119,7 @@ class Program
                         AccountValue = 200
                     },
                 }
-        },*/
+        },
 
             new User
             {
@@ -209,7 +211,9 @@ class Program
                     },
 
                 }
-            },new User
+            },
+
+            new User
             {
                 Name = "E",
                 UserName = "Emily",
@@ -492,9 +496,9 @@ class Program
             }
             return m;     //returnerar det nya monster objektet
         }
-    
-            
-        
+
+
+
 
         //updatedUser = Users[0];
         //Om vi relaterar det till banken kan users [0] va ett antal users som vi stegar igenom
@@ -502,8 +506,9 @@ class Program
         //anvnamn och pinkod för en viss user då ör det luoggedin / current user då brukar man
         //lägga den i en egen variabel eller det är ett sätt iaf (ganska tidigt i 15/12).....
 
+     
 
-      
+
 
     public class Account
     {
@@ -537,12 +542,18 @@ class Program
 
     public class User
     {
-        private string name;
-        private int userName;
-        private int pinCode;
 
-        public object UserName { get; internal set; }
-        public object PinCode { get; internal set; }
+    /*    Name = "A",
+     UserName = "Arvin",
+         PinCode = 1111,
+         Accounts = new Account[]*/
+
+    private string Name;
+        private int UserName;
+        private int PinCode;
+
+        //public object UserName { get; internal set; }
+        //public object PinCode { get; internal set; }
 
         private Account[] accounts;
 
@@ -561,15 +572,15 @@ class Program
         {
             get
             {
-                return name;
+                return Name;
             }
             set
             {
-                name = value;
+                Name = value;
             }
         }
-        public int Health
-        {
+       public string userName
+       {
             get
             {
                 return userName;
@@ -579,7 +590,7 @@ class Program
                 userName = value;
             }
         }
-        public int Defense
+        public int PinCode
         {
             get
             {
