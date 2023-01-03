@@ -276,6 +276,7 @@ class Program
 
 
                 foreach (object user in users.GetType().GetProperties())
+                    //loopa users hämta de inre värdena
                 {
                     if ((userName.Equals(user.UserName)) && (userPinCode == user.PinCode))
                     {
