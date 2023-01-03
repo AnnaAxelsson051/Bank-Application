@@ -99,7 +99,7 @@ class Program
 
 
 
-        User[] monsters = new User[]
+        User[] users = new User[]
         {
         new User
         {
@@ -272,6 +272,15 @@ class Program
 
                 //LOOP USER ARRAY CHECK IF USERNAME AND PINCODE MATCH
                 //User[] users = new User[]
+
+
+                foreach (var user in users[1].GetType().GetProperties())
+                {
+                    if (var UserName = elem.Id;
+                        var PinCode = elem.Names;)
+                    }
+                    
+                }
 
                 for (int i = 0; i < users.Length; i++)
                 {
@@ -542,30 +551,27 @@ class Program
 
     public class User
     {
+    public Account[] AccountName
+    {
+        get
+        {
+            return AccountName;
+        }
+        set
+        {
+            AccountName = value;
+        }
+    }
 
-    /*    Name = "A",
-     UserName = "Arvin",
-         PinCode = 1111,
-         Accounts = new Account[]*/
-
-    private string Name;
-        private int UserName;
-        private int PinCode;
-
-        //public object UserName { get; internal set; }
-        //public object PinCode { get; internal set; }
-
-        private Account[] accounts;
-
-        public Account[] Accounts
+    public Account[] AccountValue
         {
             get
             {
-                return accounts;
+                return AccountValue;
             }
             set
             {
-                accounts = value;
+                AccountValue = value;
             }
         }
         public string Name
@@ -579,33 +585,28 @@ class Program
                 Name = value;
             }
         }
-       public string userName
+       public string UserName
        {
             get
             {
-                return userName;
+                return UserName;
             }
             set
             {
-                userName = value;
+                UserName = value;
             }
         }
         public int PinCode
         {
             get
             {
-                return pinCode;
+                return PinCode;
             }
             set
             {
-                pinCode = value;
+                PinCode = value;
             }
         }
-
-    
-
-    //public object UserName { get; internal set; }
-    //public object PinCode { get; internal set; }
 }
-}
+
 
