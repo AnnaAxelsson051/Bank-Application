@@ -272,10 +272,7 @@ class Program
 
 
                 //LOOP USER ARRAY CHECK IF USERNAME AND PINCODE MATCH
-                //User[] users = new User[]..
-
-
-                foreach (object user in users.GetType().GetProperties())
+               foreach (object user in users.GetType().GetProperties())
                     //loopa users hämta de inre värdena
                 {
                     if ((userName.Equals(user.UserName)) && (userPinCode == user.PinCode))
@@ -288,7 +285,7 @@ class Program
 
            
 
-                for (int i = 0; i < users.Length; i++)
+                /*for (int i = 0; i < users.Length; i++)
                 {
                     if (users[i].Name.Equals("A") && (users[i].UserName.Equals("Arvin") && (users[i].PinCode.Equals("1111"))))
                     {
@@ -325,7 +322,7 @@ class Program
                         Console.WriteLine("Sorry, you were unable to log in, you must have entered the wrong username or pincode, " +
                             "please try again");
                     }
-                }
+                }*/
 
             } while (logInMenu);
             mainMenu();
@@ -335,12 +332,11 @@ class Program
         //MAIN MENU
         void mainMenu()
         {
-            Console.WriteLine("Menu system");
+            Console.WriteLine("---------- Main menu ----------");
             bool mainMenu = true;
             while (mainMenu)
             {
-                Console.WriteLine("Welcome");
-                Console.WriteLine("Please select one of the following");
+                Console.WriteLine("Welcome " + User.UserName + ". Please select one of the following options");
                 Console.WriteLine("1 Se konton och saldon");
                 Console.WriteLine("2 Överföringar");
                 Console.WriteLine("3 Ta ut pengar");
@@ -386,8 +382,11 @@ class Program
         {
             //helth = username
             //defense = pincode
-            Console.WriteLine("Listing all accounts");
-            for (int i = 0; i < accounts.Length; i++)
+            Console.WriteLine("Below are all your accounts");
+            foreach (object account in accounts.GetType().GetProperties())
+
+
+            /*for (int i = 0; i < accounts.Length; i++)
             {
                 Console.WriteLine("name: " + loggedInUser.accounts[i].Name + "salary account: " +
                     accounts[i].salaryAccount + "savings account " + accounts[i].savingsAccount);
@@ -397,7 +396,7 @@ class Program
                 {
                     Console.WriteLine("Index: " + j + 1 + "monster: " + monsterAttacks[j].Name + " attackvalue: " + monsterAttacks[j].AttackValue);
                     //kontonamnen?
-                }
+                }*/
             }
             Console.WriteLine();
             mainMenu();
