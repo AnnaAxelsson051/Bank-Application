@@ -279,7 +279,7 @@ class Program
                 {
                     if ((userName.Equals(user.UserName)) && (userPinCode == user.PinCode))
                     {
-                        loggedInUser =
+                        loggedInUser = user;
                     }
 
                 }
