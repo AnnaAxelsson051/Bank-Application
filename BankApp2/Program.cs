@@ -272,7 +272,7 @@ class Program
 
 
                 //LOOP USER ARRAY CHECK IF USERNAME AND PINCODE MATCH
-                //User[] users = new User[]
+                //User[] users = new User[]..
 
 
                 foreach (object user in users.GetType().GetProperties())
