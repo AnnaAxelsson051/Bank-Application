@@ -276,7 +276,7 @@ class Program
 
                 foreach (var user in users[1].GetType().GetProperties())
                 {
-                    if (var UserName = elem.Id;
+                    if (var UserName.E elem.Id;
                         var PinCode = elem.Names;)
                     }
                     
@@ -521,36 +521,6 @@ class Program
 
     public class Account
     {
-        private string accountname;    //va name innan 
-        private int accountvalue;
-
-        public string AccountName
-        {
-            get
-            {
-                return accountname;
-            }
-            set
-            {
-                accountname = value;
-            }
-        }
-        public int AccountValue
-        {
-            get
-            {
-                return accountvalue;
-            }
-            set
-            {
-                accountvalue = value;
-            }
-        }
-    }
-}
-
-    public class User
-    {
     public Account[] AccountName
     {
         get
@@ -564,16 +534,23 @@ class Program
     }
 
     public Account[] AccountValue
+    {
+        get
         {
-            get
-            {
-                return AccountValue;
-            }
-            set
-            {
-                AccountValue = value;
-            }
+            return AccountValue;
         }
+        set
+        {
+            AccountValue = value;
+        }
+    }
+}
+
+    public class User {
+
+    public Account[] Accounts[];
+
+   
         public string Name
         {
             get
