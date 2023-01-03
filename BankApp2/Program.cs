@@ -26,7 +26,7 @@ using static BankApp2.Program;
 
 //TODO när anv väljer överföringar mellan konton ska hen kunna välja ett konto att ta pengar från,
 //ett konto att flytta pengarna till och sen en summa som ska flyttas mellan dessa, efter summan flyttas
-//ska användaren få se vilken summa som finns på dessa två konton som påverkades
+//ska användaren få se vilken summa som finns på dessa två konton som påverkades.
 
 //Det måste finnas täckning på konton man vill flytta pengar från för beloppet man vill flytta
 
@@ -281,6 +281,7 @@ class Program
                     if ((userName.Equals(user.UserName)) && (userPinCode == user.PinCode))
                     {
                         loggedInUser = user;
+                        Console.WriteLine("Welcome " + user.UserName + ". You have successfully logged in");
                     }
 
                 }
