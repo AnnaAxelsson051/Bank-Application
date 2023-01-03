@@ -383,7 +383,7 @@ class Program
             //helth = username
             //defense = pincode
             Console.WriteLine("Below are all your accounts");
-            foreach (object account in accounts.GetType().GetProperties())
+            foreach (object account in Accounts[])
 
 
             /*for (int i = 0; i < accounts.Length; i++)
@@ -553,7 +553,7 @@ class Program
 
     public class User {
 
-    public Account[] Accounts[];
+    public Account[] Accounts;
 
    
         public string Name
