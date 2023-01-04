@@ -269,64 +269,27 @@ class Program
                 string? userName = Console.ReadLine();
                 Console.WriteLine("Please enter your pinconde");
                 string? userPinCode = Console.ReadLine();
-                
-
 
                 //LOOP USER ARRAY CHECK IF USERNAME AND PINCODE MATCH
-               foreach (var user in users)
-                //loopa users hämta de inre värdena
+                foreach (var user in users)
                 {
+                    //loopa users hämta de inre värdena
                     //if ((userName.Equals(user.UserName)) && (userPinCode == user.PinCode))
-                        if ((user.userName.Equals(userPinCode)) && (user.pinCode.Equals(userPinCode))){
+                    if ((user.userName.Equals(userPinCode)) && (user.pinCode.Equals(userPinCode)))
+                    {
                         Console.WriteLine(user.userName);
                         Console.WriteLine(user.pinCode);
-                        loggedInUser = user[i];
-                }
+                        //loggedInUser = user[i];
 
-           
-
-                /*for (int i = 0; i < users.Length; i++)
-                {
-                    if (users[i].Name.Equals("A") && (users[i].UserName.Equals("Arvin") && (users[i].PinCode.Equals("1111"))))
-                    {
-                        Console.WriteLine("Welcome Arvin you have successfully logged in");
-                        loggedInUser = users[0];
-                        logInMenu = false;
                     }
-                    else if (users[i].Name.Equals("B") && (users[i].UserName.Equals("Billy") && (users[i].PinCode.Equals("2222"))))
-                    {
-                        Console.WriteLine("Welcome Arvin you have successfully logged in");
-                        loggedInUser = "B";
-                        logInMenu = false;
-                    }
-                    else if (users[i].Name.Equals("C") && (users[i].UserName.Equals("Camilla") && (users[i].PinCode.Equals("3333"))))
-                    {
-                        Console.WriteLine("Welcome Arvin you have successfully logged in");
-                        loggedInUser = "C";
-                        logInMenu = false;
-                    }
-                    else if (users[i].Name.Equals("D") && (users[i].UserName.Equals("Daniel") && (users[i].PinCode.Equals("4444"))))
-                    {
-                        Console.WriteLine("Welcome Arvin you have successfully logged in");
-                        loggedInUser = "D";
-                        logInMenu = false;
-                    }
-                    else if (users[i].Name.Equals("E") && (users[i].UserName.Equals("Emily") && (users[i].PinCode.Equals("5555"))))
-                    {
-                        Console.WriteLine("Welcome Arvin you have successfully logged in");
-                        loggedInUser = "E";
-                        logInMenu = false;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Sorry, you were unable to log in, you must have entered the wrong username or pincode, " +
-                            "please try again");
-                    }
-                }*/
-
-            } while (logInMenu);
+                  }
+                } while (logInMenu);
             mainMenu();
-        }
+            }
+            
+
+                
+        
 
 
         //MAIN MENU
@@ -581,7 +544,7 @@ class Program
                 this.userName = userName;
             }
         }
-        public int pinCode
+        public string pinCode
         {
             get
             {
