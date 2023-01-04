@@ -279,8 +279,8 @@ class Program
                         //Console.WriteLine(user.userName);
                         //Console.WriteLine(user.pinCode);
                         logInMenu = false;
-                        User loggedInUser = createLoggedInUser(user);
-                        mainMenu(loggedInUser);
+                        createLoggedInUser(user);
+                        mainMenu(user);
                     }
                   }
                 } while (logInMenu);
