@@ -103,6 +103,29 @@ class Program
 
         User[][] users = new User[5][]
         {
+          new User
+        {
+            name = "A",
+            userName = "Arvin",
+            pinCode = "1111",
+            accounts = new Account[]          //user accounts
+            //accountnames med lika många som det finns users men varje element är en array av kontonamn
+                {
+                    new Account
+                    {
+                        accountNames = "Lönekonto",
+                        accountValues = 100
+                    },
+                    new Account
+                    {
+                        accountNames = "Sparkonto",
+                        accountValues = 200
+                    },
+                }
+        },
+
+
+          /*
         new User
         {
             name = "A",
@@ -121,7 +144,7 @@ class Program
                         accountValues = 200
                     },
                 }
-        },
+        },*/
 
             new User
             {
@@ -282,13 +305,13 @@ class Program
                         createLoggedInUser(user);
                         mainMenu(user);
                     }
-                  }
-                } while (logInMenu);
-            }
+                }
+            } while (logInMenu);
+        }
 
         User createLoggedInUser(User user)
         {
-            User createdLoggedInUser = new User(user.name,user.userName,user.pinCode,user.accounts);
+            User createdLoggedInUser = new User(user.name, user.userName, user.pinCode, user.accounts);
             Console.WriteLine("Welcome " + createdLoggedInUser.userName + ". You have successfully logged in");
             return createdLoggedInUser;
         }
@@ -362,119 +385,119 @@ class Program
                     Console.WriteLine("Index: " + j + 1 + "monster: " + monsterAttacks[j].Name + " attackvalue: " + monsterAttacks[j].AttackValue);
                     //kontonamnen?
                 }*/
+        }
+        Console.WriteLine();
+        mainMenu();
+
+        /*for (int row = 0; row < accounts.Length; row++)
+        {
+            for (int column = 0; column < accounts[row].Length; column++)
+            {
+                display += intArray[row][column].ToString() + " ";
             }
-            Console.WriteLine();
+            display += "\n";
+        }
+        break;*/
+    }
+
+    //TRANSFER FUNDS BETWEEN ACCOUNTS
+    void transferFunds()
+    {
+        //lista personens konton
+        foreach (Account in loggedInUser.accounts)
+        {
+            Console.WriteLine(Account.accountValues);
+        }
+        //fråga från vilket konto
+        Console.WriteLine("Please enter what account you would like to transfer the sumb from: ");
+        string? input1 = Console.ReadLine();
+        int withdrawalAccount = Int32.Parse(input);
+        if (withdrawalAccount.amount < 0)
+        {
+            throw new InvalidOperationException("Not sufficient funds for this withdrawal");
+        }
+        //fråga om summa
+        Console.WriteLine("Please enter the amount you would like to transfer: ");
+        string? input = Console.ReadLine();
+        int transferAmount = Int32.Parse(input);
+        if (transferAmount <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(transferAmount), "amount of withdrawan must be positive");
+        }
+        //fråga till vilket konto
+        Console.WriteLine("Please enter what account you would like to transfer the sumb to: ");
+        string? input2 = Console.ReadLine();
+        int destinationAccount = Int32.Parse(input);
+
+
+
+        int newSumbOnDestinationAccount = destinationAccount + withdrawalAccount;
+        Console.WriteLine("You have successfylly transferred " + transferAmount);
+        Console.WriteLine(+" now contains " + );
+        Console.WriteLine(+" now contains " + );
+
+        Console.WriteLine("Tryck enter för att komma till huvudmenyn");
+        //if (e.Key == Key.Return)
+        if (e.KeyValue == 13)
+        {
             mainMenu();
-
-            /*for (int row = 0; row < accounts.Length; row++)
-            {
-                for (int column = 0; column < accounts[row].Length; column++)
-                {
-                    display += intArray[row][column].ToString() + " ";
-                }
-                display += "\n";
-            }
-            break;*/
         }
+    }
 
-        //TRANSFER FUNDS BETWEEN ACCOUNTS
-        void transferFunds()
+    //SKAPAR PLATS FÖR ETT NYTT KONTO I ARRAYEN AV KONTON OCH LÄGGER TILL ETT KONTO??
+    //metod addMonster som får en array av monster (oldMonsters) och ett nytt att lägga till (monsterToadd)
+    //returnerar en ny array av monster med ett extra tillagt
+
+    User[] addUser(User[] oldUsers, User userToAdd)
+    {
+        int a = users.Length;
+        int numberOfUsers = oldUsers.Length;                            //spara längden av gamla kontoarrayen oldMonsters  
+        User[] newUsers = new User[numberOfUsers + 1];    //skapa ny array newMonsters med en til plats
+        for (int l = 0; l < numberOfUsers; l++)
         {
-            //lista personens konton
-            foreach (Account in loggedInUser.accounts)
-            {
-                Console.WriteLine(Account.accountValues);
-            }
-            //fråga från vilket konto
-            Console.WriteLine("Please enter what account you would like to transfer the sumb from: ");
-            string? input1 = Console.ReadLine();
-            int withdrawalAccount = Int32.Parse(input);
-            if (withdrawalAccount.amount < 0)
-            {
-                throw new InvalidOperationException("Not sufficient funds for this withdrawal");
-            }
-            //fråga om summa
-            Console.WriteLine("Please enter the amount you would like to transfer: ");
-            string? input = Console.ReadLine();
-            int transferAmount = Int32.Parse(input);
-            if (transferAmount <= 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(transferAmount), "amount of withdrawan must be positive");
-            }
-            //fråga till vilket konto
-            Console.WriteLine("Please enter what account you would like to transfer the sumb to: ");
-            string? input2 = Console.ReadLine();
-            int destinationAccount = Int32.Parse(input);
-
-
-
-            int newSumbOnDestinationAccount = destinationAccount + withdrawalAccount;
-            Console.WriteLine("You have successfylly transferred " + transferAmount);
-            Console.WriteLine(+" now contains " + );
-            Console.WriteLine(+" now contains " + );
-
-            Console.WriteLine("Tryck enter för att komma till huvudmenyn");
-            //if (e.Key == Key.Return)
-            if (e.KeyValue == 13)
-            {
-                mainMenu();
-            }
+            newUsers[l] = oldUsers[l];                          //kopiera värdena till den nya
         }
+        newUsers[numberOfUsers] = userToAdd;                 //lägger till ett nytt monster
+        return newUsers;
+    }
 
-        //SKAPAR PLATS FÖR ETT NYTT KONTO I ARRAYEN AV KONTON OCH LÄGGER TILL ETT KONTO??
-        //metod addMonster som får en array av monster (oldMonsters) och ett nytt att lägga till (monsterToadd)
-        //returnerar en ny array av monster med ett extra tillagt
 
-        User[] addUser(User[] oldUsers, User userToAdd)
+
+
+
+
+    //CREATE NEW ACCOUNT MONSTER?
+    // monsters = addMonster(monsters, parseRow("Tobbe, 20,1+,12"));
+    //Console.WriteLine("Monster successfully added to database");
+
+    User parseRow(string monsterRow)       //får in tex stringen "Tobbe, 20,1+,12"
+    {
+        var cols = monsterRow.Split(',');      //splittar den 
+        User m = new User();             //skapar ett nytt monsterobjekt
+
+        for (int k = 0; k < cols.Length; k++)             //lopar igenom antal vrden man skickade
         {
-            int a = users.Length;
-            int numberOfUsers = oldUsers.Length;                            //spara längden av gamla kontoarrayen oldMonsters  
-            User[] newUsers = new User[numberOfUsers + 1];    //skapa ny array newMonsters med en til plats
-            for (int l = 0; l < numberOfUsers; l++)
+            Console.WriteLine("Inner for each loop" + k + "col" + cols[k]);       //skriver ut varje index k och dess värde
+            switch (k)
             {
-                newUsers[l] = oldUsers[l];                          //kopiera värdena till den nya
-            }
-            newUsers[numberOfUsers] = userToAdd;                 //lägger till ett nytt monster
-            return newUsers;
-        }
+                case 0:
+                    m.name = cols[k];          //sätter 0 värdet (tobbe) till name
+                    break;
+                case 1:
+                    m.Health = int.Parse(cols[k]);      //sätter andra värdet (20) till health
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    m.Defense = int.Parse(cols[k]);       //sätter sista värdet till defense
+                    break;
 
-        
-
-
-
-
-        //CREATE NEW ACCOUNT MONSTER?
-        // monsters = addMonster(monsters, parseRow("Tobbe, 20,1+,12"));
-        //Console.WriteLine("Monster successfully added to database");
-
-        User parseRow(string monsterRow)       //får in tex stringen "Tobbe, 20,1+,12"
-        {
-            var cols = monsterRow.Split(',');      //splittar den 
-            User m = new User();             //skapar ett nytt monsterobjekt
-
-            for (int k = 0; k < cols.Length; k++)             //lopar igenom antal vrden man skickade
-            {
-                Console.WriteLine("Inner for each loop" + k + "col" + cols[k]);       //skriver ut varje index k och dess värde
-                switch (k)
-                {
-                    case 0:
-                        m.name = cols[k];          //sätter 0 värdet (tobbe) till name
-                        break;
-                    case 1:
-                        m.Health = int.Parse(cols[k]);      //sätter andra värdet (20) till health
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        m.Defense = int.Parse(cols[k]);       //sätter sista värdet till defense
-                        break;
-
-
-                }
 
             }
-            return m;     //returnerar det nya monster objektet
+
         }
+        return m;     //returnerar det nya monster objektet
+    }
 
 
 
@@ -492,40 +515,40 @@ class Program
     public class Account
     {
 
-        public Account(Account[] accountName, Account[] accountValue)
-        {
-            this.accountNames = accountName;
-            this.accountValues = accountValue;
-
-            }
-    public Account[] accountNames
-    {
-        get
-        {
-            return accountNames;
-        }
-        set
+        public Account(Account[] accountNames, Account[] accountValues)
         {
             this.accountNames = accountNames;
-        }
-    }
-
-    public Account[] accountValues
-    {
-        get
-        {
-            return accountValues;
-        }
-        set
-        {
             this.accountValues = accountValues;
+
+        }
+        public Account[] accountNames
+        {
+            get
+            {
+                return accountNames;
+            }
+            set
+            {
+                this.accountNames = accountNames;
+            }
+        }
+
+        public Account[] accountValues
+        {
+            get
+            {
+                return accountValues;
+            }
+            set
+            {
+                this.accountValues = accountValues;
+            }
         }
     }
-}
 
     public class User {
 
-    public Account[] accounts;
+        //{ get; set; }
         //private byte[][] array;
 
         public User(string name, string userName, string pinCode, Account[] accounts)
@@ -547,8 +570,8 @@ class Program
                 this.name = name;
             }
         }
-       public string userName
-       {
+        public string userName
+        {
             get
             {
                 return userName;
@@ -569,6 +592,18 @@ class Program
                 this.pinCode = pinCode;
             }
         }
+        public Account[] accounts
+        {
+            get
+            {
+                return accounts;
+            }
+            set
+            {
+                accounts = value;
+            }
+        }
+    }
 }
 
 
