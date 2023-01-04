@@ -108,9 +108,11 @@ class Program
             name = "A",
             userName = "Arvin",
             pinCode = "1111",
-            accounts = new Account[]          //user accounts
+            Account accounts = new Account("Lönekonto", 100);
+            //accounts = new Account[];          //user accounts
             
-                {
+            
+                /*{
                     new Account
                     {
                         accountNames = "Lönekonto",
@@ -122,7 +124,7 @@ class Program
                         accountValues = 200
                     },
                 }
-        },
+        },*/
 
 
           /*
@@ -515,13 +517,13 @@ class Program
     public class Account
     {
 
-        public Account(Account[] accountNames, Account[] accountValues)
+        public Account(string accountNames, int accountValues)
         {
             this.accountNames = accountNames;
             this.accountValues = accountValues;
 
         }
-        public Account[] accountNames
+        public string accountNames
         {
             get
             {
@@ -533,7 +535,7 @@ class Program
             }
         }
 
-        public Account[] accountValues
+        public int accountValues
         {
             get
             {
