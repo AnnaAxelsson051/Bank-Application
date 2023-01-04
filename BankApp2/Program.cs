@@ -104,75 +104,75 @@ class Program
         {
         new User
         {
-            Name = "A",
-            UserName = "Arvin",
-            PinCode = "1111",
-            Accounts = new Account[]          //user accounts
+            name = "A",
+            userName = "Arvin",
+            pinCode = "1111",
+            accounts = new Account[]          //user accounts
                 {
                     new Account
                     {
-                        AccountName = "Lönekonto",
-                        AccountValue = 100
+                        accountName = "Lönekonto",
+                        accountValue = 100
                     },
                     new Account
                     {
-                        AccountName = "Sparkonto",
-                        AccountValue = 200
+                        accountName = "Sparkonto",
+                        accountValue = 200
                     },
                 }
         },
 
             new User
             {
-                Name = "B",
-                UserName = "Billy",
-                PinCode = "2222",
-                Accounts = new Account[]
+                name = "B",
+                userName = "Billy",
+                pinCode = "2222",
+                accounts = new Account[]
                 {
                     new Account
                     {
-                        AccountName = "Lönekonto",
-                        AccountValue = 100
+                        accountName = "Lönekonto",
+                        accountValue = 100
                     },
                     new Account
                     {
-                        AccountName = "Sparkonto",
-                        AccountValue = 200
+                        accountName = "Sparkonto",
+                        accountValue = 200
                     },
                     new Account
                     {
-                        AccountName = "Resekonto",
-                        AccountValue= 300
+                        accountName = "Resekonto",
+                        accountValue= 300
                     },
 
                 }
             },
             new User
             {
-                Name = "C",
-                UserName = "Camilla",
-                PinCode = "3333",
-                Accounts = new Account[]
+                name = "C",
+                userName = "Camilla",
+                pinCode = "3333",
+                accounts = new Account[]
                 {
                     new Account
                     {
-                        AccountName = "Lönekonto",
-                        AccountValue = 100
+                        accountName = "Lönekonto",
+                        accountValue = 100
                     },
                     new Account
                     {
-                        AccountName = "Sparkonto",
-                        AccountValue = 200
+                        accountName = "Sparkonto",
+                        accountValue = 200
                     },
                     new Account
                     {
-                        AccountName = "Resekonto",
-                        AccountValue= 300
+                        accountName = "Resekonto",
+                        accountValue= 300
                     },
                      new Account
                     {
-                        AccountName = "Välgörenhetskonto",
-                        AccountValue= 400
+                        accountName = "Välgörenhetskonto",
+                        accountValue= 400
                     },
 
                 }
@@ -180,35 +180,35 @@ class Program
 
             new User
             {
-                Name = "D",
-                UserName = "Daniel",
-                PinCode = "4444",
-                Accounts = new Account[]
+                name = "D",
+                userName = "Daniel",
+                pinCode = "4444",
+                accounts = new Account[]
                 {
                     new Account
                     {
-                        AccountName = "Lönekonto",
-                        AccountValue = 100
+                        accountName = "Lönekonto",
+                        accountValue = 100
                     },
                     new Account
                     {
-                        AccountName = "Sparkonto",
-                        AccountValue = 200
+                        accountName = "Sparkonto",
+                        accountValue = 200
                     },
                     new Account
                     {
-                        AccountName = "Resekonto",
-                        AccountValue= 300
+                        accountName = "Resekonto",
+                        accountValue= 300
                     },
                     new Account
                     {
-                        AccountName = "Välgörenhetskonto",
-                        AccountValue= 400
+                        accountName = "Välgörenhetskonto",
+                        accountValue= 400
                     },
                     new Account
                     {
-                        AccountName = "Renoveringskonto",
-                        AccountValue= 500
+                        accountName = "Renoveringskonto",
+                        accountValue= 500
                     },
 
                 }
@@ -216,40 +216,40 @@ class Program
 
             new User
             {
-                Name = "E",
-                UserName = "Emily",
-                PinCode = "5555",
-                Accounts = new Account[]
+                name = "E",
+                userName = "Emily",
+                pinCode = "5555",
+                accounts = new Account[]
                 {
                     new Account
                     {
-                        AccountName = "Lönekonto",
-                        AccountValue = 100
+                        accountName = "Lönekonto",
+                        accountValue = 100
                     },
                     new Account
                     {
-                        AccountName = "Sparkonto",
-                        AccountValue = 200
+                        accountName = "Sparkonto",
+                        accountValue = 200
                     },
                     new Account
                     {
-                        AccountName = "Resekonto",
-                        AccountValue= 300
+                        accountName = "Resekonto",
+                        accountValue= 300
                     },
                     new Account
                     {
-                        AccountName = "Välgörenhetskonto",
-                        AccountValue= 400
+                        accountName = "Välgörenhetskonto",
+                        accountValue= 400
                     },
                     new Account
                     {
-                        AccountName = "Renoveringskonto",
-                        AccountValue= 500
+                        accountName = "Renoveringskonto",
+                        accountValue= 500
                     },
                     new Account
                     {
-                        AccountName = "Reparationskonto",
-                        AccountValue= 600
+                        accountName = "Reparationskonto",
+                        accountValue= 600
                     },
 
                 }
@@ -277,9 +277,9 @@ class Program
                 //loopa users hämta de inre värdena
                 {
                     //if ((userName.Equals(user.UserName)) && (userPinCode == user.PinCode))
-                        if ((user.UserName.Equals(userPinCode)) && (user.PinCode.Equals(userPinCode))){
-                        Console.WriteLine(user.UserName);
-                        Console.WriteLine(user.PinCode);
+                        if ((user.userName.Equals(userPinCode)) && (user.pinCode.Equals(userPinCode))){
+                        Console.WriteLine(user.userName);
+                        Console.WriteLine(user.pinCode);
                         loggedInUser = user[i];
                 }
 
@@ -336,7 +336,7 @@ class Program
             bool mainMenu = true;
             while (mainMenu)
             {
-                Console.WriteLine("Welcome " + User.UserName + ". Please select one of the following options");
+                Console.WriteLine("Welcome " + User.userName + ". Please select one of the following options");
                 Console.WriteLine("1 Se konton och saldon");
                 Console.WriteLine("2 Överföringar");
                 Console.WriteLine("3 Ta ut pengar");
@@ -361,9 +361,9 @@ class Program
                     case "3":
                         Console.WriteLine("Update selected");
                         User updateUser = users[1];
-                        Account updateAccount = users[1].Accounts[0];
-                        updateUser.Name = "johan";
-                        updateAccount.AccountValue = 15;
+                        Account updateAccount = users[1].accounts[0];
+                        updateUser.name = "johan";
+                        updateAccount.accountValue = 15;
                         break;
                     case "E":
                         Console.WriteLine("E selected");
@@ -496,7 +496,7 @@ class Program
                 switch (k)
                 {
                     case 0:
-                        m.Name = cols[k];          //sätter 0 värdet (tobbe) till name
+                        m.name = cols[k];          //sätter 0 värdet (tobbe) till name
                         break;
                     case 1:
                         m.Health = int.Parse(cols[k]);      //sätter andra värdet (20) till health
@@ -529,67 +529,67 @@ class Program
 
     public class Account
     {
-    public Account[] AccountName
+    public Account[] accountName
     {
         get
         {
-            return AccountName;
+            return accountName;
         }
         set
         {
-            AccountName = value;
+            accountName = value;
         }
     }
 
-    public Account[] AccountValue
+    public Account[] accountValue
     {
         get
         {
-            return AccountValue;
+            return accountValue;
         }
         set
         {
-            AccountValue = value;
+            accountValue = value;
         }
     }
 }
 
     public class User {
 
-    public Account[] Accounts;
+    public Account[] accounts;
 
    
-        public string Name
+        public string name
         {
             get
             {
-                return Name;
+                return name;
             }
             set
             {
-                Name = value;
+                name = value;
             }
         }
-       public string UserName
+       public string userName
        {
             get
             {
-                return UserName;
+                return userName;
             }
             set
             {
-                UserName = value;
+                userName = value;
             }
         }
-        public int PinCode
+        public int pinCode
         {
             get
             {
-                return PinCode;
+                return pinCode;
             }
             set
             {
-                PinCode = value;
+                pinCode = value;
             }
         }
 }
