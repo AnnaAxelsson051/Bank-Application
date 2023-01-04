@@ -105,7 +105,7 @@ class Program
         {
             Name = "A",
             UserName = "Arvin",
-            PinCode = 1111,
+            PinCode = "1111",
             Accounts = new Account[]          //user accounts
                 {
                     new Account
@@ -125,7 +125,7 @@ class Program
             {
                 Name = "B",
                 UserName = "Billy",
-                PinCode = 2222,
+                PinCode = "2222",
                 Accounts = new Account[]
                 {
                     new Account
@@ -150,7 +150,7 @@ class Program
             {
                 Name = "C",
                 UserName = "Camilla",
-                PinCode = 3333,
+                PinCode = "3333",
                 Accounts = new Account[]
                 {
                     new Account
@@ -181,7 +181,7 @@ class Program
             {
                 Name = "D",
                 UserName = "Daniel",
-                PinCode = 4444,
+                PinCode = "4444",
                 Accounts = new Account[]
                 {
                     new Account
@@ -217,7 +217,7 @@ class Program
             {
                 Name = "E",
                 UserName = "Emily",
-                PinCode = 5555,
+                PinCode = "5555",
                 Accounts = new Account[]
                 {
                     new Account
@@ -384,6 +384,9 @@ class Program
             //defense = pincode
             Console.WriteLine("Below are all your accounts");
             foreach (object account in Accounts[])
+            {
+
+            }
 
 
             /*for (int i = 0; i < accounts.Length; i++)
