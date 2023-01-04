@@ -98,10 +98,10 @@ class Program
             {200,300,400,500,600},
         };*/
 
+        //accountnames med lika många som det finns users men varje element är en array av kontonamn
 
 
-
-        User[][] users = new User[5][]
+        User[] users = new User[]
         {
           new User
         {
@@ -109,7 +109,7 @@ class Program
             userName = "Arvin",
             pinCode = "1111",
             accounts = new Account[]          //user accounts
-            //accountnames med lika många som det finns users men varje element är en array av kontonamn
+            
                 {
                     new Account
                     {
