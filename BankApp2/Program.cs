@@ -36,7 +36,7 @@ using static BankApp2.Program;
 //Efter detta måste användaren skriva in sin pinkod för att bekräfta att de vill ta ut pengar
 
 //TODO Pengarna ska sedan tas bort från det konto som valdes Sist av allt ska systemet skriva ut det nya
-//saldot på det kontot
+//saldot på det kontot.
 
 namespace BankApp2;
 class Program
