@@ -105,74 +105,33 @@ class Program
         {
           new User
         {
-            name = "A",
+            name = "Arvin",
             userName = "Arvin",
             pinCode = "1111",
-            Account accounts = new Account("Lönekonto", 100);
-            //accounts = new Account[];          //user accounts
-            
-            
-                /*{
-                    new Account
-                    {
-                        accountNames = "Lönekonto",
-                        accountValues = 100
-                    },
-                    new Account
-                    {
-                        accountNames = "Sparkonto",
-                        accountValues = 200
-                    },
-                }
-        },*/
+            accounts = new Account[]
+            {
+            new Account("Lönekonto", 100),
+            new Account("Sparkonto", 200)
+            }
+        }
+        };
 
-
-          /*
         new User
         {
-            name = "A",
-            userName = "Arvin",
-            pinCode = "1111",
-            accounts = new Account[]          //user accounts
-                {
-                    new Account
-                    {
-                        accountNames = "Lönekonto",
-                        accountValues = 100
-                    },
-                    new Account
-                    {
-                        accountNames = "Sparkonto",
-                        accountValues = 200
-                    },
-                }
-        },*/
+            name = "Billy",
+            userName = "Billy",
+            pinCode = "2222",
+            accounts = new Account[]
+        {
+            new Account("Lönekonto", 100),
+            new Account("Sparkonto", 200),
+            new Account("Resekonto", 200)
+        }
+        };
+        }
 
-            new User
-            {
-                name = "B",
-                userName = "Billy",
-                pinCode = "2222",
-                accounts = new Account[]
-                {
-                    new Account
-                    {
-                        accountNames = "Lönekonto",
-                        accountValues = 100
-                    },
-                    new Account
-                    {
-                        accountNames = "Sparkonto",
-                        accountValues = 200
-                    },
-                    new Account
-                    {
-                        accountNames = "Resekonto",
-                        accountValues= 300
-                    },
 
-                }
-            },
+            };
             new User
             {
                 name = "C",
