@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Threading;
@@ -267,20 +268,19 @@ class Program
                 Console.WriteLine("Please enter your username");
                 string? userName = Console.ReadLine();
                 Console.WriteLine("Please enter your pinconde");
-                string? input = Console.ReadLine();
-                int userPinCode = Int32.Parse(input);
+                string? userPinCode = Console.ReadLine();
+                
 
 
                 //LOOP USER ARRAY CHECK IF USERNAME AND PINCODE MATCH
-               foreach (object user in users.GetType().GetProperties())
-                    //loopa users hämta de inre värdena
+               foreach (var user in users)
+                //loopa users hämta de inre värdena
                 {
-                    if ((userName.Equals(user.UserName)) && (userPinCode == user.PinCode))
-                    {
-                        loggedInUser = user;
-                        Console.WriteLine("Welcome " + user.UserName + ". You have successfully logged in");
-                    }
-
+                    //if ((userName.Equals(user.UserName)) && (userPinCode == user.PinCode))
+                        if ((user.UserName.Equals(userPinCode)) && (user.PinCode.Equals(userPinCode))){
+                        Console.WriteLine(user.UserName);
+                        Console.WriteLine(user.PinCode);
+                        loggedInUser = user[i];
                 }
 
            
