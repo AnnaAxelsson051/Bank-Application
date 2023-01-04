@@ -8,7 +8,7 @@ using Internal;
 using static BankApp2.Program;
 
 // Användaren ska mata in sitt användarnummer/användarnamn (valfritt hur detta ser ut)...
-//och en pin-kod som ska avgöra vilken användare det är som vill använda bankomaten
+//och en pin-kod som ska avgöra vilken användare det är som vill använda bankomaten..
 
 //När användaren lyckats logga in ska bankomaten fråga vad användaren vill göra. Det ska finnas fyra val:
 //se konton o saldo överföringar mellan konton, ta ut pengar, logga ut
