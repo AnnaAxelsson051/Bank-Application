@@ -537,7 +537,7 @@ class Program
         }
         set
         {
-            accountName = value;
+            this.accountName = accountName;
         }
     }
 
@@ -549,7 +549,7 @@ class Program
         }
         set
         {
-            accountValue = value;
+            this.accountValue = accountValue;
         }
     }
 }
@@ -567,7 +567,7 @@ class Program
             }
             set
             {
-                name = value;
+                this.name = name;
             }
         }
        public string userName
@@ -578,7 +578,7 @@ class Program
             }
             set
             {
-                userName = value;
+                this.userName = userName;
             }
         }
         public int pinCode
@@ -589,7 +589,7 @@ class Program
             }
             set
             {
-                pinCode = value;
+                this.pinCode = pinCode;
             }
         }
 }
