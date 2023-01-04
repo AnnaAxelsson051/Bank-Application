@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
+using System.Reflection;
 using System.Threading;
 using Internal;
 using static BankApp2.Program;
@@ -280,13 +281,22 @@ class Program
                         Console.WriteLine(user.userName);
                         Console.WriteLine(user.pinCode);
                         //loggedInUser = user[i];
+                        createLoggedInUser(user);
 
                     }
                   }
                 } while (logInMenu);
             mainMenu();
             }
-            
+
+        User createLoggedInUser(User user)
+        {
+            User userTemp = new User(user);
+            User loggedInUser = userTemp;
+            // MyClass objectA = new MyClass();
+            //MyClass objectB = objectA;
+            return loggedInUser;
+        }
 
                 
         
@@ -521,7 +531,13 @@ class Program
 
     public Account[] accounts;
 
-   
+        public User(string name, string userName, string pinCode)
+        {
+            this.name = name;
+            this.userName = userName;
+            this.pinCode = pinCode;
+        }
+
         public string name
         {
             get
