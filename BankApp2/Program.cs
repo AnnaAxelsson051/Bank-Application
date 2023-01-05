@@ -274,6 +274,7 @@ class Program
         void transaction(User user)
         {
             listAccounts(user);
+
             Console.WriteLine("Var god välj ett konto att flytta pengar ifrån");
             bool inCorrectInput = true;
             do
@@ -293,19 +294,20 @@ class Program
                         "Välj ett konto att ta ut pengar ifrån");
                 }
             } while (inCorrectInput);
+             
 
             Console.WriteLine("Var god välj ett konto att flytta pengar till");
             bool inCorrectInput2 = true;
             int depositAccount;
             do
             {
-                string? input = Console.ReadLine();
+                string? input2 = Console.ReadLine();
                 try
                 {
-                    depositAccount = Int32.Parse(input);
-                    inCorrectInput = false;
+                    depositAccount = Int32.Parse(input2);
+                    inCorrectInput2 = false;
                     //Console.WriteLine("Du har angett val " + choice);
-                    depositAccount2 = -1;
+                    depositAccount = -1;
                     findDepositAccount(depositAccount, user);
 
                 }
@@ -317,19 +319,17 @@ class Program
             } while (inCorrectInput);
 
         }
-    
-    }
 
-  
-            void findWithdrawalAccount(int withdrawalAccount, User user)
+    void findWithdrawalAccount(int withdrawalAccount, User user)
+    {
+        for (int i = 0; i < user.accounts.Length; i++)
         {
-            for (int i = 0; i < user.accounts.Length; i++)
+            if (withdrawalAccount == i)
             {
-                if (withdrawalAccount == i)
-                {
-                    Console.WriteLine("Du har angett kontot " + user.accounts[i].accountNames);
-                }
+                Console.WriteLine("Du har angett kontot " + user.accounts[i].accountNames);
             }
+        } 
+    }
 
                 void findDepositAccount(int depositAccount, User user){
                     for (int i = 0; i < user.accounts.Length; i++)
@@ -339,8 +339,6 @@ class Program
                             Console.WriteLine("Du har angett kontot " + user.accounts[i].accountNames);
                         }
                     }
-
-
                 }
 
 
