@@ -113,8 +113,8 @@ class Program
             new Account("Lönekonto", 100),
             new Account("Sparkonto", 200)
             }
-        };
-        }
+        },
+
 
         new User
         {
@@ -125,11 +125,9 @@ class Program
         {
             new Account("Lönekonto", 100),
             new Account("Sparkonto", 200),
-            new Account("Resekonto", 200)
+            new Account("Resekonto", 300)
         }
-        };
-
-
+        },
 
             new User
             {
@@ -141,11 +139,10 @@ class Program
             new Account("Lönekonto", 100),
             new Account("Sparkonto", 200),
             new Account("Resekonto", 300),
-            new Account("Välgörenhetskonto", 400),
+            new Account("Välgörenhetskonto", 400)
         }
 
-            };
-            }
+            },
 
             new User
             {
@@ -153,35 +150,16 @@ class Program
                 userName = "Daniel",
                 pinCode = "4444",
                 accounts = new Account[]
-                {
-                    new Account
-                    {
-                        accountNames = "Lönekonto",
-                        accountValues = 100
-                    },
-                    new Account
-                    {
-                        accountNames = "Sparkonto",
-                        accountValues = 200
-                    },
-                    new Account
-                    {
-                        accountNames = "Resekonto",
-                        accountValues= 300
-                    },
-                    new Account
-                    {
-                        accountNames = "Välgörenhetskonto",
-                        accountValues= 400
-                    },
-                    new Account
-                    {
-                        accountNames = "Renoveringskonto",
-                        accountValues= 500
-                    },
+        {
+            new Account("Lönekonto", 100),
+            new Account("Sparkonto", 200),
+            new Account("Resekonto", 300),
+            new Account("Välgörenhetskonto", 400),
+            new Account("Renoveringskonto", 500)
+        }
 
-                }
             },
+
 
             new User
             {
@@ -189,41 +167,17 @@ class Program
                 userName = "Emily",
                 pinCode = "5555",
                 accounts = new Account[]
-                {
-                    new Account
-                    {
-                        accountNames = "Lönekonto",
-                        accountValues = 100
-                    },
-                    new Account
-                    {
-                        accountNames = "Sparkonto",
-                        accountValues = 200
-                    },
-                    new Account
-                    {
-                        accountNames = "Resekonto",
-                        accountValues= 300
-                    },
-                    new Account
-                    {
-                        accountNames = "Välgörenhetskonto",
-                        accountValues= 400
-                    },
-                    new Account
-                    {
-                        accountNames = "Renoveringskonto",
-                        accountValues= 500
-                    },
-                    new Account
-                    {
-                        accountNames = "Reparationskonto",
-                        accountValues= 600
-                    },
+        {
+            new Account("Lönekonto", 100),
+            new Account("Sparkonto", 200),
+            new Account("Resekonto", 300),
+            new Account("Välgörenhetskonto", 400),
+            new Account("Renoveringskonto", 500),
+            new Account("Reparationskonto", 600),
+        }
 
-                }
-            }
-        };
+            },
+            
 
         logInMenu();
 
@@ -272,14 +226,12 @@ class Program
 
                     //LIST ACCOUNTS
                     case "1":
-                        listAccounts();
+                        listAccounts(user);
                         break;
 
-                    //CREATE NEW ACCOUNT / USER?
+                    //TRANSACTIONS
                     case "2":
-                        Console.WriteLine("Creating a new monster");
-                        //users = addUser(users, parseRow("Tobbe, 20,1+,12"));
-                        Console.WriteLine("User successfully added to database");
+                        transactions(user);
                         break;
                     case "3":
                         Console.WriteLine("Update selected");
@@ -301,15 +253,24 @@ class Program
             }
         }
 
-        void listAccounts()
+        void listAccounts(User user)
         {
-            //helth = username
-            //defense = pincode
             Console.WriteLine("Below are all your accounts");
-            //foreach (object account in Accounts[])
-            {
-
+            for (int i = 0; i < user.accounts.Length; i++) {
+                Console.WriteLine(i);
             }
+
+            void transactions(User user)
+            {
+                Console.WriteLine("Select an account you would like to withdraw funds from");
+                int index = 0;
+                for (int i = 0; i < user.accounts.Length; i++)
+                {
+                    index++;
+                    Console.WriteLine();
+                }
+            
+            
 
 
             /*for (int i = 0; i < accounts.Length; i++)
