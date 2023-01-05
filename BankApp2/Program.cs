@@ -181,10 +181,10 @@ class Program
 
         logInMenu();
 
-        //LOG IN
         void logInMenu()
         {
             Console.WriteLine("Welcome to the log in page");
+            int userTries = 0;
             bool logInMenu = true;
             do
             {
@@ -192,8 +192,6 @@ class Program
                 string? userName = Console.ReadLine();
                 Console.WriteLine("Please enter your pin code");
                 string? userPinCode = Console.ReadLine();
-
-                //LOOP USER ARRAY CHECK IF USERNAME AND PINCODE MATCH
                 foreach (var user in users)
                 {
                     if ((user.userName.Equals(userPinCode)) && (user.pinCode.Equals(userPinCode)))
@@ -203,15 +201,20 @@ class Program
                         logInMenu = false;
                         mainMenu(user);
                     }
+                    }
+                userTries++;
+                if (userTries > 1)
+                {
+                    Environment.Exit(0);
+                    //Console.WriteLine("Sleep for 3 minutes");
+                    //Thread.Sleep(180000);
                 }
+
             } while (logInMenu);
-            //Console.WriteLine("Sleep for 2 seconds.");
-            //Thread.Sleep(2000);
+            
         }
 
-
-        //MAIN MENU
-        User mainMenu(User user)
+        void mainMenu(User user)
         {
             Console.WriteLine("---------- Main menu ----------");
             bool mainMenu = true;
@@ -225,22 +228,14 @@ class Program
                 string? choice = Console.ReadLine().ToUpper();
                 switch (choice)
                 {
-
-                    //LIST ACCOUNTS
                     case "1":
                         listAccounts(user);
                         break;
-
-                    //TRANSACTIONS
                     case "2":
                         transaction(user);
                         break;
                     case "3":
-                        Console.WriteLine("Update selected");
-                        User updateUser = users[1];
-                        Account updateAccount = users[1].accounts[0];
-                        updateUser.name = "johan";
-                        //updateAccount.accountValues = 15;
+                        Console.WriteLine();
                         break;
                     case "E":
                         Console.WriteLine("E selected");
@@ -315,11 +310,11 @@ class Program
             Console.WriteLine();
             Console.WriteLine("Tryck enter för att komma till huvudmenyn");
             //if (e.Key == Key.Return)
-            if (e.KeyValue == 13)
+            /*if (e.KeyValue == 13)
             {
                 mainMenu();
             }
-        }
+        }*/
     }
 
 
