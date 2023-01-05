@@ -280,6 +280,26 @@ class Program
                     i++;
                 }
 
+                bool inCorrectInput = true;
+                do
+                {
+                    string? input = Console.ReadLine();
+                    try
+                    {
+                        int choice = Int32.Parse(input);
+                        inCorrectInput = false;
+                        Console.WriteLine("Du har angett val " + choice);
+                        choice = - 1;
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Oj, du måste ha angivit ett oriktigt val. Var vänlig försök igen. " +
+                            "Välj ett konto att ta ut pengar ifrån");
+                    }
+                } while (inCorrectInput);
+
+            }
+
 
 
 
