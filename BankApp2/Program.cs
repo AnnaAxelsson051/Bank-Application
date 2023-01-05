@@ -512,13 +512,13 @@ class Program
         //{ get; set; }
         //private byte[][] array;
 
-        public User(string name, string userName, string pinCode, Account[] accounts)
+       /* public User(string name, string userName, string pinCode, Account[] accounts)
         {
             this.name = name;
             this.userName = userName;
             this.pinCode = pinCode;
             this.accounts = accounts;
-        }
+        }*/
 
         public string name
         {
