@@ -274,7 +274,15 @@ class Program
         void transaction(User user)
         {
             listAccounts(user);
+            int foundWithdrawalAccount = selectWithdrawalAccount(user);
+            int foundDepositAccount = selectDepositAccount(user);
 
+            decimal accountPostTransfer = user.accounts[foundWithdrawalAccount].accountValues - user.accounts[foundDepositAccount].accountValues;
+        }
+
+
+        int selectWithdrawalAccount(User user)
+        {
             Console.WriteLine("Var god välj ett konto mellan 1 - " + user.accounts.Length +
                 " att flytta pengar ifrån");
             int foundWithdrawalAccount = 0;
@@ -298,8 +306,12 @@ class Program
 
             withdrawalAccount = -1;
             foundWithdrawalAccount = findWithdrawalAccount(withdrawalAccount, user);
+            return foundWithdrawalAccount;
+        }
 
-                Console.WriteLine("Var god välj ett konto att flytta pengar till");
+        int selectDepositAccount(User user)
+        {
+            Console.WriteLine("Var god välj ett konto att flytta pengar till");
             bool inCorrectInput2 = true;
             int depositAccount = 0;
             int foundDepositAccount = 0;
@@ -311,8 +323,6 @@ class Program
                     depositAccount = Int32.Parse(input2);
                     inCorrectInput2 = false;
                     //Console.WriteLine("Du har angett val " + choice);
-                    depositAccount = -1;
-                    foundDepositAccount = findDepositAccount(depositAccount, user);
 
                 }
                 catch (FormatException)
@@ -320,11 +330,12 @@ class Program
                     Console.WriteLine("Oj, du måste ha angivit ett oriktigt val. Var vänlig försök igen. " +
                         "Välj det konto du vill flytta pengarna till");
                 }
-            } while (inCorrectInput);
-
-
-            decimal accountPostTransfer = user.accounts[foundWithdrawalAccount].accountValues - user.accounts[foundDepositAccount].accountValues;
+            } while (inCorrectInput2);
+            depositAccount = -1;
+            foundDepositAccount = findDepositAccount(depositAccount, user);
+            return foundDepositAccount;
         }
+
 
     int findWithdrawalAccount(int withdrawalAccount, User user){ 
             int selectedWithDrawalAccount = 0;
