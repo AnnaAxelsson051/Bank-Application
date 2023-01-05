@@ -113,8 +113,8 @@ class Program
             new Account("Lönekonto", 100),
             new Account("Sparkonto", 200)
             }
-        }
         };
+        }
 
         new User
         {
@@ -127,39 +127,25 @@ class Program
             new Account("Sparkonto", 200),
             new Account("Resekonto", 200)
         }
-        }
-        }
-       
+        };
+
+
+
             new User
             {
                 name = "Camilla",
                 userName = "Camilla",
                 pinCode = "3333",
                 accounts = new Account[]
-                {
-                    new Account
-                    {
-                        accountNames = "Lönekonto",
-                        accountValues = 100
-                    },
-                    new Account
-                    {
-                        accountNames = "Sparkonto",
-                        accountValues = 200
-                    },
-                    new Account
-                    {
-                        accountNames = "Resekonto",
-                        accountValues= 300
-                    },
-                     new Account
-                    {
-                        accountNames = "Välgörenhetskonto",
-                        accountValues= 400
-                    },
+        {
+            new Account("Lönekonto", 100),
+            new Account("Sparkonto", 200),
+            new Account("Resekonto", 300),
+            new Account("Välgörenhetskonto", 400),
+        }
 
-                }
-            },
+            };
+            }
 
             new User
             {
@@ -467,7 +453,7 @@ class Program
     public class Account
     {
 
-        public Account(string accountNames, int accountValues)
+        public Account(string accountNames, decimal accountValues)
         {
             this.accountNames = accountNames;
             this.accountValues = accountValues;
@@ -485,7 +471,7 @@ class Program
             }
         }
 
-        public int accountValues
+        public decimal accountValues
         {
             get
             {
