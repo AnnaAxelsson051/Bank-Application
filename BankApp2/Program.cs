@@ -40,65 +40,13 @@ using static BankApp2.Program;
 
 namespace BankApp2;
 class Program
-
-//helth = username
-//defense = pincode
 {
     private static string loggedInUser;
     private static object accounts;
 
     static void Main(string[] args)
     {
-        //CREATE ARRAY OF USERS
 
-
-        /*string[] userNames = new string[]
-        {"Arvin", "Billy", "Camilla", "Daniel", "Emily"};
-        int[] Pincodes = new int[]
-        {1111,2222,3333,4444,5555};
-
-        //User[] users = new User[]
-        User[][][] users = new User[][][]
-                            {
-                                new User[][]
-                                {
-                                    new User[] { "akonto", "bkonto"},
-                                    new User[] { 400, 500}
-                                },
-                                new User[][]
-                                {
-                                    new kontoNamn[] { "akonto", "bkonto", "ckonto"},
-                                    new konstSaldo[] { 400, 500, 600}
-                                }
-                                },
-
-                            new User[2][]
-                                {
-                                    new int[3] { 1, 2, 3},
-                                    new int[2] { 4, 5}
-                                },
-                                new User[2][]
-                                {
-                                    new int[3] { 1, 2, 3},
-                                    new int[2] { 4, 5}
-                                },
-
-
-
-
-
-        User[][] users = new User[4][]{
-           new UserName [5]
-            {"Arvin", "Billy", "Camilla", "Daniel", "Emily"},
-           new AccountName [5]
-            {"Lönekonto", "Sparkonto", "Resekonto", "Välgörenhetskonto", "Emily"},
-            new Pincode[5]
-            {1111,2222,3333,4444,5555},
-            new AccountValue[5]
-            {200,300,400,500,600},
-        };*/
-
-        //accountnames med lika många som det finns users men varje element är en array av kontonamn
 
         //create array of users
         User[] users = new User[]
@@ -175,22 +123,25 @@ class Program
             new Account("Renoveringskonto", 500),
             new Account("Reparationskonto", 600),
         }
+            }
+        };
 
-            },
+           
+        
 
 
         logInMenu();
 
         void logInMenu()
         {
-            Console.WriteLine("Welcome to the log in page");
+            Console.WriteLine("Välkommen till log in sidan");
             int userTries = 0;
             bool logInMenu = true;
             do
             {
-                Console.WriteLine("Please enter your user name");
+                Console.WriteLine("Var god ange ditt användarnamn");
                 string? userName = Console.ReadLine();
-                Console.WriteLine("Please enter your pin code");
+                Console.WriteLine("Var god ange din pinkod");
                 string? userPinCode = Console.ReadLine();
                 foreach (var user in users)
                 {
@@ -216,11 +167,11 @@ class Program
 
         void mainMenu(User user)
         {
-            Console.WriteLine("---------- Main menu ----------");
+            Console.WriteLine("---------- Huvudmeny ----------");
             bool mainMenu = true;
             while (mainMenu)
             {
-                Console.WriteLine("Please select one of the following options");
+                Console.WriteLine("Var god välj något av följande alternativ");
                 Console.WriteLine("1 Se konton och saldon");
                 Console.WriteLine("2 Överföringar");
                 Console.WriteLine("3 Ta ut pengar");
@@ -235,15 +186,16 @@ class Program
                         transaction(user);
                         break;
                     case "3":
+                        transaction(user);
                         Console.WriteLine();
                         break;
                     case "E":
-                        Console.WriteLine("E selected");
+                        Console.WriteLine("E har valts, du loggas nu ut");
                         mainMenu = false;
                         logInMenu();
                         break;
                     default:
-                        Console.WriteLine("Ogiltigt val. Please type either 1 oe E and press enter");
+                        Console.WriteLine("Ogiltigt val. Var god ange antingen val 1-3 eller E och tryck enter");
                         break;
 
                 }
@@ -253,7 +205,7 @@ class Program
 
         void listAccounts(User user)
         {
-            Console.WriteLine("Below are all your accounts");
+            Console.WriteLine("Nedan listas alla dina konton");
 
             for (int i = 0; i < user.accounts.Length; i++)
             {
@@ -264,6 +216,8 @@ class Program
             {
                 Console.Write(user.accounts[i].accountValues + "\t");
             }
+            Console.WriteLine("Tryck enter för att komma till huvudmenyn");
+            Console.ReadLine();
         }
 
 
@@ -309,13 +263,8 @@ class Program
             depositAccountPostTransfer + " kr.");
             Console.WriteLine();
             Console.WriteLine("Tryck enter för att komma till huvudmenyn");
-            //if (e.Key == Key.Return)
-            /*if (e.KeyValue == 13)
-            {
-                mainMenu();
-            }
-        }*/
-    }
+            Console.ReadLine();
+        }
 
 
         int selectWithdrawalAccount(User user)
@@ -401,21 +350,9 @@ class Program
 
              
             }
-        Console.WriteLine();
-        mainMenu();
+        
 
-        /*for (int row = 0; row < accounts.Length; row++)
-        {
-            for (int column = 0; column < accounts[row].Length; column++)
-            {
-                display += intArray[row][column].ToString() + " ";
-            }
-            display += "\n";
-        }
-        break;*/
-    }
-
-    //TRANSFER FUNDS BETWEEN ACCOUNTS
+    /*//TRANSFER FUNDS BETWEEN ACCOUNTS
     void transferFunds()
     {
         //lista personens konton
@@ -475,12 +412,12 @@ class Program
         newUsers[numberOfUsers] = userToAdd;                 //lägger till ett nytt monster
         return newUsers;
     }
+    */
 
 
 
 
-
-
+    /*
     //CREATE NEW ACCOUNT MONSTER?
     // monsters = addMonster(monsters, parseRow("Tobbe, 20,1+,12"));
     //Console.WriteLine("Monster successfully added to database");
@@ -511,7 +448,7 @@ class Program
             }
 
         }
-        return m;     //returnerar det nya monster objektet
+        return m;     //returnerar det nya monster objektet*/
     }
 
 
