@@ -100,7 +100,7 @@ class Program
 
         //accountnames med lika många som det finns users men varje element är en array av kontonamn
 
-
+        //create array of users
         User[] users = new User[]
         {
           new User
@@ -127,14 +127,12 @@ class Program
             new Account("Sparkonto", 200),
             new Account("Resekonto", 200)
         }
-        };
         }
-
-
-            };
+        }
+       
             new User
             {
-                name = "C",
+                name = "Camilla",
                 userName = "Camilla",
                 pinCode = "3333",
                 accounts = new Account[]
@@ -263,22 +261,15 @@ class Program
                         //Console.WriteLine(user.userName);
                         //Console.WriteLine(user.pinCode);
                         logInMenu = false;
-                        createLoggedInUser(user);
                         mainMenu(user);
                     }
                 }
             } while (logInMenu);
         }
 
-        User createLoggedInUser(User user)
-        {
-            User createdLoggedInUser = new User(user.name, user.userName, user.pinCode, user.accounts);
-            Console.WriteLine("Welcome " + createdLoggedInUser.userName + ". You have successfully logged in");
-            return createdLoggedInUser;
-        }
-
+       
         //MAIN MENU
-        User mainMenu(User loggedInUser)
+        User mainMenu(User user)
         {
             Console.WriteLine("---------- Main menu ----------");
             bool mainMenu = true;
