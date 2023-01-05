@@ -256,9 +256,15 @@ class Program
         void listAccounts(User user)
         {
             Console.WriteLine("Below are all your accounts");
-            for (int i = 0; i < user.accounts.Length; i++) {
-                Console.WriteLine(i);
+            for (int i = 0; i < user.accounts.Length; i++)
+            {
+                    Console.WriteLine(user.accounts[i].accountNames + "\t");
+                }
+            for (int i = 0; i < user.accounts.Length; i++)
+            {
+                Console.WriteLine(user.accounts[i].accountValues + "\t");
             }
+
 
             void transactions(User user)
             {
@@ -266,25 +272,29 @@ class Program
                 int index = 0;
                 for (int i = 0; i < user.accounts.Length; i++)
                 {
-                    index++;
-                    Console.WriteLine();
+                    Console.WriteLine(user.accounts[i].accountNames + "\t");
                 }
-            
-            
-
-
-            /*for (int i = 0; i < accounts.Length; i++)
-            {
-                Console.WriteLine("name: " + loggedInUser.accounts[i].Name + "salary account: " +
-                    accounts[i].salaryAccount + "savings account " + accounts[i].savingsAccount);
-                //users?
-                Attack[] monsterAttacks = monsters[i].Attacks;
-                for (int j = 0; j < monsterAttacks.Length; j++)
+                for (int i = 0; i < user.accounts.Length; i++)
                 {
-                    Console.WriteLine("Index: " + j + 1 + "monster: " + monsterAttacks[j].Name + " attackvalue: " + monsterAttacks[j].AttackValue);
-                    //kontonamnen?
-                }*/
-        }
+                    Console.WriteLine(user.accounts[i].accountValues + "\t");
+                    i++;
+                }
+
+
+
+
+                /*for (int i = 0; i < accounts.Length; i++)
+                {
+                    Console.WriteLine("name: " + loggedInUser.accounts[i].Name + "salary account: " +
+                        accounts[i].salaryAccount + "savings account " + accounts[i].savingsAccount);
+                    //users?
+                    Attack[] monsterAttacks = monsters[i].Attacks;
+                    for (int j = 0; j < monsterAttacks.Length; j++)
+                    {
+                        Console.WriteLine("Index: " + j + 1 + "monster: " + monsterAttacks[j].Name + " attackvalue: " + monsterAttacks[j].AttackValue);
+                        //kontonamnen?
+                    }*/
+            }
         Console.WriteLine();
         mainMenu();
 
