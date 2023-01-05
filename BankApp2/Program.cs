@@ -277,29 +277,32 @@ class Program
 
             Console.WriteLine("Var god välj ett konto mellan 1 - " + user.accounts.Length +
                 " att flytta pengar ifrån");
+            int foundWithdrawalAccount = 0;
+            int withdrawalAccount = 0;
             bool inCorrectInput = true;
             do
             {
                 string? input = Console.ReadLine();
                 try
                 {
-                    int withdrawalAccount = Int32.Parse(input);
+                    withdrawalAccount = Int32.Parse(input);
                     inCorrectInput = false;
-                    withdrawalAccount = -1;
-                    findWithdrawalAccount(withdrawalAccount, user);
-
                 }
                 catch (FormatException)
                 {
                     Console.WriteLine("Oj, du måste ha angivit ett oriktigt val. Var vänlig försök igen. " +
                         "Välj ett konto att ta ut pengar ifrån");
                 }
-            } while (inCorrectInput);
-             
 
-            Console.WriteLine("Var god välj ett konto att flytta pengar till");
+            } while (inCorrectInput);
+
+            withdrawalAccount = -1;
+            foundWithdrawalAccount = findWithdrawalAccount(withdrawalAccount, user);
+
+                Console.WriteLine("Var god välj ett konto att flytta pengar till");
             bool inCorrectInput2 = true;
-            int depositAccount;
+            int depositAccount = 0;
+            int foundDepositAccount = 0;
             do
             {
                 string? input2 = Console.ReadLine();
@@ -309,7 +312,7 @@ class Program
                     inCorrectInput2 = false;
                     //Console.WriteLine("Du har angett val " + choice);
                     depositAccount = -1;
-                    findDepositAccount(depositAccount, user);
+                    foundDepositAccount = findDepositAccount(depositAccount, user);
 
                 }
                 catch (FormatException)
@@ -319,27 +322,31 @@ class Program
                 }
             } while (inCorrectInput);
 
+
+            decimal accountPostTransfer = user.accounts[foundWithdrawalAccount].accountValues - user.accounts[foundDepositAccount].accountValues;
         }
 
-    void findWithdrawalAccount(int withdrawalAccount, User user)
-    {
-        for (int i = 0; i < user.accounts.Length; i++)
-        {
-            if (withdrawalAccount == i)
+    int findWithdrawalAccount(int withdrawalAccount, User user){ 
+            int selectedWithDrawalAccount = 0;
+            for (int i = 0; i < user.accounts.Length; i++)
             {
-                Console.WriteLine("Du har angett kontot " + user.accounts[i].accountNames);
-            }
-        } 
-    }
+                if (withdrawalAccount == i)
+                {
+                    Console.WriteLine("Du har angett kontot " + user.accounts[i].accountNames);
+                    selectedWithDrawalAccount = i;
+                }
+            } return selectedWithDrawalAccount;
+ }
 
-                void findDepositAccount(int depositAccount, User user){
-                    for (int i = 0; i < user.accounts.Length; i++)
-                    {
+                int findDepositAccount(int depositAccount, User user){
+                    int selectedDepositAccount = 0;
+                    for (int i = 0; i < user.accounts.Length; i++){
                         if (depositAccount == i)
                         {
                             Console.WriteLine("Du har angett kontot " + user.accounts[i].accountNames);
+                            selectedDepositAccount = i;
                         }
-                    }
+                    }return selectedDepositAccount;
                 }
 
 
