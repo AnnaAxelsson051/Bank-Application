@@ -205,6 +205,8 @@ class Program
                     }
                 }
             } while (logInMenu);
+            //Console.WriteLine("Sleep for 2 seconds.");
+            //Thread.Sleep(2000);
         }
 
 
@@ -293,7 +295,7 @@ class Program
                 try
                 {
                     decimal withdrawalAccountPostTransfer =
-                            user.accounts[foundWithdrawalAccount].accountValues - transferAmount;
+                    user.accounts[foundWithdrawalAccount].accountValues - transferAmount;
                     notSufficientFunds = false;
                 }
                 catch (InvalidOperationException)
@@ -303,15 +305,22 @@ class Program
             } while (notSufficientFunds);
 
             decimal depositAccountPostTransfer =
-                user.accounts[foundWithdrawalAccount].accountValues + transferAmount;
+            user.accounts[foundWithdrawalAccount].accountValues + transferAmount;
 
             Console.WriteLine("Du har nu överfört " + transferAmount + " kr från ditt " +
             user.accounts[foundWithdrawalAccount].accountNames + ". Kvar på det kontot finns nu " +
             user.accounts[foundWithdrawalAccount].accountValues + " kr. Och på ditt " +
             user.accounts[foundDepositAccount].accountNames + " finns nu " +
-            user.accounts[foundDepositAccount].accountValues + " kr.");
-
+            depositAccountPostTransfer + " kr.");
+            Console.WriteLine();
+            Console.WriteLine("Tryck enter för att komma till huvudmenyn");
+            //if (e.Key == Key.Return)
+            if (e.KeyValue == 13)
+            {
+                mainMenu();
+            }
         }
+    }
 
 
         int selectWithdrawalAccount(User user)
