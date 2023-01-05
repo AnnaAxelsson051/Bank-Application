@@ -20,7 +20,7 @@ using static BankApp2.Program;
 //Om användaren skriver ett nummer som inte finns i menyn, eller något annat än ett nummer,
 //ska systemet meddela att det är ett "ogiltigt val".
 
-//TODO när anv väljer se konton o saldo Användaren ska få en utskrift av de olika konton som
+//när anv väljer se konton o saldo Användaren ska få en utskrift av de olika konton som
 //användaren har och hur mycket pengar det finns på dessa i kr och ören
 
 // Saldon för alla konton sätts vid starten av programmet (du ställer in en en summa som
@@ -277,7 +277,40 @@ class Program
             int foundWithdrawalAccount = selectWithdrawalAccount(user);
             int foundDepositAccount = selectDepositAccount(user);
 
-            decimal accountPostTransfer = user.accounts[foundWithdrawalAccount].accountValues - user.accounts[foundDepositAccount].accountValues;
+            Console.WriteLine("Var god ange den summa du önskar överföra");
+            string? input = Console.ReadLine();
+            decimal transferAmount = Int32.Parse(input);
+
+            makeTransfer(foundWithdrawalAccount, foundDepositAccount, transferAmount, user);
+            
+        }
+
+        void makeTransfer(int foundWithdrawalAccount, int foundDepositAccount, decimal transferAmount, User user)
+        {
+            bool notSufficientFunds = true;
+            do
+            {
+                try
+                {
+                    decimal withdrawalAccountPostTransfer =
+                            user.accounts[foundWithdrawalAccount].accountValues - transferAmount;
+                    notSufficientFunds = false;
+                }
+                catch (InvalidOperationException)
+                {
+                    Console.WriteLine("Tyvärr finns inte tillräckligt med pengar på kontot eller så har du angett en ogiltig inmatning, ange ett nytt belopp");
+                }
+            } while (notSufficientFunds);
+
+            decimal depositAccountPostTransfer =
+                user.accounts[foundWithdrawalAccount].accountValues + transferAmount;
+
+            Console.WriteLine("Du har nu överfört " + transferAmount + " kr från ditt " +
+            user.accounts[foundWithdrawalAccount].accountNames + ". Kvar på det kontot finns nu " +
+            user.accounts[foundWithdrawalAccount].accountValues + " kr. Och på ditt " +
+            user.accounts[foundDepositAccount].accountNames + " finns nu " +
+            user.accounts[foundDepositAccount].accountValues + " kr.");
+
         }
 
 
@@ -311,7 +344,8 @@ class Program
 
         int selectDepositAccount(User user)
         {
-            Console.WriteLine("Var god välj ett konto att flytta pengar till");
+            Console.WriteLine("Var god välj ett konto mellan 1 - " + user.accounts.Length +
+                  " att flytta pengar till");
             bool inCorrectInput2 = true;
             int depositAccount = 0;
             int foundDepositAccount = 0;
