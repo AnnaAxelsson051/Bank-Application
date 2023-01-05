@@ -231,7 +231,7 @@ class Program
 
                     //TRANSACTIONS
                     case "2":
-                        transactions(user);
+                        transaction(user);
                         break;
                     case "3":
                         Console.WriteLine("Update selected");
@@ -256,51 +256,108 @@ class Program
         void listAccounts(User user)
         {
             Console.WriteLine("Below are all your accounts");
+           
             for (int i = 0; i < user.accounts.Length; i++)
             {
-                    Console.WriteLine(user.accounts[i].accountNames + "\t");
-                }
-            for (int i = 0; i < user.accounts.Length; i++)
-            {
-                Console.WriteLine(user.accounts[i].accountValues + "\t");
+                Console.Write(i + ". " + user.accounts[i].accountNames + "\t");
             }
-
-
-            void transactions(User user)
+            for (int i = 0; i < user.accounts.Length; i++)
             {
-                Console.WriteLine("Select an account you would like to withdraw funds from");
+                Console.Write(user.accounts[i].accountValues + "\t");
+                i++;
+            }
+            
+
+
+            void transaction(User user)
+            {
+                //listAccounts(user);
+
+                Console.WriteLine("Var god välj ett konto att flytta pengar ifrån");
                 int index = 0;
+
                 for (int i = 0; i < user.accounts.Length; i++)
                 {
-                    Console.WriteLine(user.accounts[i].accountNames + "\t");
+                    Console.Write(i + ". " + user.accounts[i].accountNames + "\t");
                 }
                 for (int i = 0; i < user.accounts.Length; i++)
                 {
-                    Console.WriteLine(user.accounts[i].accountValues + "\t");
+                    Console.Write(user.accounts[i].accountValues + "\t");
                     i++;
                 }
 
+                //Register and test user input for withdrawal account
+
                 bool inCorrectInput = true;
+                int withdrawalAccount;
                 do
                 {
                     string? input = Console.ReadLine();
                     try
                     {
-                        int choice = Int32.Parse(input);
+                        withdrawalAccount = Int32.Parse(input);
                         inCorrectInput = false;
-                        Console.WriteLine("Du har angett val " + choice);
-                        choice = - 1;
+                        //Console.WriteLine("Du har angett val " + choice);
+                        withdrawalAccount = - 1;
+                        transferFunds(withdrawalAccount);
+                        
                     }
                     catch (FormatException)
                     {
                         Console.WriteLine("Oj, du måste ha angivit ett oriktigt val. Var vänlig försök igen. " +
                             "Välj ett konto att ta ut pengar ifrån");
                     }
-                } while (inCorrectInput);
-
+                } while (inCorrectInput);  
             }
 
+            //Find account 
+  
+            void transferFunds(int withdrawalAccount)
+            {
+                for (int i = 0; i < user.accounts.Length; i++)
+                {
+                    if (withdrawalAccount == i)
+                    {
+                        Console.WriteLine("Du har angett kontot " + user.accounts[i].accountNames);
+                    }
+                }
+                //Register and test user input for deposit account
 
+                Console.WriteLine("Var god välj ett konto att flytta pengar till");
+                bool inCorrectInput = true;
+                int depositAccount;
+                do
+                {
+                    string? input = Console.ReadLine();
+                    try
+                    {
+                        depositAccount = Int32.Parse(input);
+                        inCorrectInput = false;
+                        //Console.WriteLine("Du har angett val " + choice);
+                        depositAccount = -1;
+                        makeTransfer(depositAccount);
+
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Oj, du måste ha angivit ett oriktigt val. Var vänlig försök igen. " +
+                            "Välj det konto du vill flytta pengarna till");
+                    }
+                } while (inCorrectInput);
+
+                //Find depositaccount
+
+                void makeTransfer(int depositAccount){
+                    for (int i = 0; i < user.accounts.Length; i++)
+                    {
+                        if (depositAccount == i)
+                        {
+                            Console.WriteLine("Du har angett kontot " + user.accounts[i].accountNames);
+                        }
+                    }
+
+
+                }
 
 
                 /*for (int i = 0; i < accounts.Length; i++)
