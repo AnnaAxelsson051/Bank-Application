@@ -260,12 +260,12 @@ class Program
 
             for (int i = 0; i < user.accounts.Length; i++)
             {
-                Console.Write(i + ". " + user.accounts[i].accountNames + "\t");
+                Console.Write(++i + ". " + user.accounts[i].accountNames + "\t");
+                //increase with 1 to display tex 1 - 3
             }
             for (int i = 0; i < user.accounts.Length; i++)
             {
                 Console.Write(user.accounts[i].accountValues + "\t");
-                i++;
             }
         }
 
@@ -275,7 +275,8 @@ class Program
         {
             listAccounts(user);
 
-            Console.WriteLine("Var god välj ett konto att flytta pengar ifrån");
+            Console.WriteLine("Var god välj ett konto mellan 1 - " + user.accounts.Length +
+                " att flytta pengar ifrån");
             bool inCorrectInput = true;
             do
             {
@@ -342,17 +343,7 @@ class Program
                 }
 
 
-                /*for (int i = 0; i < accounts.Length; i++)
-                {
-                    Console.WriteLine("name: " + loggedInUser.accounts[i].Name + "salary account: " +
-                        accounts[i].salaryAccount + "savings account " + accounts[i].savingsAccount);
-                    //users?
-                    Attack[] monsterAttacks = monsters[i].Attacks;
-                    for (int j = 0; j < monsterAttacks.Length; j++)
-                    {
-                        Console.WriteLine("Index: " + j + 1 + "monster: " + monsterAttacks[j].Name + " attackvalue: " + monsterAttacks[j].AttackValue);
-                        //kontonamnen?
-                    }*/
+             
             }
         Console.WriteLine();
         mainMenu();
