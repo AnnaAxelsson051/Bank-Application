@@ -35,16 +35,19 @@ using static BankApp2.Program;
 //TODO när anv väljer ta ut pengar Användaren ska kunna välja ett av sina konton samt en summa
 //Efter detta måste användaren skriva in sin pinkod för att bekräfta att de vill ta ut pengar
 
-//Pengarna ska sedan tas bort från det konto som valdes Sist av allt ska systemet skriva ut det nya
-//saldot på det kontot.
-
 //TODO It's a good practice to create each new class in a different source file. In Visual Studio,
 //you can right-click on the project, and select add class to add a new class in a new file.
 
 //TODO Change getters and setters to private?
-//TODOMake methodnames start with capital letter
 //TODO In Visual Studio Code, select File then New to create a new source file. In either tool, name
 //the file to match the class: InterestEarningAccount.cs, LineOfCreditAccount.cs, and GiftCardAccount.cs.
+
+//TODO Lägg till funktionalitet så att användaren kan öppna nya konton. —ganska lätt
+//TODO Lägg till så att användaren kan sätta in pengar —lätt
+//TODO Gör så att olika konton har olika valuta, inklusive att valuta omvandlas när pengar flyttas mellan dem. —ganska lätt
+//TODO Lägg till så att användare kan flytta pengar sinsemellan, dvs mellan olika användare —ganska lätt
+//Lägg till så att om användaren skriver fel pinkod tre gånger stängs inloggning för den användaren av i tre minuter istället för att programmet måste starta om. —gjort?
+////TODOLägg till så att saldon för alla konton för alla användare sparas mellan körningarna av programmet så att saldon inte återställs. —spara i fil
 
 
 
@@ -244,43 +247,44 @@ class Program
             int foundWithdrawalAccount = SelectWithdrawalAccount(user);
             int foundDepositAccount = SelectDepositAccount(user);
 
-            Console.WriteLine("Var god ange den summa du önskar överföra");
-            string? input = Console.ReadLine();
-            decimal transferAmount = Int32.Parse(input);
-
-            MakeTransfer(foundWithdrawalAccount, foundDepositAccount, transferAmount, user);
-
+            MakeTransfer(foundWithdrawalAccount, foundDepositAccount, user);
         }
 
-        void MakeTransfer(int foundWithdrawalAccount, int foundDepositAccount, decimal transferAmount, User user)
+    void MakeTransfer(int foundWithdrawalAccount, int foundDepositAccount, User user)
         {
             bool notSufficientFunds = true;
             do
             {
-                try
+                Console.WriteLine("Var god ange den summa du önskar överföra");
+                string? input = Console.ReadLine();
+                decimal transferAmount = Int32.Parse(input);
+
+                if (user.accounts[foundWithdrawalAccount].accountValue < transferAmount)
                 {
+                    throw new ArgumentOutOfRangeException(nameof(transferAmount), "Det finns inte tillräckligt med pengar " +
+                        "på kontot du vill överföra ifrån");
+                }
+                else
+                {
+                    decimal depositAccountPostTransfer =
+         user.accounts[foundWithdrawalAccount].accountValue + transferAmount;
                     decimal withdrawalAccountPostTransfer =
-                    user.accounts[foundWithdrawalAccount].accountValue - transferAmount;
+         user.accounts[foundWithdrawalAccount].accountValue + transferAmount;
+
+                    Console.WriteLine("Du har nu överfört " + transferAmount + " kr från ditt " +
+                    user.accounts[foundWithdrawalAccount].accountName + ". Kvar på det kontot finns nu " +
+                    withdrawalAccountPostTransfer + " kr. Och på ditt " +
+                    user.accounts[foundDepositAccount].accountName + " finns nu " +
+                    depositAccountPostTransfer + " kr.");
+                    Console.WriteLine();
+                    Console.WriteLine("Tryck enter för att komma till huvudmenyn");
+                    Console.ReadLine();
                     notSufficientFunds = false;
                 }
-                catch (InvalidOperationException)
-                {
-                    Console.WriteLine("Tyvärr finns inte tillräckligt med pengar på kontot eller så har du angett en ogiltig inmatning, ange ett nytt belopp");
-                }
             } while (notSufficientFunds);
-
-            decimal depositAccountPostTransfer =
-            user.accounts[foundWithdrawalAccount].accountValue + transferAmount;
-
-            Console.WriteLine("Du har nu överfört " + transferAmount + " kr från ditt " +
-            user.accounts[foundWithdrawalAccount].accountName + ". Kvar på det kontot finns nu " +
-            user.accounts[foundWithdrawalAccount].accountValue + " kr. Och på ditt " +
-            user.accounts[foundDepositAccount].accountName + " finns nu " +
-            depositAccountPostTransfer + " kr.");
-            Console.WriteLine();
-            Console.WriteLine("Tryck enter för att komma till huvudmenyn");
-            Console.ReadLine();
+            return;
         }
+        
 
 
         int SelectWithdrawalAccount(User user)
@@ -472,7 +476,6 @@ class Program
             }
             else if (input.Equals("Nej"))
             {
-                //TODO create account med accountname
                 Console.WriteLine("Ditt nya konto " + newAccountName + " har skapats");
                 CreateAccountWithName(user, newAccountName);
 
