@@ -368,9 +368,13 @@ class Program
             decimal withdrawalAmount = Int32.Parse(input);
 
             makeWithdrawal(foundWithdrawalAccount, withdrawalAmount, user);
+            Console.WriteLine();
+            Console.WriteLine("Tryck enter för att komma till huvudmenyn");
+            Console.ReadLine();
         }
 
-        void testPincode(User user){
+        void testPincode(User user)
+        {
             int userTries = 0;
             bool testPincode = true;
             do
@@ -396,7 +400,8 @@ class Program
                 }
 
             } while (testPincode);
-        } return;
+        }
+        return;
 
 
         void makeWithdrawal(int foundWithdrawalAccount, decimal withdrawalAmount, User user)
@@ -427,11 +432,6 @@ class Program
             Console.ReadLine();
 
         }
-    }
-
-
-
-    
     }
 
 
@@ -469,7 +469,8 @@ class Program
         }
     }
 
-    public class User {
+    public class User
+    {
 
         public string name
         {
@@ -516,6 +517,7 @@ class Program
             }
         }
     }
+}
 
 
 
