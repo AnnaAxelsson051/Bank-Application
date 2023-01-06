@@ -201,7 +201,9 @@ class Program
                         break;
                     case "3":
                         WithdrawFunds(user);
-
+                        break;
+                    case "4":
+                        CreateNewAccount(user);
                         break;
                     case "E":
                         Console.WriteLine("E har valts, du loggas nu ut");
@@ -209,7 +211,7 @@ class Program
                         logInMenu();
                         break;
                     default:
-                        Console.WriteLine("Ogiltigt val. Var god ange antingen val 1-3 eller E och tryck enter");
+                        Console.WriteLine("Ogiltigt val. Var god ange antingen val 1-4 eller E och tryck enter");
                         break;
 
                 }
@@ -223,12 +225,12 @@ class Program
 
             for (int i = 0; i < user.accounts.Length; i++)
             {
-                Console.Write(++i + ". " + user.accounts[i].accountNames + "\t");
+                Console.Write(++i + ". " + user.accounts[i].accountName + "\t");
                 //increase with 1 to display tex 1 - 3
             }
             for (int i = 0; i < user.accounts.Length; i++)
             {
-                Console.Write(user.accounts[i].accountValues + "\t");
+                Console.Write(user.accounts[i].accountValue + "\t");
             }
             Console.WriteLine("Tryck enter för att komma till huvudmenyn");
             Console.ReadLine();
@@ -258,7 +260,7 @@ class Program
                 try
                 {
                     decimal withdrawalAccountPostTransfer =
-                    user.accounts[foundWithdrawalAccount].accountValues - transferAmount;
+                    user.accounts[foundWithdrawalAccount].accountValue - transferAmount;
                     notSufficientFunds = false;
                 }
                 catch (InvalidOperationException)
@@ -268,12 +270,12 @@ class Program
             } while (notSufficientFunds);
 
             decimal depositAccountPostTransfer =
-            user.accounts[foundWithdrawalAccount].accountValues + transferAmount;
+            user.accounts[foundWithdrawalAccount].accountValue + transferAmount;
 
             Console.WriteLine("Du har nu överfört " + transferAmount + " kr från ditt " +
-            user.accounts[foundWithdrawalAccount].accountNames + ". Kvar på det kontot finns nu " +
-            user.accounts[foundWithdrawalAccount].accountValues + " kr. Och på ditt " +
-            user.accounts[foundDepositAccount].accountNames + " finns nu " +
+            user.accounts[foundWithdrawalAccount].accountName + ". Kvar på det kontot finns nu " +
+            user.accounts[foundWithdrawalAccount].accountValue + " kr. Och på ditt " +
+            user.accounts[foundDepositAccount].accountName + " finns nu " +
             depositAccountPostTransfer + " kr.");
             Console.WriteLine();
             Console.WriteLine("Tryck enter för att komma till huvudmenyn");
@@ -345,7 +347,7 @@ class Program
             {
                 if (withdrawalAccount == i)
                 {
-                    Console.WriteLine("Du har angett kontot " + user.accounts[i].accountNames);
+                    Console.WriteLine("Du har angett kontot " + user.accounts[i].accountName);
                     selectedWithDrawalAccount = i;
                 }
             }
@@ -359,7 +361,7 @@ class Program
             {
                 if (depositAccount == i)
                 {
-                    Console.WriteLine("Du har angett kontot " + user.accounts[i].accountNames);
+                    Console.WriteLine("Du har angett kontot " + user.accounts[i].accountName);
                     selectedDepositAccount = i;
                 }
             }
@@ -397,7 +399,7 @@ class Program
                         Console.WriteLine(user.pinCode);
                         Console.WriteLine(userPinCode);
                         testPincode = false;
-                        //mainMenu(user);
+                
                     }
                 
                 userTries++;
@@ -421,7 +423,7 @@ class Program
                 try
                 {
                     decimal withdrawalAccountPostTransfer =
-                    user.accounts[foundWithdrawalAccount].accountValues - withdrawalAmount;
+                    user.accounts[foundWithdrawalAccount].accountValue - withdrawalAmount;
                     notSufficientFunds = false;
                 }
                 catch (InvalidOperationException)
@@ -431,14 +433,72 @@ class Program
             } while (notSufficientFunds);
 
             decimal depositAccountPostTransfer =
-            user.accounts[foundWithdrawalAccount].accountValues + withdrawalAmount;
+            user.accounts[foundWithdrawalAccount].accountValue + withdrawalAmount;
 
             Console.WriteLine("Du har nu överfört " + withdrawalAmount + " kr från ditt " +
-            user.accounts[foundWithdrawalAccount].accountNames + ". Kvar på det kontot finns nu " +
-            user.accounts[foundWithdrawalAccount].accountValues);
+            user.accounts[foundWithdrawalAccount].accountName + ". Kvar på det kontot finns nu " +
+            user.accounts[foundWithdrawalAccount].accountValue);
             Console.WriteLine();
             Console.WriteLine("Tryck enter för att komma till huvudmenyn");
             Console.ReadLine();
+
+        }
+
+        void CreateNewAccount(User user){
+            Console.WriteLine("Vad god ange namnet på det nya konto du vill skapa");
+            string? newAccountName = Console.ReadLine();
+            Console.WriteLine("Vill du sätta in en summa på kontot? Ja/Nej");
+            string? input = Console.ReadLine();
+            bool nonsuccessfulDeposit = true;
+            if (input.Equals("Ja")){
+                do
+                {
+                    Console.WriteLine("Hur mycket vill du sätta in?");
+                    try
+                    {
+                        string? inputAmount = Console.ReadLine();
+                        decimal depositAmount = Int32.Parse(inputAmount);
+                        nonsuccessfulDeposit = true;
+                        Console.WriteLine("Ditt nya konto " + newAccountName + " har skapats och " +
+                            //TODO create account with accountname and sumb
+                            " kr finns nu på detta konto");
+                        CreateAccountWithNameAndSumb(user, newAccountName, depositAmount);
+                    }
+                    catch (InvalidDataException)
+                    {
+                        Console.WriteLine("Du har angett ett felaktigt värde, var god försök igen");
+                    }
+                } while (nonsuccessfulDeposit);
+            }
+            else if (input.Equals("Nej"))
+            {
+                //TODO create account med accountname
+                Console.WriteLine("Ditt nya konto " + newAccountName + " har skapats");
+                CreateAccountWithName(user, newAccountName);
+
+
+            }
+
+            void CreateAccountWithNameAndSumb(User user, string newAccountName, decimal depositAmount)
+            {
+                
+            user.accounts = new Account[]
+            {
+            new Account(newAccountName, depositAmount)
+            };
+                return;
+            }
+
+
+            void CreateAccountWithName(User user, string newAccountName)
+            {
+
+                user.accounts = new Account[]
+                {
+            new Account(newAccountName)
+                };
+                return;
+            }
 
         }
     }
@@ -447,33 +507,39 @@ class Program
     public class Account
     {
 
-        public Account(string accountNames, decimal accountValues)
+        public Account(string accountName, decimal accountValue)
         {
-            this.accountNames = accountNames;
-            this.accountValues = accountValues;
+            this.accountName = accountName;
+            this.accountValue = accountValue;
 
         }
-        public string accountNames
+
+        public Account(string accountName)
+        {
+            this.accountName = accountName;
+
+        }
+        public string accountName
         {
             get
             {
-                return accountNames;
+                return accountName;
             }
             set
             {
-                this.accountNames = accountNames;
+                this.accountName = accountName;
             }
         }
 
-        public decimal accountValues
+        public decimal accountValue
         {
             get
             {
-                return accountValues;
+                return accountValue;
             }
             set
             {
-                this.accountValues = accountValues;
+                this.accountValue = accountValue;
             }
         }
     }
