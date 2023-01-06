@@ -7,34 +7,6 @@ using System.Threading;
 //using Internal;
 using static BankApp2.Program;
 
-// Användaren ska mata in sitt användarnummer/användarnamn (valfritt hur detta ser ut)...
-//och en pin-kod som ska avgöra vilken användare det är som vill använda bankomaten..
-
-//När användaren lyckats logga in ska bankomaten fråga vad användaren vill göra. Det ska finnas fyra val:
-//se konton o saldo överföringar mellan konton, ta ut pengar, logga ut
-
-//När en funktion har kört klart ska användaren få upp texten "Tryck enter för att komma till huvudmenyn".
-//När användaren tryckt enter kommer menyn upp igen.
-
-//Om användaren väljer "Logga ut" ska programmet inte stänga av. Användaren ska komma till inloggningen igen.
-//Om användaren skriver ett nummer som inte finns i menyn, eller något annat än ett nummer,
-//ska systemet meddela att det är ett "ogiltigt val".
-
-//när anv väljer se konton o saldo Användaren ska få en utskrift av de olika konton som
-//användaren har och hur mycket pengar det finns på dessa i kr och ören
-
-// Saldon för alla konton sätts vid starten av programmet (du ställer in en en summa som
-//finns på varje konto i koden) så om programmet startas om återställs alla saldon.
-
-//när anv väljer överföringar mellan konton ska hen kunna välja ett konto att ta pengar från,
-//ett konto att flytta pengarna till och sen en summa som ska flyttas mellan dessa, efter summan flyttas
-//ska användaren få se vilken summa som finns på dessa två konton som påverkades.
-
-//Det måste finnas täckning på konton man vill flytta pengar från för beloppet man vill flytta
-
-//när anv väljer ta ut pengar Användaren ska kunna välja ett av sina konton samt en summa
-//Efter detta måste användaren skriva in sin pinkod för att bekräfta att de vill ta ut pengar
-
 //TODO Change getters and setters to private?
 
 //TODO It's a good practice to create each new class in a different source file. In Visual Studio,
@@ -526,7 +498,6 @@ class Program
                         decimal depositAmount = Int32.Parse(inputAmount);
                         nonsuccessfulDeposit = true;
                         Console.WriteLine("Ditt nya konto " + newAccountName + " har skapats och " +
-                            //TODO create account with accountname and sumb
                             " kr finns nu på detta konto");
                         CreateAccountWithNameAndSumb(user, newAccountName, depositAmount);
                     }
