@@ -235,12 +235,12 @@ class Program
             {
                 Console.Write(user.accounts[i].accountValue + "\t");
             }
+            Console.WriteLine();
             Console.WriteLine("Tryck enter för att komma till huvudmenyn");
             Console.ReadLine();
         }
 
-
-
+        //Main method for fund transfer using 3 helper methods
         void TransferFunds(User user)
         {
             ListAccounts(user);
@@ -248,6 +248,9 @@ class Program
             int foundDepositAccount = SelectDepositAccount(user);
 
             MakeTransfer(foundWithdrawalAccount, foundDepositAccount, user);
+            Console.WriteLine();
+            Console.WriteLine("Tryck enter för att komma till huvudmenyn");
+            Console.ReadLine();
         }
 
     void MakeTransfer(int foundWithdrawalAccount, int foundDepositAccount, User user)
@@ -269,7 +272,7 @@ class Program
                     decimal depositAccountPostTransfer =
          user.accounts[foundWithdrawalAccount].accountValue + transferAmount;
                     decimal withdrawalAccountPostTransfer =
-         user.accounts[foundWithdrawalAccount].accountValue + transferAmount;
+         user.accounts[foundWithdrawalAccount].accountValue - transferAmount;
 
                     Console.WriteLine("Du har nu överfört " + transferAmount + " kr från ditt " +
                     user.accounts[foundWithdrawalAccount].accountName + ". Kvar på det kontot finns nu " +
@@ -329,8 +332,6 @@ class Program
                 {
                     depositAccount = Int32.Parse(input2);
                     inCorrectInput2 = false;
-                    //Console.WriteLine("Du har angett val " + choice);
-
                 }
                 catch (FormatException)
                 {
@@ -372,6 +373,7 @@ class Program
             return selectedDepositAccount;
         }
 
+        //Main method for withdrawing funds using 3 helper methods
 
         void WithdrawFunds(User user)
         {
@@ -403,7 +405,6 @@ class Program
                         Console.WriteLine(user.pinCode);
                         Console.WriteLine(userPinCode);
                         testPincode = false;
-                
                     }
                 
                 userTries++;
@@ -415,46 +416,50 @@ class Program
                 }
 
             } while (testPincode);
+            return;
         }
-        return;
+        
 
 
         void MakeWithdrawal(int foundWithdrawalAccount, decimal withdrawalAmount, User user)
         {
-            bool notSufficientFunds = true;
-            do
-            {
-                try
+                bool notSufficientFunds = true;
+                do
                 {
-                    decimal withdrawalAccountPostTransfer =
-                    user.accounts[foundWithdrawalAccount].accountValue - withdrawalAmount;
-                    notSufficientFunds = false;
-                }
-                catch (InvalidOperationException)
-                {
-                    Console.WriteLine("Tyvärr finns inte tillräckligt med pengar på kontot eller så har du angett en ogiltig inmatning, ange ett nytt belopp");
-                }
-            } while (notSufficientFunds);
+                    Console.WriteLine("Var god ange den summa du önskar ta ut");
+                    string? input = Console.ReadLine();
+                    decimal transferAmount = Int32.Parse(input);
 
-            decimal depositAccountPostTransfer =
-            user.accounts[foundWithdrawalAccount].accountValue + withdrawalAmount;
+                    if (user.accounts[foundWithdrawalAccount].accountValue < transferAmount)
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(transferAmount), "Det finns inte tillräckligt med pengar " +
+                            "på kontot du vill överföra ifrån");
+                    }
+                    else
+                    {
+                        decimal withdrawalAccountPostTransfer =
+             user.accounts[foundWithdrawalAccount].accountValue - transferAmount;
 
-            Console.WriteLine("Du har nu överfört " + withdrawalAmount + " kr från ditt " +
-            user.accounts[foundWithdrawalAccount].accountName + ". Kvar på det kontot finns nu " +
-            user.accounts[foundWithdrawalAccount].accountValue);
-            Console.WriteLine();
-            Console.WriteLine("Tryck enter för att komma till huvudmenyn");
-            Console.ReadLine();
+                        Console.WriteLine("Du har nu tagit ut " + transferAmount + " kr från ditt " +
+                        user.accounts[foundWithdrawalAccount].accountName + ". Kvar på det kontot finns nu " +
+                        withdrawalAccountPostTransfer + " kr.");
+                        notSufficientFunds = false;
+                    }
+                } while (notSufficientFunds);
+                return;
+            }
+     
+        //Main method for creating new accounts using 2 helper methods
 
-        }
-
-        void CreateNewAccount(User user){
+        void CreateNewAccount(User user)
+        {
             Console.WriteLine("Vad god ange namnet på det nya konto du vill skapa");
             string? newAccountName = Console.ReadLine();
             Console.WriteLine("Vill du sätta in en summa på kontot? Ja/Nej");
             string? input = Console.ReadLine();
             bool nonsuccessfulDeposit = true;
-            if (input.Equals("Ja")){
+            if (input.Equals("Ja"))
+            {
                 do
                 {
                     Console.WriteLine("Hur mycket vill du sätta in?");
@@ -478,9 +483,11 @@ class Program
             {
                 Console.WriteLine("Ditt nya konto " + newAccountName + " har skapats");
                 CreateAccountWithName(user, newAccountName);
-
-
             }
+            Console.WriteLine();
+            Console.WriteLine("Tryck enter för att komma till huvudmenyn");
+            Console.ReadLine();
+        }
 
             void CreateAccountWithNameAndSumb(User user, string newAccountName, decimal depositAmount)
             {
