@@ -53,9 +53,7 @@ using static BankApp2.Program;
 
 namespace BankApp2;
 class Program
-{
-    private static string loggedInUser;
-    private static object accounts;
+{ 
 
     static void Main(string[] args)
     {
