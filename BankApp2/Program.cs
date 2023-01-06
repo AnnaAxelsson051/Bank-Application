@@ -126,15 +126,15 @@ class Program
             }
         };
 
-           
-        
+
+
 
 
         logInMenu();
 
         void logInMenu()
         {
-            Console.WriteLine("Välkommen till log in sidan");
+            Console.WriteLine("Välkommen till login sidan");
             int userTries = 0;
             bool logInMenu = true;
             do
@@ -152,7 +152,7 @@ class Program
                         logInMenu = false;
                         mainMenu(user);
                     }
-                    }
+                }
                 userTries++;
                 if (userTries > 1)
                 {
@@ -162,7 +162,7 @@ class Program
                 }
 
             } while (logInMenu);
-            
+
         }
 
         void mainMenu(User user)
@@ -186,8 +186,8 @@ class Program
                         transaction(user);
                         break;
                     case "3":
-                        transaction(user);
-                        Console.WriteLine();
+                        withdrawal(user);
+
                         break;
                     case "E":
                         Console.WriteLine("E har valts, du loggas nu ut");
@@ -233,7 +233,7 @@ class Program
             decimal transferAmount = Int32.Parse(input);
 
             makeTransfer(foundWithdrawalAccount, foundDepositAccount, transferAmount, user);
-            
+
         }
 
         void makeTransfer(int foundWithdrawalAccount, int foundDepositAccount, decimal transferAmount, User user)
@@ -324,7 +324,8 @@ class Program
         }
 
 
-    int findWithdrawalAccount(int withdrawalAccount, User user){ 
+        int findWithdrawalAccount(int withdrawalAccount, User user)
+        {
             int selectedWithDrawalAccount = 0;
             for (int i = 0; i < user.accounts.Length; i++)
             {
@@ -333,24 +334,68 @@ class Program
                     Console.WriteLine("Du har angett kontot " + user.accounts[i].accountNames);
                     selectedWithDrawalAccount = i;
                 }
-            } return selectedWithDrawalAccount;
- }
-
-                int findDepositAccount(int depositAccount, User user){
-                    int selectedDepositAccount = 0;
-                    for (int i = 0; i < user.accounts.Length; i++){
-                        if (depositAccount == i)
-                        {
-                            Console.WriteLine("Du har angett kontot " + user.accounts[i].accountNames);
-                            selectedDepositAccount = i;
-                        }
-                    }return selectedDepositAccount;
-                }
-
-
-             
             }
-        
+            return selectedWithDrawalAccount;
+        }
+
+        int findDepositAccount(int depositAccount, User user)
+        {
+            int selectedDepositAccount = 0;
+            for (int i = 0; i < user.accounts.Length; i++)
+            {
+                if (depositAccount == i)
+                {
+                    Console.WriteLine("Du har angett kontot " + user.accounts[i].accountNames);
+                    selectedDepositAccount = i;
+                }
+            }
+            return selectedDepositAccount;
+        }
+
+
+        void withdrawal(User user)
+        {
+            listAccounts(user);
+            int foundWithdrawalAccount = selectWithdrawalAccount(user);
+
+            Console.WriteLine("Var god ange den summa du önskar ta ut");
+            string? input = Console.ReadLine();
+            decimal withdrawalAmount = Int32.Parse(input);
+
+            makeWithdrawal(foundWithdrawalAccount, withdrawalAmount, user);
+        }
+
+        void makeWithdrawal(int foundWithdrawalAccount, decimal withdrawalAmount, User user)
+        {
+            bool notSufficientFunds = true;
+            do
+            {
+                try
+                {
+                    decimal withdrawalAccountPostTransfer =
+                    user.accounts[foundWithdrawalAccount].accountValues - withdrawalAmount;
+                    notSufficientFunds = false;
+                }
+                catch (InvalidOperationException)
+                {
+                    Console.WriteLine("Tyvärr finns inte tillräckligt med pengar på kontot eller så har du angett en ogiltig inmatning, ange ett nytt belopp");
+                }
+            } while (notSufficientFunds);
+
+            decimal depositAccountPostTransfer =
+            user.accounts[foundWithdrawalAccount].accountValues + withdrawalAmount;
+
+            Console.WriteLine("Du har nu överfört " + withdrawalAmount + " kr från ditt " +
+            user.accounts[foundWithdrawalAccount].accountNames + ". Kvar på det kontot finns nu " +
+            user.accounts[foundWithdrawalAccount].accountValues);
+            Console.WriteLine();
+            Console.WriteLine("Tryck enter för att komma till huvudmenyn");
+            Console.ReadLine();
+
+        }
+    }
+
+
 
     /*//TRANSFER FUNDS BETWEEN ACCOUNTS
     void transferFunds()
@@ -417,38 +462,38 @@ class Program
 
 
 
-    /*
-    //CREATE NEW ACCOUNT MONSTER?
-    // monsters = addMonster(monsters, parseRow("Tobbe, 20,1+,12"));
-    //Console.WriteLine("Monster successfully added to database");
+        /*
+        //CREATE NEW ACCOUNT MONSTER?
+        // monsters = addMonster(monsters, parseRow("Tobbe, 20,1+,12"));
+        //Console.WriteLine("Monster successfully added to database");
 
-    User parseRow(string monsterRow)       //får in tex stringen "Tobbe, 20,1+,12"
-    {
-        var cols = monsterRow.Split(',');      //splittar den 
-        User m = new User();             //skapar ett nytt monsterobjekt
-
-        for (int k = 0; k < cols.Length; k++)             //lopar igenom antal vrden man skickade
+        User parseRow(string monsterRow)       //får in tex stringen "Tobbe, 20,1+,12"
         {
-            Console.WriteLine("Inner for each loop" + k + "col" + cols[k]);       //skriver ut varje index k och dess värde
-            switch (k)
-            {
-                case 0:
-                    m.name = cols[k];          //sätter 0 värdet (tobbe) till name
-                    break;
-                case 1:
-                    m.Health = int.Parse(cols[k]);      //sätter andra värdet (20) till health
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    m.Defense = int.Parse(cols[k]);       //sätter sista värdet till defense
-                    break;
+            var cols = monsterRow.Split(',');      //splittar den 
+            User m = new User();             //skapar ett nytt monsterobjekt
 
+            for (int k = 0; k < cols.Length; k++)             //lopar igenom antal vrden man skickade
+            {
+                Console.WriteLine("Inner for each loop" + k + "col" + cols[k]);       //skriver ut varje index k och dess värde
+                switch (k)
+                {
+                    case 0:
+                        m.name = cols[k];          //sätter 0 värdet (tobbe) till name
+                        break;
+                    case 1:
+                        m.Health = int.Parse(cols[k]);      //sätter andra värdet (20) till health
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        m.Defense = int.Parse(cols[k]);       //sätter sista värdet till defense
+                        break;
+
+
+                }
 
             }
-
-        }
-        return m;     //returnerar det nya monster objektet*/
+            return m;     //returnerar det nya monster objektet*/
     }
 
 
