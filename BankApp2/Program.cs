@@ -38,6 +38,16 @@ using static BankApp2.Program;
 //Pengarna ska sedan tas bort från det konto som valdes Sist av allt ska systemet skriva ut det nya
 //saldot på det kontot.
 
+//TODO It's a good practice to create each new class in a different source file. In Visual Studio,
+//you can right-click on the project, and select add class to add a new class in a new file.
+
+//TODO Change getters and setters to private?
+//TODOMake methodnames start with capital letter
+//TODO In Visual Studio Code, select File then New to create a new source file. In either tool, name
+//the file to match the class: InterestEarningAccount.cs, LineOfCreditAccount.cs, and GiftCardAccount.cs.
+
+
+
 namespace BankApp2;
 class Program
 {
@@ -471,7 +481,7 @@ class Program
 
     public class User
     {
-
+        
         public string name
         {
             get
@@ -518,6 +528,7 @@ class Program
         }
     }
 }
+
 
 
 
