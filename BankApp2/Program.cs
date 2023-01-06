@@ -49,6 +49,7 @@ class Program
 
 
         //create array of users
+
         User[] users = new User[]
         {
           new User
@@ -134,6 +135,7 @@ class Program
 
         void logInMenu()
         {
+            Console.WriteLine("---------- Log in ----------");
             Console.WriteLine("Välkommen till login sidan");
             int userTries = 0;
             bool logInMenu = true;
@@ -168,10 +170,12 @@ class Program
         void mainMenu(User user)
         {
             Console.WriteLine("---------- Huvudmeny ----------");
+            Console.WriteLine("Välkommen till huvudmenyn");
             bool mainMenu = true;
             while (mainMenu)
             {
                 Console.WriteLine("Var god välj något av följande alternativ");
+                Console.WriteLine();
                 Console.WriteLine("1 Se konton och saldon");
                 Console.WriteLine("2 Överföringar");
                 Console.WriteLine("3 Ta ut pengar");
