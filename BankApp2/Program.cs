@@ -32,22 +32,25 @@ using static BankApp2.Program;
 
 //Det måste finnas täckning på konton man vill flytta pengar från för beloppet man vill flytta
 
-//TODO när anv väljer ta ut pengar Användaren ska kunna välja ett av sina konton samt en summa
+//när anv väljer ta ut pengar Användaren ska kunna välja ett av sina konton samt en summa
 //Efter detta måste användaren skriva in sin pinkod för att bekräfta att de vill ta ut pengar
+
+//TODO Change getters and setters to private?
 
 //TODO It's a good practice to create each new class in a different source file. In Visual Studio,
 //you can right-click on the project, and select add class to add a new class in a new file.
-
-//TODO Change getters and setters to private?
-//TODO In Visual Studio Code, select File then New to create a new source file. In either tool, name
+//In Visual Studio Code, select File then New to create a new source file. In either tool, name
 //the file to match the class: InterestEarningAccount.cs, LineOfCreditAccount.cs, and GiftCardAccount.cs.
 
-//TODO Lägg till funktionalitet så att användaren kan öppna nya konton. —ganska lätt
+//Lägg till funktionalitet så att användaren kan öppna nya konton. 
 //TODO Lägg till så att användaren kan sätta in pengar —lätt
-//TODO Gör så att olika konton har olika valuta, inklusive att valuta omvandlas när pengar flyttas mellan dem. —ganska lätt
-//TODO Lägg till så att användare kan flytta pengar sinsemellan, dvs mellan olika användare —ganska lätt
-//Lägg till så att om användaren skriver fel pinkod tre gånger stängs inloggning för den användaren av i tre minuter istället för att programmet måste starta om. —gjort?
-////TODOLägg till så att saldon för alla konton för alla användare sparas mellan körningarna av programmet så att saldon inte återställs. —spara i fil
+//TODO Gör så att olika konton har olika valuta, inklusive att valuta omvandlas när pengar flyttas mellan dem. 
+//TODO Lägg till så att användare kan flytta pengar sinsemellan, dvs mellan olika användare
+
+//Lägg till så att om användaren skriver fel pinkod tre gånger stängs inloggning för den
+//användaren av i tre minuter istället för att programmet måste starta om.
+
+////TODO Lägg till så att saldon för alla konton för alla användare sparas mellan körningarna av programmet så att saldon inte återställs. —spara i fil
 
 
 
@@ -204,6 +207,9 @@ class Program
                         WithdrawFunds(user);
                         break;
                     case "4":
+                        DepositFunds(user);
+                        break;
+                    case "5":
                         CreateNewAccount(user);
                         break;
                     case "E":
@@ -379,11 +385,7 @@ class Program
             ListAccounts(user);
             int foundWithdrawalAccount = SelectWithdrawalAccount(user);
 
-            Console.WriteLine("Var god ange den summa du önskar ta ut");
-            string? input = Console.ReadLine();
-            decimal withdrawalAmount = Int32.Parse(input);
-
-            MakeWithdrawal(foundWithdrawalAccount, withdrawalAmount, user);
+            MakeWithdrawal(foundWithdrawalAccount, user);
             Console.WriteLine();
             Console.WriteLine("Tryck enter för att komma till huvudmenyn");
             Console.ReadLine();
@@ -419,26 +421,36 @@ class Program
         
 
 
-        void MakeWithdrawal(int foundWithdrawalAccount, decimal withdrawalAmount, User user)
+        void MakeWithdrawal(int foundWithdrawalAccount, User user)
         {
                 bool notSufficientFunds = true;
+            decimal withdrawalAmount = 0;
                 do
                 {
                     Console.WriteLine("Var god ange den summa du önskar ta ut");
+                try
+                {
                     string? input = Console.ReadLine();
-                    decimal transferAmount = Int32.Parse(input);
+                    withdrawalAmount = Int32.Parse(input);
+                    notSufficientFunds = false;
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Oj, du måste ha angivit en oriktig inmatning. Var vänlig ange den summa " +
+                        "du önskar sätta in");
+                }
 
-                    if (user.accounts[foundWithdrawalAccount].accountValue < transferAmount)
+                    if (user.accounts[foundWithdrawalAccount].accountValue < withdrawalAmount)
                     {
-                        throw new ArgumentOutOfRangeException(nameof(transferAmount), "Det finns inte tillräckligt med pengar " +
+                        throw new ArgumentOutOfRangeException(nameof(withdrawalAmount), "Det finns inte tillräckligt med pengar " +
                             "på kontot du vill överföra ifrån");
                     }
                     else
                     {
                         decimal withdrawalAccountPostTransfer =
-             user.accounts[foundWithdrawalAccount].accountValue - transferAmount;
+             user.accounts[foundWithdrawalAccount].accountValue - withdrawalAmount;
 
-                        Console.WriteLine("Du har nu tagit ut " + transferAmount + " kr från ditt " +
+                        Console.WriteLine("Du har nu tagit ut " + withdrawalAmount + " kr från ditt " +
                         user.accounts[foundWithdrawalAccount].accountName + ". Kvar på det kontot finns nu " +
                         withdrawalAccountPostTransfer + " kr.");
                         notSufficientFunds = false;
@@ -446,7 +458,54 @@ class Program
                 } while (notSufficientFunds);
                 return;
             }
-     
+
+        //Main method for depositing funds using 1 helper method
+
+        void DepositFunds(User user)
+        { 
+                TestUserPinCode(user);
+                ListAccounts(user);
+                int foundDepositAccount = SelectDepositAccount(user);
+
+                MakeDeposit(foundDepositAccount, user);
+                Console.WriteLine();
+                Console.WriteLine("Tryck enter för att komma till huvudmenyn");
+                Console.ReadLine();
+            }
+        
+
+        void MakeDeposit(int foundDepositAccount, User user)
+        {
+                Console.WriteLine("Var god ange den summa du önskar sätta in");
+            bool inCorrectInput = true;
+            decimal depositAmount = 0;
+            do
+            {
+                string? input = Console.ReadLine();
+                try
+                {
+                    depositAmount = Int32.Parse(input);
+                    inCorrectInput = false;
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Oj, du måste ha angivit en oriktig inmatning. Var vänlig ange den summa " +
+                        "du önskar sätta in");
+                }
+
+            } while (inCorrectInput);
+
+            decimal depositAccountPostTransfer =
+         user.accounts[foundDepositAccount].accountValue + depositAmount;
+
+                    Console.WriteLine("Du har nu satt in " + depositAmount + " kr på ditt " +
+                    user.accounts[foundDepositAccount].accountName + ". På det kontot finns nu " +
+                    depositAccountPostTransfer + " kr.");
+            return;
+        }
+
+
+
         //Main method for creating new accounts using 2 helper methods
 
         void CreateNewAccount(User user)
