@@ -194,13 +194,13 @@ class Program
                 switch (choice)
                 {
                     case "1":
-                        listAccounts(user);
+                        ListAccounts(user);
                         break;
                     case "2":
-                        transaction(user);
+                        TransferFunds(user);
                         break;
                     case "3":
-                        withdrawal(user);
+                        WithdrawFunds(user);
 
                         break;
                     case "E":
@@ -217,7 +217,7 @@ class Program
         }
 
 
-        void listAccounts(User user)
+        void ListAccounts(User user)
         {
             Console.WriteLine("Nedan listas alla dina konton");
 
@@ -236,21 +236,21 @@ class Program
 
 
 
-        void transaction(User user)
+        void TransferFunds(User user)
         {
-            listAccounts(user);
-            int foundWithdrawalAccount = selectWithdrawalAccount(user);
-            int foundDepositAccount = selectDepositAccount(user);
+            ListAccounts(user);
+            int foundWithdrawalAccount = SelectWithdrawalAccount(user);
+            int foundDepositAccount = SelectDepositAccount(user);
 
             Console.WriteLine("Var god ange den summa du önskar överföra");
             string? input = Console.ReadLine();
             decimal transferAmount = Int32.Parse(input);
 
-            makeTransfer(foundWithdrawalAccount, foundDepositAccount, transferAmount, user);
+            MakeTransfer(foundWithdrawalAccount, foundDepositAccount, transferAmount, user);
 
         }
 
-        void makeTransfer(int foundWithdrawalAccount, int foundDepositAccount, decimal transferAmount, User user)
+        void MakeTransfer(int foundWithdrawalAccount, int foundDepositAccount, decimal transferAmount, User user)
         {
             bool notSufficientFunds = true;
             do
@@ -281,7 +281,7 @@ class Program
         }
 
 
-        int selectWithdrawalAccount(User user)
+        int SelectWithdrawalAccount(User user)
         {
             Console.WriteLine("Var god välj ett konto mellan 1 - " + user.accounts.Length +
                 " att flytta pengar ifrån");
@@ -305,11 +305,11 @@ class Program
             } while (inCorrectInput);
 
             withdrawalAccount = -1;
-            foundWithdrawalAccount = findWithdrawalAccount(withdrawalAccount, user);
+            foundWithdrawalAccount = FindWithdrawalAccount(withdrawalAccount, user);
             return foundWithdrawalAccount;
         }
 
-        int selectDepositAccount(User user)
+        int SelectDepositAccount(User user)
         {
             Console.WriteLine("Var god välj ett konto mellan 1 - " + user.accounts.Length +
                   " att flytta pengar till");
@@ -333,12 +333,12 @@ class Program
                 }
             } while (inCorrectInput2);
             depositAccount = -1;
-            foundDepositAccount = findDepositAccount(depositAccount, user);
+            foundDepositAccount = FindDepositAccount(depositAccount, user);
             return foundDepositAccount;
         }
 
 
-        int findWithdrawalAccount(int withdrawalAccount, User user)
+        int FindWithdrawalAccount(int withdrawalAccount, User user)
         {
             int selectedWithDrawalAccount = 0;
             for (int i = 0; i < user.accounts.Length; i++)
@@ -352,7 +352,7 @@ class Program
             return selectedWithDrawalAccount;
         }
 
-        int findDepositAccount(int depositAccount, User user)
+        int FindDepositAccount(int depositAccount, User user)
         {
             int selectedDepositAccount = 0;
             for (int i = 0; i < user.accounts.Length; i++)
@@ -367,23 +367,23 @@ class Program
         }
 
 
-        void withdrawal(User user)
+        void WithdrawFunds(User user)
         {
-            testPincode(user);
-            listAccounts(user);
-            int foundWithdrawalAccount = selectWithdrawalAccount(user);
+            TestUserPinCode(user);
+            ListAccounts(user);
+            int foundWithdrawalAccount = SelectWithdrawalAccount(user);
 
             Console.WriteLine("Var god ange den summa du önskar ta ut");
             string? input = Console.ReadLine();
             decimal withdrawalAmount = Int32.Parse(input);
 
-            makeWithdrawal(foundWithdrawalAccount, withdrawalAmount, user);
+            MakeWithdrawal(foundWithdrawalAccount, withdrawalAmount, user);
             Console.WriteLine();
             Console.WriteLine("Tryck enter för att komma till huvudmenyn");
             Console.ReadLine();
         }
 
-        void testPincode(User user)
+        void TestUserPinCode(User user)
         {
             int userTries = 0;
             bool testPincode = true;
@@ -391,16 +391,15 @@ class Program
             {
                 Console.WriteLine("Var god ange din pinkod");
                 string? userPinCode = Console.ReadLine();
-                foreach (var scannedUser in users)
-                {
+              
                     if (user.pinCode.Equals(userPinCode))
                     {
                         Console.WriteLine(user.pinCode);
                         Console.WriteLine(userPinCode);
                         testPincode = false;
-                        mainMenu(user);
+                        //mainMenu(user);
                     }
-                }
+                
                 userTries++;
                 if (userTries > 1)
                 {
@@ -414,7 +413,7 @@ class Program
         return;
 
 
-        void makeWithdrawal(int foundWithdrawalAccount, decimal withdrawalAmount, User user)
+        void MakeWithdrawal(int foundWithdrawalAccount, decimal withdrawalAmount, User user)
         {
             bool notSufficientFunds = true;
             do
