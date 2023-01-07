@@ -28,7 +28,7 @@ using static BankApp2.Program;
 
 namespace BankApp2;
 class Program
-{ 
+{
 
     static void Main(string[] args)
     {
@@ -208,12 +208,12 @@ class Program
         {
             Console.WriteLine("Nedan listas alla dina konton");
 
-            for (int i = 0; i < user.accounts.Length; i++)
+            for (int i = 1; i < user.accounts.Length; i++)
             {
                 Console.Write(++i + ". " + user.accounts[i].accountName + "\t");
                 //increase with 1 to display tex 1 - 3
             }
-            for (int i = 0; i < user.accounts.Length; i++)
+            for (int i = 1; i < user.accounts.Length; i++)
             {
                 Console.Write(user.accounts[i].accountValue + "\t");
             }
@@ -235,7 +235,7 @@ class Program
             Console.ReadLine();
         }
 
-    void MakeTransfer(int foundWithdrawalAccount, int foundDepositAccount, User user)
+        void MakeTransfer(int foundWithdrawalAccount, int foundDepositAccount, User user)
         {
             bool notSufficientFunds = true;
             do
@@ -269,7 +269,7 @@ class Program
             } while (notSufficientFunds);
             return;
         }
-        
+
 
 
         int SelectWithdrawalAccount(User user)
@@ -377,14 +377,14 @@ class Program
             {
                 Console.WriteLine("Var god ange din pinkod");
                 string? userPinCode = Console.ReadLine();
-              
-                    if (user.pinCode.Equals(userPinCode))
-                    {
-                        Console.WriteLine(user.pinCode);
-                        Console.WriteLine(userPinCode);
-                        testPincode = false;
-                    }
-                
+
+                if (user.pinCode.Equals(userPinCode))
+                {
+                    Console.WriteLine(user.pinCode);
+                    Console.WriteLine(userPinCode);
+                    testPincode = false;
+                }
+
                 userTries++;
                 if (userTries > 1)
                 {
@@ -396,16 +396,16 @@ class Program
             } while (testPincode);
             return;
         }
-        
+
 
 
         void MakeWithdrawal(int foundWithdrawalAccount, User user)
         {
-                bool notSufficientFunds = true;
+            bool notSufficientFunds = true;
             decimal withdrawalAmount = 0;
-                do
-                {
-                    Console.WriteLine("Var god ange den summa du önskar ta ut");
+            do
+            {
+                Console.WriteLine("Var god ange den summa du önskar ta ut");
                 try
                 {
                     string? input = Console.ReadLine();
@@ -418,43 +418,43 @@ class Program
                         "du önskar sätta in");
                 }
 
-                    if (user.accounts[foundWithdrawalAccount].accountValue < withdrawalAmount)
-                    {
-                        throw new ArgumentOutOfRangeException(nameof(withdrawalAmount), "Det finns inte tillräckligt med pengar " +
-                            "på kontot du vill överföra ifrån");
-                    }
-                    else
-                    {
-                        decimal withdrawalAccountPostTransfer =
-             user.accounts[foundWithdrawalAccount].accountValue - withdrawalAmount;
+                if (user.accounts[foundWithdrawalAccount].accountValue < withdrawalAmount)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(withdrawalAmount), "Det finns inte tillräckligt med pengar " +
+                        "på kontot du vill överföra ifrån");
+                }
+                else
+                {
+                    decimal withdrawalAccountPostTransfer =
+         user.accounts[foundWithdrawalAccount].accountValue - withdrawalAmount;
 
-                        Console.WriteLine("Du har nu tagit ut " + withdrawalAmount + " kr från ditt " +
-                        user.accounts[foundWithdrawalAccount].accountName + ". Kvar på det kontot finns nu " +
-                        withdrawalAccountPostTransfer + " kr.");
-                        notSufficientFunds = false;
-                    }
-                } while (notSufficientFunds);
-                return;
-            }
+                    Console.WriteLine("Du har nu tagit ut " + withdrawalAmount + " kr från ditt " +
+                    user.accounts[foundWithdrawalAccount].accountName + ". Kvar på det kontot finns nu " +
+                    withdrawalAccountPostTransfer + " kr.");
+                    notSufficientFunds = false;
+                }
+            } while (notSufficientFunds);
+            return;
+        }
 
         //Main method for depositing funds using 1 helper method
 
         void DepositFunds(User user)
-        { 
-                TestUserPinCode(user);
-                ListAccounts(user);
-                int foundDepositAccount = SelectDepositAccount(user);
+        {
+            TestUserPinCode(user);
+            ListAccounts(user);
+            int foundDepositAccount = SelectDepositAccount(user);
 
-                MakeDeposit(foundDepositAccount, user);
-                Console.WriteLine();
-                Console.WriteLine("Tryck enter för att komma till huvudmenyn");
-                Console.ReadLine();
-            }
-        
+            MakeDeposit(foundDepositAccount, user);
+            Console.WriteLine();
+            Console.WriteLine("Tryck enter för att komma till huvudmenyn");
+            Console.ReadLine();
+        }
+
 
         void MakeDeposit(int foundDepositAccount, User user)
         {
-                Console.WriteLine("Var god ange den summa du önskar sätta in");
+            Console.WriteLine("Var god ange den summa du önskar sätta in");
             bool inCorrectInput = true;
             decimal depositAmount = 0;
             do
@@ -476,9 +476,9 @@ class Program
             decimal depositAccountPostTransfer =
          user.accounts[foundDepositAccount].accountValue + depositAmount;
 
-                    Console.WriteLine("Du har nu satt in " + depositAmount + " kr på ditt " +
-                    user.accounts[foundDepositAccount].accountName + ". På det kontot finns nu " +
-                    depositAccountPostTransfer + " kr.");
+            Console.WriteLine("Du har nu satt in " + depositAmount + " kr på ditt " +
+            user.accounts[foundDepositAccount].accountName + ". På det kontot finns nu " +
+            depositAccountPostTransfer + " kr.");
             return;
         }
 
@@ -523,30 +523,63 @@ class Program
             Console.ReadLine();
         }
 
-            void CreateAccountWithNameAndSumb(User user, string newAccountName, decimal depositAmount)
-            {
-                
+        void CreateAccountWithNameAndSumb(User user, string newAccountName, decimal depositAmount)
+        {
+
             user.accounts = new Account[]
             {
             new Account(newAccountName, depositAmount)
             };
-                return;
-            }
+            return;
+        }
 
 
-            void CreateAccountWithName(User user, string newAccountName)
+        void CreateAccountWithName(User user, string newAccountName)
+        {
+
+            user.accounts = new Account[]
             {
-
-                user.accounts = new Account[]
-                {
             new Account(newAccountName)
-                };
-                return;
-            }
+            };
+            return;
+        }
 
+        void TransferFundsToDifferentUser(User user)
+        {
+            TestUserPinCode(user);
+            ListAccounts(user);
+            int foundWithdrawalAccount = SelectWithdrawalAccount(user);
+            User recieverUser = null;
+            Account recieverAccount = null;
+            Console.WriteLine("Var god välj vilken av följande användare du vill flytta pengar till");
+            for (int i = 0; i < users.Length; i++)
+            {
+                Console.WriteLine(user.name[i]);
+            }
+            Console.WriteLine();
+            string? userChioce = Console.ReadLine();
+            for (int i = 0; i < users.Length; i++)
+            {
+                if (user.name[i].Equals(userChioce))
+                {
+                    recieverUser = user;  //Det ska bli recieverUser
+                }
+            }
+            Console.WriteLine("Här är " + recieverUser.name + "s konton, vilket skulle du vilja överföra till?");
+            string? accountChioce = Console.ReadLine();
+            for (int i = 0; i < recieverUser.accounts.Length; i++)
+            {
+                if (recieverUser.accounts[i].accountName.Equals(accountChioce))
+                {
+                    recieverAccount = ;   //ska bli reciever account
+                }
+                    }
         }
     }
+            
 
+            //user.accounts[i].accountName
+  
 
     public class Account
     {
@@ -590,8 +623,12 @@ class Program
 
     public class User
     {
-        
-        public string name
+        public string name { get; set; }
+        public string userName { get; set; }
+        public string pinCode { get; set; }
+        public Array Account { get; set; }
+
+        /*public string name
         {
         get
         {
@@ -633,7 +670,7 @@ class Program
         set
             {
                 accounts = value;
-            }
+            }*/
         }
     }
 
