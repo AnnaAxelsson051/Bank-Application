@@ -15,7 +15,7 @@ using static BankApp2.Program;
 //the file to match the class: InterestEarningAccount.cs, LineOfCreditAccount.cs, and GiftCardAccount.cs.
 
 //Lägg till funktionalitet så att användaren kan öppna nya konton. 
-//TODO Lägg till så att användaren kan sätta in pengar —lätt
+//Lägg till så att användaren kan sätta in pengar —lätt
 //TODO Gör så att olika konton har olika valuta, inklusive att valuta omvandlas när pengar flyttas mellan dem. 
 //TODO Lägg till så att användare kan flytta pengar sinsemellan, dvs mellan olika användare
 
@@ -164,7 +164,10 @@ class Program
                 Console.WriteLine();
                 Console.WriteLine("1 Se konton och saldon");
                 Console.WriteLine("2 Överföringar");
-                Console.WriteLine("3 Ta ut pengar");
+                Console.WriteLine("3 Överföringar till annan användare");
+                Console.WriteLine("4 Ta ut pengar");
+                Console.WriteLine("5 Sätta in pengar pengar");
+                Console.WriteLine("6 Skapa nytt konto");
                 Console.WriteLine("E Exit");
                 string? choice = Console.ReadLine().ToUpper();
                 switch (choice)
@@ -176,12 +179,15 @@ class Program
                         TransferFunds(user);
                         break;
                     case "3":
-                        WithdrawFunds(user);
+                        TransferFundsToDifferentUser(user);
                         break;
                     case "4":
-                        DepositFunds(user);
+                        WithdrawFunds(user);
                         break;
                     case "5":
+                        DepositFunds(user);
+                        break;
+                    case "6":
                         CreateNewAccount(user);
                         break;
                     case "E":
@@ -190,7 +196,7 @@ class Program
                         logInMenu();
                         break;
                     default:
-                        Console.WriteLine("Ogiltigt val. Var god ange antingen val 1-4 eller E och tryck enter");
+                        Console.WriteLine("Ogiltigt val. Var god ange antingen val 1-6 eller E och tryck enter");
                         break;
 
                 }
@@ -587,44 +593,44 @@ class Program
         
         public string name
         {
-            get
-            {
-                return name;
-            }
-            set
+        get
+        {
+            return name;
+        }
+        set
             {
                 this.name = name;
             }
         }
         public string userName
         {
-            get
-            {
-                return userName;
-            }
-            set
+        get
+        {
+            return userName;
+        }
+        set
             {
                 this.userName = userName;
             }
         }
         public string pinCode
         {
-            get
-            {
-                return pinCode;
-            }
-            set
+        get
+        {
+            return pinCode;
+        }
+        set
             {
                 this.pinCode = pinCode;
             }
         }
         public Account[] accounts
         {
-            get
-            {
-                return accounts;
-            }
-            set
+        get
+        {
+            return accounts;
+        }
+        set
             {
                 accounts = value;
             }
