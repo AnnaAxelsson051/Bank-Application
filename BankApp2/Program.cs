@@ -561,7 +561,7 @@ class Program
             Console.WriteLine("Var god välj vilken av följande användare du vill flytta pengar till");
             for (int i = 0; i < users.Length; i++)
             {
-                Console.WriteLine(++i + ". " + user.name[i]);
+                Console.WriteLine(++i + ". " + users[i].name);
             }
             Console.WriteLine();
             Console.WriteLine("Gör ditt val genom att skriva in en siffra mellan 1 - " + users.Length);
