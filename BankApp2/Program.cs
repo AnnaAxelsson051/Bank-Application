@@ -117,9 +117,6 @@ class Program
         };
 
 
-
-
-
         logInMenu();
 
         void logInMenu()
@@ -141,7 +138,7 @@ class Program
                         //Console.WriteLine(user.userName);
                         //Console.WriteLine(user.pinCode);
                         logInMenu = false;
-                        mainMenu(user);
+                        MainMenu(user);
                     }
                 }
                 userTries++;
@@ -156,7 +153,67 @@ class Program
 
         }
 
-        void mainMenu(User user)
+        /*
+        LogInMenu();
+
+        void LogInMenu()
+        {
+            Console.WriteLine("---------- Log in ----------");
+            Console.WriteLine("Välkommen till login sidan");
+            Console.WriteLine("Var god ange ditt användarnamn");
+            bool inCorrectUserName = true;
+            //while (logInMenu) {  
+            do
+            {
+                string? userName = Console.ReadLine();
+                foreach (var user in users)
+                {
+                    if (user.userName.Equals(userName))
+                    {
+                        Console.WriteLine("Välkommen " + userName);
+                        inCorrectUserName = false;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Du måste ha angett ett användarnamn som inte finns, var god försök igen");
+                    }
+                }
+            } while (inCorrectUserName);
+            Console.WriteLine("Var god ange din pinkod");
+            string? userPinCode = Console.ReadLine();
+            bool inCorrectPinCode = true;
+            int userTries = 0;
+            do
+            {
+                foreach (var user in users)
+                {
+                    if (user.pinCode.Equals(userPinCode))
+                    {
+                        Console.WriteLine(user.pinCode);
+                        inCorrectPinCode = false;
+                        MainMenu(user);
+                    }
+                    if (userTries < 3)
+                    {
+                        Console.WriteLine("Du har angett fel pinkod var god försök igen");
+                        userTries++;
+                    }
+                    if (userTries > 1)
+                    {
+                        Console.WriteLine("Du har angett fel pinkod tre gånger, programmet stängs av");
+                        Thread.Sleep(3000);
+                        Environment.Exit(0);
+                        //Console.WriteLine("Sleep for 3 minutes");
+                        //Thread.Sleep(180000); 
+
+                    }
+                }
+            } while (inCorrectPinCode);
+        }
+        */
+
+
+            void MainMenu(User user)
         {
             Console.WriteLine("---------- Huvudmeny ----------");
             Console.WriteLine("Välkommen till huvudmenyn");
@@ -209,36 +266,58 @@ class Program
 
         void ListAccounts(User user)
         {
-            Console.WriteLine("Nedan listas alla dina konton");
+                Console.WriteLine("Nedan listas alla dina konton");
+                int counter = 1;
+                for (int i = 0; i < user.accounts.Length; i++)
+                {
+                    if (user.accounts[i].accountName.Equals("Resekonto"))
+                    {
+                        Console.Write(counter + ". " + user.accounts[i].accountName + "\n");
+                        Console.Write(user.accounts[i].accountValue + " euro\n");
+                    }
+                    else
+                    {
+                        Console.Write(counter + ". " + user.accounts[i].accountName + "\n");
+                        Console.Write(user.accounts[i].accountValue + " kr\n");
+                    }
+                    counter++;
+                }
+            Console.WriteLine();
+            Console.WriteLine("Tryck enter för att komma till huvudmenyn");
+            Console.ReadLine();
+        }
+            /*Console.WriteLine("Nedan listas alla dina konton");
             int counter = 1;
-            for (int i = 1; i < user.accounts.Length; i++)
+            for (int i = 0; i < user.accounts.Length; i++)
             {
                 Console.Write(counter + ". " + user.accounts[i].accountName + "\t");
                 //increase with 1 to display tex 1 - 3
                 counter++;
             }
-            for (int i = 1; i < user.accounts.Length; i++)
+            for (int i = 0; i < user.accounts.Length; i++)
             {
                 Console.Write(user.accounts[i].accountValue + "\t");
             }
-            Console.WriteLine();
-            Console.WriteLine("Tryck enter för att komma till huvudmenyn");
-            Console.WriteLine();
-        }
+            
+        }*/
 
-        void ListAccountsForTransfer(User user)
+            void ListAccountsForTransfer(User user)
         {
             Console.WriteLine("Nedan listas alla dina konton");
             int counter = 1;
-            for (int i = 1; i < user.accounts.Length; i++)
+            for (int i = 0; i < user.accounts.Length; i++)
             {
-                Console.Write(counter + ". " + user.accounts[i].accountName + "\t");
-                //increase with 1 to display tex 1 - 3
+                if (user.accounts[i].accountName.Equals("Resekonto"))
+                {
+                    Console.Write(counter + ". " + user.accounts[i].accountName + "\n");
+                    Console.Write(user.accounts[i].accountValue + " euro\n");
+                }
+                else
+                {
+                    Console.Write(counter + ". " + user.accounts[i].accountName + "\n");
+                    Console.Write(user.accounts[i].accountValue + " kr\n");
+                }
                 counter++;
-            }
-            for (int i = 1; i < user.accounts.Length; i++)
-            {
-                Console.Write(user.accounts[i].accountValue + "\t");
             }
         }
 
