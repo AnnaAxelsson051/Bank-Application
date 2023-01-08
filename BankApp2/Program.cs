@@ -23,6 +23,7 @@ using static BankApp2.Program;
 
 //Lägg till så att om användaren skriver fel pinkod tre gånger stängs inloggning för den
 //användaren av i tre minuter istället för att programmet måste starta om.
+//TODO check user input ska alla anv den?
 
 ////TODO Lägg till så att saldon för alla konton för alla användare sparas mellan körningarna av programmet så att saldon inte återställs. —spara i fil
 
@@ -334,31 +335,13 @@ class Program
 
         void MakeTransfer(int foundWithdrawalAccount, int foundDepositAccount, User user)
         {
-            bool notSufficientFunds = true;
-            do
-            {
-                decimal transferAmount = 0;
-                try
-                {
-                    Console.WriteLine("Var god ange den summa du önskar överföra");
-                    string? input = Console.ReadLine();
-                    transferAmount = decimal.Parse(input);
-                }
-                catch (FormatException)
-                {
-                    Console.WriteLine("Oj, du måste ha gjort en oriktig inmatning. Var vänlig försök igen. " +
-                        "Ange den summa du vill överföra");
-                }
-
+                decimal transferAmount = CheckUserInput();   
+            
                 bool withdrawalAccountIsTravelAccount = CheckIfTravelAccount(foundWithdrawalAccount, user);
                 bool depositAccountIsTravelAccount = CheckIfTravelAccount(foundDepositAccount, user);
 
-                //string depositAccountCurrency = SetPrintOutCurrencies(withdrawalAccountIsTravelAccount, transferAmount, withdrawalAccountIsTravelAccount, depositAccountIsTravelAccount);
-                //string withdrawalAccountCurrency = SetPrintOutCurrencies(depositAccountIsTravelAccount, transferAmount, withdrawalAccountIsTravelAccount, depositAccountIsTravelAccount);
-
                 string depositAccountCurrency = "";
                 string withdrawalAccountCurrency = "";
-
                 if (withdrawalAccountIsTravelAccount && !depositAccountIsTravelAccount)
                 {
                     transferAmount *= (decimal)11.20;
@@ -371,7 +354,19 @@ class Program
                     withdrawalAccountCurrency = " kr";
                     depositAccountCurrency = " euro";
                 }
-
+                if (depositAccountIsTravelAccount && withdrawalAccountIsTravelAccount)
+                {
+                    withdrawalAccountCurrency = " euro";
+                    depositAccountCurrency = " euro";
+                }
+                if (!depositAccountIsTravelAccount && !withdrawalAccountIsTravelAccount)
+                {
+                    withdrawalAccountCurrency = " kr";
+                    depositAccountCurrency = " kr";
+                }
+            bool notSufficientFunds = true;
+            do
+            {
                 if (user.accounts[foundWithdrawalAccount].accountValue < transferAmount)
                 {
                     throw new ArgumentOutOfRangeException(nameof(transferAmount), "Det finns inte tillräckligt med pengar " +
@@ -394,6 +389,27 @@ class Program
                 }
             } while (notSufficientFunds);
             return;
+        }
+
+        decimal CheckUserInput()
+        {
+            decimal transferAmount = 0;
+            bool invalidTransferAmount = true;
+            do
+            {
+                try
+                {
+                    Console.WriteLine("Var god ange den summa du önskar överföra");
+                    string? input = Console.ReadLine();
+                    transferAmount = decimal.Parse(input);
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Oj, du måste ha gjort en oriktig inmatning. Var vänlig försök igen. " +
+                        "Ange den summa du vill överföra");
+                }
+            } while (invalidTransferAmount);
+            return transferAmount;
         }
 
         bool CheckIfTravelAccount(int account, User user)
