@@ -558,45 +558,13 @@ class Program
             int selectedAccountIndex = 0;
             int receiverUser = 0;
             int receiverUserAccount = 0;
-            Console.WriteLine("Var god välj vilken av följande användare du vill flytta pengar till");
-            for (int i = 0; i < users.Length; i++)
-            {
-                Console.WriteLine(++i + ". " + users[i].name);
-            }
-            Console.WriteLine();
-            Console.WriteLine("Gör ditt val genom att skriva in en siffra mellan 1 - " + users.Length);
-            string? input = Console.ReadLine();
-            int selectedUserIndex = Int32.Parse(input);    //välja mottagare
-            selectedUserIndex -= 1;
-            for (int i = 0; i < users.Length; i++)    //Hitta mottagare
-            {
-                if (selectedUserIndex == i)
-                {
-                    receiverUser = i;
-                    Console.WriteLine("Du har valt att föra över pengar till ett av " + users[receiverUser].name + "s konton");
-                    Console.WriteLine("Var god välj vilket av " + users[receiverUser].name + "s konton du vill flytta pengar till");
-                }
-            }
-                    for (int i = 0; i < users.Length; i++)              //lista mottagarens konton
-                    {
-                        Console.WriteLine(++i + ". " + users[receiverUser].accounts);
-                    }
-                    string? input2 = Console.ReadLine();
-                    selectedAccountIndex = Int32.Parse(input2);      //Välj mottagares konto
-                    selectedAccountIndex -= 1;
-                    for (int i = 0; i < users[receiverUser].accounts.Length; i++)
-                    {
-                        if (selectedAccountIndex == i)                  //hitta mottagares konto
-                        {
-                            Console.WriteLine("Du har valt att föra över pengar till " + users[receiverUser].name
-                                + "s " + users[receiverUser].accounts[receiverUserAccount].accountName + "s konton"); //vill skriva kontonamnet
-                            receiverUserAccount = i;
-                        }
-                    }
+            int receiverUserSelected = SelectReceiverUser();
+            int receiverUserAccountSelected = SelectReceiverUserAccount(receiverUserSelected);
 
-                    //make transfer
 
-                 bool notSufficientFunds = true;
+            //make transfer
+
+            bool notSufficientFunds = true;
             do
             {
                 Console.WriteLine("Var god ange den summa du önskar överföra");
@@ -628,10 +596,57 @@ class Program
             } while (notSufficientFunds);
 
         }
+
+
+        int SelectReceiverUser()
+        {
+            int receiverUser = 0;
+            Console.WriteLine("Var god välj vilken av följande användare du vill flytta pengar till");
+            for (int i = 0; i < users.Length; i++)
+            {
+                Console.WriteLine(++i + ". " + users[i].name);
+            }
+            Console.WriteLine();
+            Console.WriteLine("Gör ditt val genom att skriva in en siffra mellan 1 - " + users.Length);
+            string? input = Console.ReadLine();
+            int selectedUserIndex = Int32.Parse(input);    //välja mottagare
+            selectedUserIndex -= 1;
+            for (int i = 0; i < users.Length; i++)    //Hitta mottagare
+            {
+                if (selectedUserIndex == i)
+                {
+                    receiverUser = i;
+                }
+            }
+            return receiverUser;
+        }
+
+        int SelectReceiverUserAccount(int receiverUserSelected)
+        {
+            int receiverAccount = 0;
+            Console.WriteLine("Du har valt att föra över pengar till ett av " + users[receiverUserSelected].name + "s konton");
+            Console.WriteLine("Var god välj vilket av " + users[receiverUserSelected].name + "s konton du vill flytta " +
+                "pengar till");
+            for (int i = 0; i < users.Length; i++)              
+            {
+                Console.WriteLine(++i + ". " + users[receiverUserSelected].accounts);
+            }
+            string? input2 = Console.ReadLine();
+            int selectedReceiverAccount = Int32.Parse(input2);      
+            selectedReceiverAccount -= 1;
+            for (int i = 0; i < users[receiverUserSelected].accounts.Length; i++)
+            {
+                if (selectedReceiverAccount == i)                 
+                {
+                    receiverAccount = i;
+                    Console.WriteLine("Du har valt att föra över pengar till " + users[receiverUserSelected].name
+                        + "s " + users[receiverUserSelected].accounts[receiverAccount].accountName + "s konton"); 
+                }
+            }
+            return receiverAccount;
+        }
     }
-
-
-    //user.accounts[i].accountName
+    
 
 
     public class Account
