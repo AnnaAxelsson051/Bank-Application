@@ -241,9 +241,17 @@ class Program
             bool notSufficientFunds = true;
             do
             {
-                Console.WriteLine("Var god ange den summa du önskar överföra");
-                string? input = Console.ReadLine();
-                decimal transferAmount = Int32.Parse(input);
+                decimal transferAmount = 0;
+                try
+                {
+                    Console.WriteLine("Var god ange den summa du önskar överföra");
+                    string? input = Console.ReadLine();
+                    transferAmount = decimal.Parse(input);
+                }catch (FormatException)
+                {
+                    Console.WriteLine("Oj, du måste ha gjort en oriktig inmatning. Var vänlig försök igen. " +
+                        "Ange den summa du vill överföra");
+                }
 
                 if (user.accounts[foundWithdrawalAccount].accountValue < transferAmount)
                 {
@@ -252,9 +260,7 @@ class Program
                 }
                 else
                 {
-                    //decimal depositAccountPostTransfer =
          user.accounts[foundDepositAccount].accountValue += transferAmount;
-                   // decimal withdrawalAccountPostTransfer =
          user.accounts[foundWithdrawalAccount].accountValue -= transferAmount;
 
                     Console.WriteLine("Du har nu överfört " + transferAmount + " kr från ditt " +
