@@ -544,31 +544,31 @@ class Program
             return;
         }
 
-        //   user.account[index1](vilket konto vi tar från)
-        //user[index2].accounts[index3]
-        //(index2 = mottagarUser, index3 = mottagarkonto)
-
 
         void TransferFundsToDifferentUser(User user)
         {
             TestUserPinCode(user);
             ListAccounts(user);
             int foundWithdrawalAccount = SelectWithdrawalAccount(user);
-
-            int selectedAccountIndex = 0;
-            int receiverUser = 0;
-            int receiverUserAccount = 0;
             int receiverUserSelected = SelectReceiverUser();
             int receiverUserAccountSelected = SelectReceiverUserAccount(receiverUserSelected);
 
+            MakeTransferOfFundsToDifferentUser(foundWithdrawalAccount, receiverUserSelected,
+                receiverUserAccountSelected, user);
 
-            //make transfer
+            Console.WriteLine();
+            Console.WriteLine("Tryck enter för att komma till huvudmenyn");
+            Console.ReadLine();
+        }
 
-            bool notSufficientFunds = true;
+        void MakeTransferOfFundsToDifferentUser(int foundWithdrawalAccount, int receiverUserSelected,
+            int receiverUserAccountSelected, User user)
+        { 
+           bool notSufficientFunds = true;
             do
             {
                 Console.WriteLine("Var god ange den summa du önskar överföra");
-                string? input3 = Console.ReadLine();
+                string? input = Console.ReadLine();
                 decimal transferAmount = Int32.Parse(input);
 
                 if (user.accounts[foundWithdrawalAccount].accountValue < transferAmount)
@@ -579,22 +579,19 @@ class Program
                 else
                 {
                     decimal depositAccountPostTransfer =
-         users[receiverUser].accounts[receiverUserAccount].accountValue + transferAmount;
+         users[receiverUserSelected].accounts[receiverUserAccountSelected].accountValue + transferAmount;
                     decimal withdrawalAccountPostTransfer =
          user.accounts[foundWithdrawalAccount].accountValue - transferAmount;
 
                     Console.WriteLine("Du har nu överfört " + transferAmount + " kr från ditt " +
                     user.accounts[foundWithdrawalAccount].accountName + ". Kvar på det kontot finns nu " +
                     withdrawalAccountPostTransfer + " kr. Och på " +
-                    users[receiverUser].name + "s " + users[receiverUser].accounts[receiverUserAccount].accountName +
+                    users[receiverUserSelected].name + "s " + users[receiverUserSelected].accounts[receiverUserAccountSelected].accountName +
                     " finns nu " + depositAccountPostTransfer + " kr.");
-                    Console.WriteLine();
-                    Console.WriteLine("Tryck enter för att komma till huvudmenyn");
-                    Console.ReadLine();
                     notSufficientFunds = false;
                 }
             } while (notSufficientFunds);
-
+            return;
         }
 
 
