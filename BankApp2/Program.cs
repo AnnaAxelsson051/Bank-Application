@@ -7,7 +7,7 @@ using System.Threading;
 //using Internal;
 using static BankApp2.Program;
 
-//TODO Change getters and setters to private?
+//TODOChange getters and setters to private? 
 
 //TODO It's a good practice to create each new class in a different source file. In Visual Studio,
 //you can right-click on the project, and select add class to add a new class in a new file.
@@ -17,7 +17,7 @@ using static BankApp2.Program;
 //Lägg till funktionalitet så att användaren kan öppna nya konton. 
 //Lägg till så att användaren kan sätta in pengar —lätt
 //TODO Gör så att olika konton har olika valuta, inklusive att valuta omvandlas när pengar flyttas mellan dem. 
-//TODO Lägg till så att användare kan flytta pengar sinsemellan, dvs mellan olika användare
+//Lägg till så att användare kan flytta pengar sinsemellan, dvs mellan olika användare
 
 //Lägg till så att om användaren skriver fel pinkod tre gånger stängs inloggning för den
 //användaren av i tre minuter istället för att programmet måste starta om.
@@ -60,7 +60,7 @@ class Program
         {
             new Account("Lönekonto", 100),
             new Account("Sparkonto", 200),
-            new Account("Resekonto", 300)
+            new Account("Resekonto", 300)      //with euros?
         }
         },
 
@@ -223,6 +223,7 @@ class Program
         }
 
         //Main method for fund transfer using 3 helper methods
+
         void TransferFunds(User user)
         {
             ListAccounts(user);
@@ -251,16 +252,16 @@ class Program
                 }
                 else
                 {
-                    decimal depositAccountPostTransfer =
-         user.accounts[foundWithdrawalAccount].accountValue + transferAmount;
-                    decimal withdrawalAccountPostTransfer =
-         user.accounts[foundWithdrawalAccount].accountValue - transferAmount;
+                    //decimal depositAccountPostTransfer =
+         user.accounts[foundDepositAccount].accountValue += transferAmount;
+                   // decimal withdrawalAccountPostTransfer =
+         user.accounts[foundWithdrawalAccount].accountValue -= transferAmount;
 
                     Console.WriteLine("Du har nu överfört " + transferAmount + " kr från ditt " +
                     user.accounts[foundWithdrawalAccount].accountName + ". Kvar på det kontot finns nu " +
-                    withdrawalAccountPostTransfer + " kr. Och på ditt " +
+                    user.accounts[foundWithdrawalAccount].accountValue + " kr. Och på ditt " +
                     user.accounts[foundDepositAccount].accountName + " finns nu " +
-                    depositAccountPostTransfer + " kr.");
+                    user.accounts[foundDepositAccount].accountValue + " kr.");
                     Console.WriteLine();
                     Console.WriteLine("Tryck enter för att komma till huvudmenyn");
                     Console.ReadLine();
@@ -586,7 +587,7 @@ class Program
                     Console.WriteLine("Du har nu överfört " + transferAmount + " kr från ditt " +
                     user.accounts[foundWithdrawalAccount].accountName + ". Kvar på det kontot finns nu " +
                     withdrawalAccountPostTransfer + " kr. Och på " +
-                    users[receiverUserSelected].name + "s " + users[receiverUserSelected].accounts[receiverUserAccountSelected].accountName +
+                    users[receiverUserSelected ].name + "s " + users[receiverUserSelected].accounts[receiverUserAccountSelected].accountName +
                     " finns nu " + depositAccountPostTransfer + " kr.");
                     notSufficientFunds = false;
                 }
