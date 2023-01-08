@@ -14,6 +14,8 @@ using static BankApp2.Program;
 //In Visual Studio Code, select File then New to create a new source file. In either tool, name
 //the file to match the class: InterestEarningAccount.cs, LineOfCreditAccount.cs, and GiftCardAccount.cs.
 
+//TODO make it so that users own accounts are not listed when selecting other user to 
+
 //Lägg till funktionalitet så att användaren kan öppna nya konton. 
 //Lägg till så att användaren kan sätta in pengar —lätt
 //TODO Gör så att olika konton har olika valuta, inklusive att valuta omvandlas när pengar flyttas mellan dem. 
@@ -348,6 +350,28 @@ class Program
                         "Ange den summa du vill överföra");
                 }
 
+                bool withdrawalAccountIsTravelAccount = CheckIfTravelAccount(foundWithdrawalAccount, user);
+                bool depositAccountIsTravelAccount = CheckIfTravelAccount(foundDepositAccount, user);
+
+                //string depositAccountCurrency = SetPrintOutCurrencies(withdrawalAccountIsTravelAccount, transferAmount, withdrawalAccountIsTravelAccount, depositAccountIsTravelAccount);
+                //string withdrawalAccountCurrency = SetPrintOutCurrencies(depositAccountIsTravelAccount, transferAmount, withdrawalAccountIsTravelAccount, depositAccountIsTravelAccount);
+
+                string depositAccountCurrency = "";
+                string withdrawalAccountCurrency = "";
+
+                if (withdrawalAccountIsTravelAccount && !depositAccountIsTravelAccount)
+                {
+                    transferAmount *= (decimal)11.20;
+                    withdrawalAccountCurrency = " euro";
+                    depositAccountCurrency = " kr";
+                }
+                if (depositAccountIsTravelAccount && !withdrawalAccountIsTravelAccount)
+                {
+                    transferAmount /= (decimal)11.20;
+                    withdrawalAccountCurrency = " kr";
+                    depositAccountCurrency = " euro";
+                }
+
                 if (user.accounts[foundWithdrawalAccount].accountValue < transferAmount)
                 {
                     throw new ArgumentOutOfRangeException(nameof(transferAmount), "Det finns inte tillräckligt med pengar " +
@@ -358,11 +382,11 @@ class Program
                     user.accounts[foundDepositAccount].accountValue += transferAmount;
                     user.accounts[foundWithdrawalAccount].accountValue -= transferAmount;
 
-                    Console.WriteLine("Du har nu överfört " + transferAmount + " kr från ditt " +
+                    Console.WriteLine("Du har nu överfört " + transferAmount + withdrawalAccountCurrency + " från ditt " +
                     user.accounts[foundWithdrawalAccount].accountName + ". Kvar på det kontot finns nu " +
-                    user.accounts[foundWithdrawalAccount].accountValue + " kr. Och på ditt " +
+                    user.accounts[foundWithdrawalAccount].accountValue + withdrawalAccountCurrency + " Och på ditt " +
                     user.accounts[foundDepositAccount].accountName + " finns nu " +
-                    user.accounts[foundDepositAccount].accountValue + " kr.");
+                    user.accounts[foundDepositAccount].accountValue + depositAccountCurrency);
                     Console.WriteLine();
                     Console.WriteLine("Tryck enter för att komma till huvudmenyn");
                     Console.ReadLine();
@@ -371,6 +395,25 @@ class Program
             } while (notSufficientFunds);
             return;
         }
+
+        bool CheckIfTravelAccount(int account, User user)
+        {
+            bool travelAccount = false;
+            for (int i = 0; i < user.accounts.Length; i++)
+            {
+                if (user.accounts[account].accountName.Equals("Resekonto"))
+                {
+                    travelAccount = true;
+                }
+                else
+                {
+                    travelAccount = false;
+                }
+            }
+            return travelAccount;
+        }
+
+        
 
         /******** Withdrawal Section **********/
 
