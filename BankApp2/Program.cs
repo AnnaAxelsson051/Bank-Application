@@ -222,6 +222,8 @@ class Program
             Console.ReadLine();
         }
 
+        /****** Tansfer Section *******/
+
         //Main method for fund transfer using 3 helper methods
 
         void TransferFunds(User user)
@@ -236,48 +238,7 @@ class Program
             Console.ReadLine();
         }
 
-        void MakeTransfer(int foundWithdrawalAccount, int foundDepositAccount, User user)
-        {
-            bool notSufficientFunds = true;
-            do
-            {
-                decimal transferAmount = 0;
-                try
-                {
-                    Console.WriteLine("Var god ange den summa du önskar överföra");
-                    string? input = Console.ReadLine();
-                    transferAmount = decimal.Parse(input);
-                }catch (FormatException)
-                {
-                    Console.WriteLine("Oj, du måste ha gjort en oriktig inmatning. Var vänlig försök igen. " +
-                        "Ange den summa du vill överföra");
-                }
-
-                if (user.accounts[foundWithdrawalAccount].accountValue < transferAmount)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(transferAmount), "Det finns inte tillräckligt med pengar " +
-                        "på kontot du vill överföra ifrån");
-                }
-                else
-                {
-         user.accounts[foundDepositAccount].accountValue += transferAmount;
-         user.accounts[foundWithdrawalAccount].accountValue -= transferAmount;
-
-                    Console.WriteLine("Du har nu överfört " + transferAmount + " kr från ditt " +
-                    user.accounts[foundWithdrawalAccount].accountName + ". Kvar på det kontot finns nu " +
-                    user.accounts[foundWithdrawalAccount].accountValue + " kr. Och på ditt " +
-                    user.accounts[foundDepositAccount].accountName + " finns nu " +
-                    user.accounts[foundDepositAccount].accountValue + " kr.");
-                    Console.WriteLine();
-                    Console.WriteLine("Tryck enter för att komma till huvudmenyn");
-                    Console.ReadLine();
-                    notSufficientFunds = false;
-                }
-            } while (notSufficientFunds);
-            return;
-        }
-
-
+        //Enables user to select index for withdrawal account using 1 helper method:
 
         int SelectWithdrawalAccount(User user)
         {
@@ -307,6 +268,24 @@ class Program
             return foundWithdrawalAccount;
         }
 
+        //Loops to find the withdrawal account from the accounts array:
+
+        int FindWithdrawalAccount(int withdrawalAccount, User user)
+        {
+            int selectedWithDrawalAccount = 0;
+            for (int i = 0; i < user.accounts.Length; i++)
+            {
+                if (withdrawalAccount == i)
+                {
+                    Console.WriteLine("Du har angett kontot " + user.accounts[i].accountName);
+                    selectedWithDrawalAccount = i;
+                }
+            }
+            return selectedWithDrawalAccount;
+        }
+
+        //Enables user to select index for withdrawal account using 1 helper method:
+
         int SelectDepositAccount(User user)
         {
             Console.WriteLine("Var god välj ett konto mellan 1 - " + user.accounts.Length +
@@ -333,20 +312,7 @@ class Program
             return foundDepositAccount;
         }
 
-
-        int FindWithdrawalAccount(int withdrawalAccount, User user)
-        {
-            int selectedWithDrawalAccount = 0;
-            for (int i = 0; i < user.accounts.Length; i++)
-            {
-                if (withdrawalAccount == i)
-                {
-                    Console.WriteLine("Du har angett kontot " + user.accounts[i].accountName);
-                    selectedWithDrawalAccount = i;
-                }
-            }
-            return selectedWithDrawalAccount;
-        }
+        //Loops to find the deposit account from the accounts array:
 
         int FindDepositAccount(int depositAccount, User user)
         {
@@ -362,6 +328,52 @@ class Program
             return selectedDepositAccount;
         }
 
+        //Makes the actual transfer of funds:
+
+        void MakeTransfer(int foundWithdrawalAccount, int foundDepositAccount, User user)
+        {
+            bool notSufficientFunds = true;
+            do
+            {
+                decimal transferAmount = 0;
+                try
+                {
+                    Console.WriteLine("Var god ange den summa du önskar överföra");
+                    string? input = Console.ReadLine();
+                    transferAmount = decimal.Parse(input);
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Oj, du måste ha gjort en oriktig inmatning. Var vänlig försök igen. " +
+                        "Ange den summa du vill överföra");
+                }
+
+                if (user.accounts[foundWithdrawalAccount].accountValue < transferAmount)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(transferAmount), "Det finns inte tillräckligt med pengar " +
+                        "på kontot du vill överföra ifrån");
+                }
+                else
+                {
+                    user.accounts[foundDepositAccount].accountValue += transferAmount;
+                    user.accounts[foundWithdrawalAccount].accountValue -= transferAmount;
+
+                    Console.WriteLine("Du har nu överfört " + transferAmount + " kr från ditt " +
+                    user.accounts[foundWithdrawalAccount].accountName + ". Kvar på det kontot finns nu " +
+                    user.accounts[foundWithdrawalAccount].accountValue + " kr. Och på ditt " +
+                    user.accounts[foundDepositAccount].accountName + " finns nu " +
+                    user.accounts[foundDepositAccount].accountValue + " kr.");
+                    Console.WriteLine();
+                    Console.WriteLine("Tryck enter för att komma till huvudmenyn");
+                    Console.ReadLine();
+                    notSufficientFunds = false;
+                }
+            } while (notSufficientFunds);
+            return;
+        }
+
+        /******** Withdrawal Section **********/
+
         //Main method for withdrawing funds using 3 helper methods
 
         void WithdrawFunds(User user)
@@ -371,6 +383,7 @@ class Program
             int foundWithdrawalAccount = SelectWithdrawalAccount(user);
 
             MakeWithdrawal(foundWithdrawalAccount, user);
+
             Console.WriteLine();
             Console.WriteLine("Tryck enter för att komma till huvudmenyn");
             Console.ReadLine();
@@ -413,16 +426,16 @@ class Program
             do
             {
                 Console.WriteLine("Var god ange den summa du önskar ta ut");
+                string? input = Console.ReadLine();
                 try
                 {
-                    string? input = Console.ReadLine();
                     withdrawalAmount = Int32.Parse(input);
                     notSufficientFunds = false;
                 }
                 catch (FormatException)
                 {
                     Console.WriteLine("Oj, du måste ha angivit en oriktig inmatning. Var vänlig ange den summa " +
-                        "du önskar sätta in");
+                        "du önskar ta ut");
                 }
 
                 if (user.accounts[foundWithdrawalAccount].accountValue < withdrawalAmount)
@@ -443,6 +456,8 @@ class Program
             } while (notSufficientFunds);
             return;
         }
+
+        /******* Deposit Section ********/
 
         //Main method for depositing funds using 1 helper method
 
@@ -489,7 +504,7 @@ class Program
             return;
         }
 
-
+        /********* Create Accounts Section ***********/
 
         //Main method for creating new accounts using 2 helper methods
 
@@ -497,33 +512,46 @@ class Program
         {
             Console.WriteLine("Vad god ange namnet på det nya konto du vill skapa");
             string? newAccountName = Console.ReadLine();
-            Console.WriteLine("Vill du sätta in en summa på kontot? Ja/Nej");
-            string? input = Console.ReadLine();
+            string userChoice = "";
+            Console.WriteLine("Vill du sätta in en summa på kontot? Var god ange svar som Ja/Nej");
+            bool nonValidInput = true;
+            do {
+                try
+                {
+                    userChoice = Console.ReadLine();
+                    nonValidInput = false;
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Oj, du måste ha angivit en oriktig inmatning. Var vänlig ange Ja/Nej");
+                }
+             }while (nonValidInput);
+
             bool nonsuccessfulDeposit = true;
-            if (input.Equals("Ja"))
+            if (userChoice.Equals("Ja"))
             {
                 do
                 {
                     Console.WriteLine("Hur mycket vill du sätta in?");
+                    string? inputAmount = Console.ReadLine();
                     try
                     {
-                        string? inputAmount = Console.ReadLine();
-                        decimal depositAmount = Int32.Parse(inputAmount);
-                        nonsuccessfulDeposit = true;
-                        Console.WriteLine("Ditt nya konto " + newAccountName + " har skapats och " +
-                            " kr finns nu på detta konto");
+                        decimal depositAmount = decimal.Parse(inputAmount);
+                        nonsuccessfulDeposit = false;
                         CreateAccountWithNameAndSumb(user, newAccountName, depositAmount);
+                        Console.WriteLine("Ditt nya konto " + newAccountName + " har skapats och "
+                            + inputAmount + " kr finns nu på detta konto");
                     }
-                    catch (InvalidDataException)
+                    catch (FormatException)
                     {
                         Console.WriteLine("Du har angett ett felaktigt värde, var god försök igen");
                     }
                 } while (nonsuccessfulDeposit);
             }
-            else if (input.Equals("Nej"))
+            else if (userChoice.Equals("Nej"))
             {
-                Console.WriteLine("Ditt nya konto " + newAccountName + " har skapats");
                 CreateAccountWithName(user, newAccountName);
+                Console.WriteLine("Ditt nya konto " + newAccountName + " har skapats");
             }
             Console.WriteLine();
             Console.WriteLine("Tryck enter för att komma till huvudmenyn");
@@ -551,6 +579,7 @@ class Program
             return;
         }
 
+        /********** Transfers between users Section ************/
 
         void TransferFundsToDifferentUser(User user)
         {
