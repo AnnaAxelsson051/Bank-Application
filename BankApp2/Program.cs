@@ -286,20 +286,7 @@ class Program
             Console.WriteLine("Tryck enter för att komma till huvudmenyn");
             Console.ReadLine();
         }
-            /*Console.WriteLine("Nedan listas alla dina konton");
-            int counter = 1;
-            for (int i = 0; i < user.accounts.Length; i++)
-            {
-                Console.Write(counter + ". " + user.accounts[i].accountName + "\t");
-                //increase with 1 to display tex 1 - 3
-                counter++;
-            }
-            for (int i = 0; i < user.accounts.Length; i++)
-            {
-                Console.Write(user.accounts[i].accountValue + "\t");
-            }
-            
-        }*/
+           
 
             void ListAccountsForTransfer(User user)
         {
@@ -341,7 +328,7 @@ class Program
 
         int SelectWithdrawalAccount(User user)
         {
-            Console.WriteLine("Var god välj ett konto mellan 1 - " + (user.accounts.Length -1) +
+            Console.WriteLine("Var god välj ett konto mellan 1 - " + user.accounts.Length +
                 " att flytta pengar ifrån");
             int foundWithdrawalAccount = 0;
             int withdrawalAccount = 0;
@@ -362,7 +349,7 @@ class Program
 
             } while (inCorrectInput);
 
-            withdrawalAccount = -1;
+            withdrawalAccount -= 1;
             foundWithdrawalAccount = FindWithdrawalAccount(withdrawalAccount, user);
             return foundWithdrawalAccount;
         }
@@ -387,7 +374,7 @@ class Program
 
         int SelectDepositAccount(User user)
         {
-            Console.WriteLine("Var god välj ett konto mellan 1 - " + (user.accounts.Length -1) +
+            Console.WriteLine("Var god välj ett konto mellan 1 - " + user.accounts.Length +
                   " att flytta pengar till");
             bool inCorrectInput2 = true;
             int depositAccount = 0;
@@ -406,7 +393,7 @@ class Program
                         "Välj det konto du vill flytta pengarna till");
                 }
             } while (inCorrectInput2);
-            depositAccount = -1;
+            depositAccount -=1;
             foundDepositAccount = FindDepositAccount(depositAccount, user);
             return foundDepositAccount;
         }
@@ -436,7 +423,7 @@ class Program
             bool withdrawalAccountIsTravelAccount = CheckIfTravelAccount(foundWithdrawalAccount, user);
             bool depositAccountIsTravelAccount = CheckIfTravelAccount(foundDepositAccount, user);
 
-            string depositAccountCurrency = "";
+            /*string depositAccountCurrency = "";
             string withdrawalAccountCurrency = "";
             if (withdrawalAccountIsTravelAccount && !depositAccountIsTravelAccount)
             {
@@ -459,17 +446,48 @@ class Program
             {
                 withdrawalAccountCurrency = " kr";
                 depositAccountCurrency = " kr";
-            }
+
+            }*/
             bool notSufficientFunds = true;
             do
             {
                 if (user.accounts[foundWithdrawalAccount].accountValue < transferAmount)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(transferAmount), "Det finns inte tillräckligt med pengar " +
-                        "på kontot du vill överföra ifrån");
+                    /*throw new ArgumentOutOfRangeException(nameof(transferAmount), "Det finns inte tillräckligt med pengar " +
+                        "på kontot du vill överföra ifrån");*/
+                    Console.WriteLine("Du har angett en summa som är högre än den som finns på kontot, kontrollera ditt" +
+                        "saldo och ange en ny summa");
+                    string input = Console.ReadLine();
+                    transferAmount = decimal.Parse(input);
+
+
                 }
                 else
-                {
+                { 
+                    string depositAccountCurrency = "";
+                    string withdrawalAccountCurrency = "";
+                    if (withdrawalAccountIsTravelAccount && !depositAccountIsTravelAccount)
+                    {
+                        transferAmount *= (decimal)11.20;
+                        withdrawalAccountCurrency = " euro";
+                        depositAccountCurrency = " kr";
+                    }
+                    if (depositAccountIsTravelAccount && !withdrawalAccountIsTravelAccount)
+                    {
+                        transferAmount /= (decimal)11.20;
+                        withdrawalAccountCurrency = " kr";
+                        depositAccountCurrency = " euro";
+                    }
+                    if (depositAccountIsTravelAccount && withdrawalAccountIsTravelAccount)
+                    {
+                        withdrawalAccountCurrency = " euro";
+                        depositAccountCurrency = " euro";
+                    }
+                    if (!depositAccountIsTravelAccount && !withdrawalAccountIsTravelAccount)
+                    {
+                        withdrawalAccountCurrency = " kr";
+                        depositAccountCurrency = " kr";
+                    }
                     user.accounts[foundDepositAccount].accountValue += transferAmount;
                     user.accounts[foundWithdrawalAccount].accountValue -= transferAmount;
 
