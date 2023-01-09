@@ -116,10 +116,10 @@ class Program
             }
         };
 
+        //
+        LogInMenu();
 
-        logInMenu();
-
-        void logInMenu()
+        void LogInMenu()
         {
             Console.WriteLine("---------- Log in ----------");
             Console.WriteLine("Välkommen till login sidan");
@@ -153,8 +153,8 @@ class Program
 
         }
 
-        /*
-        LogInMenu();
+        
+       /* LogInMenu();
 
         void LogInMenu()
         {
@@ -172,45 +172,46 @@ class Program
                     {
                         Console.WriteLine("Välkommen " + userName);
                         inCorrectUserName = false;
+                        Console.WriteLine("Var god ange din pinkod");
+                        string? userPinCode = Console.ReadLine();
+                        bool inCorrectPinCode = true;
+                        int userTries = 0;
+                        while (inCorrectPinCode)
+                        {
+                            if (user.pinCode.Equals(userPinCode))
+                            {
+                                Console.WriteLine(user.pinCode);
+                                inCorrectPinCode = false;
+                                MainMenu(user);
+                            }
+                            if (!user.pinCode.Equals(userPinCode) && userTries < 3)
+                            {
+                                Console.WriteLine("Du har angett fel pinkod var god försök igen");
+                                userTries++;
+                            }
+                            if (!user.pinCode.Equals(userPinCode) && userTries > 1)
+                            {
+                                Console.WriteLine("Du har angett fel pinkod tre gånger, programmet stängs av");
+                                Thread.Sleep(3000);
+                                Environment.Exit(0);
+                                //Console.WriteLine("Du har angett fel pinkod tre gånger, var god vänta 3 minuter
+                                //innan du försöker igen");
+                                //Console.WriteLine("Sleep for 3 minutes");
+                                //Thread.Sleep(180000);.
+                            }
+                        }
                     }
-                    else
+                    else if (!user.userName.Equals(userName))
                     {
                         Console.WriteLine("Du måste ha angett ett användarnamn som inte finns, var god försök igen");
                     }
                 }
+                
             } while (inCorrectUserName);
-            Console.WriteLine("Var god ange din pinkod");
-            string? userPinCode = Console.ReadLine();
-            bool inCorrectPinCode = true;
-            int userTries = 0;
-            do
-            {
-                foreach (var user in users)
-                {
-                    if (user.pinCode.Equals(userPinCode))
-                    {
-                        Console.WriteLine(user.pinCode);
-                        inCorrectPinCode = false;
-                        MainMenu(user);
-                    }
-                    if (userTries < 3)
-                    {
-                        Console.WriteLine("Du har angett fel pinkod var god försök igen");
-                        userTries++;
-                    }
-                    if (userTries > 1)
-                    {
-                        Console.WriteLine("Du har angett fel pinkod tre gånger, programmet stängs av");
-                        Thread.Sleep(3000);
-                        Environment.Exit(0);
-                        //Console.WriteLine("Sleep for 3 minutes");
-                        //Thread.Sleep(180000); 
+        } */
 
-                    }
-                }
-            } while (inCorrectPinCode);
-        }
-        */
+
+
 
 
             void MainMenu(User user)
@@ -226,7 +227,7 @@ class Program
                 Console.WriteLine("2 Överföringar");
                 Console.WriteLine("3 Överföringar till annan användare");
                 Console.WriteLine("4 Ta ut pengar");
-                Console.WriteLine("5 Sätta in pengar pengar");
+                Console.WriteLine("5 Sätta in pengar");
                 Console.WriteLine("6 Skapa nytt konto");
                 Console.WriteLine("E Exit");
                 string? choice = Console.ReadLine().ToUpper();
@@ -253,7 +254,7 @@ class Program
                     case "E":
                         Console.WriteLine("E har valts, du loggas nu ut");
                         mainMenu = false;
-                        logInMenu();
+                        LogInMenu();
                         break;
                     default:
                         Console.WriteLine("Ogiltigt val. Var god ange antingen val 1-6 eller E och tryck enter");
@@ -555,8 +556,9 @@ class Program
             TestUserPinCode(user);
             ListAccountsForTransfer(user);
             int foundWithdrawalAccount = SelectWithdrawalAccount(user);
+            bool isTravelAccount = CheckIfTravelAccount(foundWithdrawalAccount, user);
 
-            MakeWithdrawal(foundWithdrawalAccount, user);
+            MakeWithdrawal(foundWithdrawalAccount, isTravelAccount, user);
 
             Console.WriteLine();
             Console.WriteLine("Tryck enter för att komma till huvudmenyn");
@@ -593,7 +595,7 @@ class Program
 
 
 
-        void MakeWithdrawal(int foundWithdrawalAccount, User user)
+        void MakeWithdrawal(int foundWithdrawalAccount, bool isTravelAccount, User user)
         {
             bool notSufficientFunds = true;
             decimal withdrawalAmount = 0;
@@ -619,12 +621,17 @@ class Program
                 }
                 else
                 {
+                    string currency = " kr";
+                    if (isTravelAccount)
+                    {
+                        currency = " euro";
+                    }
                     decimal withdrawalAccountPostTransfer =
          user.accounts[foundWithdrawalAccount].accountValue - withdrawalAmount;
 
-                    Console.WriteLine("Du har nu tagit ut " + withdrawalAmount + " kr från ditt " +
+                    Console.WriteLine("Du har nu tagit ut " + withdrawalAmount + currency + "från ditt " +
                     user.accounts[foundWithdrawalAccount].accountName + ". Kvar på det kontot finns nu " +
-                    withdrawalAccountPostTransfer + " kr.");
+                    withdrawalAccountPostTransfer + currency);
                     notSufficientFunds = false;
                 }
             } while (notSufficientFunds);
@@ -637,18 +644,20 @@ class Program
 
         void DepositFunds(User user)
         {
-            TestUserPinCode(user);
+            //TestUserPinCode(user);
             ListAccountsForTransfer(user);
             int foundDepositAccount = SelectDepositAccount(user);
+            bool isTravelAccount = CheckIfTravelAccount(foundDepositAccount, user);
 
-            MakeDeposit(foundDepositAccount, user);
+
+            MakeDeposit(foundDepositAccount, isTravelAccount, user);
             Console.WriteLine();
             Console.WriteLine("Tryck enter för att komma till huvudmenyn");
             Console.ReadLine();
         }
 
 
-        void MakeDeposit(int foundDepositAccount, User user)
+        void MakeDeposit(int foundDepositAccount, bool isTravelAccount, User user)
         {
             Console.WriteLine("Var god ange den summa du önskar sätta in");
             bool inCorrectInput = true;
@@ -669,12 +678,17 @@ class Program
 
             } while (inCorrectInput);
 
+            string currency = " kr";
+            if (isTravelAccount)
+            {
+                currency = " euro";
+            }
             decimal depositAccountPostTransfer =
          user.accounts[foundDepositAccount].accountValue + depositAmount;
 
-            Console.WriteLine("Du har nu satt in " + depositAmount + " kr på ditt " +
+            Console.WriteLine("Du har nu satt in " + depositAmount + currency + " på ditt " +
             user.accounts[foundDepositAccount].accountName + ". På det kontot finns nu " +
-            depositAccountPostTransfer + " kr.");
+            depositAccountPostTransfer + currency);
             return;
         }
 
