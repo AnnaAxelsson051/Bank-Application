@@ -596,6 +596,7 @@ class Program
             Console.WriteLine();
             Console.WriteLine("Tryck enter för att komma till huvudmenyn");
             Console.ReadLine();
+            MainMenu(user);
         }
 
 
@@ -827,12 +828,23 @@ class Program
         {
             int receiverAccount = 0;
             Console.WriteLine("Du har valt att föra över pengar till ett av " + users[foundReceiverUser].name + "s konton");
-            Console.WriteLine("Var god välj vilket av " + users[foundReceiverUser].name + "s konton du vill flytta " +
-                "pengar till");
-            for (int i = 0; i < users.Length; i++)
+            Console.WriteLine("Var god välj vilket konto du vill flytta pengarna till");
+            int counter =1;
+            for (int i = 0; i < users[foundReceiverUser].accounts.Length; i++)
             {
-                Console.WriteLine(++i + ". " + users[foundReceiverUser].accounts);
+                if (users[foundReceiverUser].accounts[i].accountName.Equals("Resekonto"))
+                {
+                    Console.Write(counter + ". " + users[foundReceiverUser].accounts[i].accountName + "\n");
+                    Console.Write(users[foundReceiverUser].accounts[i].accountValue + " euro\n");
+                }
+                else
+                {
+                    Console.Write(counter + ". " + users[foundReceiverUser].accounts[i].accountName + "\n");
+                    Console.Write(users[foundReceiverUser].accounts[i].accountValue + " kr\n");
+                }
+                counter++;
             }
+          
             string? input2 = Console.ReadLine();
             int selectedReceiverAccount = Int32.Parse(input2);
             selectedReceiverAccount -= 1;
@@ -842,7 +854,7 @@ class Program
                 {
                     receiverAccount = i;
                     Console.WriteLine("Du har valt att föra över pengar till " + users[foundReceiverUser].name
-                        + "s " + users[foundReceiverUser].accounts[receiverAccount].accountName + "s konton");
+                        + "s " + users[foundReceiverUser].accounts[receiverAccount].accountName);
                 }
             }
             return receiverAccount;
