@@ -134,7 +134,8 @@ class Program
                 string? userPinCode = Console.ReadLine();
                 foreach (var user in users)
                 {
-                    if ((user.userName.Equals(userName)) && (user.pinCode.Equals(userPinCode)))
+                    if (string.Equals(user.userName, userName, StringComparison.OrdinalIgnoreCase) && user.pinCode.Equals(userPinCode))
+                    
                     {
                         //Console.WriteLine(user.userName);
                         //Console.WriteLine(user.pinCode);
@@ -665,7 +666,8 @@ class Program
             } while (nonValidInput);
 
             bool nonsuccessfulDeposit = true;
-            if (userChoice.Equals("Ja"))
+            if (string.Equals(userChoice, "Ja", StringComparison.OrdinalIgnoreCase))
+            //string.Equals(val, "astringvalue",  StringComparison.OrdinalIgnoreCase)
             {
                 do
                 {
