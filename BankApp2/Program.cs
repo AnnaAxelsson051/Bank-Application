@@ -754,43 +754,47 @@ class Program
                 }
                 else
                 {
-                   /* string depositAccountCurrency = "";
+                    string depositAccountCurrency = "";
                     string withdrawalAccountCurrency = "";
-                    if (user.accounts[foundWithdrawalAccount].accountName.Equals("Resekonto") &&
-                        users[foundReceiverUser].accounts[foundReceiverUserAccount].accountName.!Equals("Resekonto")
-                    {
+                    if (("Resekonto").Equals(user.accounts[foundWithdrawalAccount].accountName) &&
+                        !("Resekonto").Equals(users[foundReceiverUser].accounts[foundReceiverUserAccount].accountName))
+                   {
                         transferAmount *= (decimal)11.20;
-                        withdrawalAccountCurrency = " euro";
-                        depositAccountCurrency = " kr";
+                        withdrawalAccountCurrency = "euro";
+                        depositAccountCurrency = "kr";
                     }
-                    if (users[foundReceiverUser].accounts[foundReceiverUserAccount].accountName.Equals("Resekonto") &&
-                        (user.accounts[foundWithdrawalAccount].accountName.!Equals("Resekonto")
+                    if (("Resekonto").Equals(users[foundReceiverUser].accounts[foundReceiverUserAccount].accountName) &&
+                        !("Resekonto").Equals(user.accounts[foundWithdrawalAccount].accountName))
+                           
                     {
                         transferAmount /= (decimal)11.20;
-                        withdrawalAccountCurrency = " kr";
-                        depositAccountCurrency = " euro";
+                        withdrawalAccountCurrency = "kr";
+                        depositAccountCurrency = "euro";
                     }
-                    if (depositAccountIsTravelAccount && withdrawalAccountIsTravelAccount)
+                    if (("Resekonto").Equals(users[foundReceiverUser].accounts[foundReceiverUserAccount].accountName) &&
+                        ("Resekonto").Equals(user.accounts[foundWithdrawalAccount].accountName))
                     {
-                        withdrawalAccountCurrency = " euro";
-                        depositAccountCurrency = " euro";
+                        withdrawalAccountCurrency = "euro";
+                        depositAccountCurrency = "euro";
                     }
-                    if (!depositAccountIsTravelAccount && !withdrawalAccountIsTravelAccount)
+                    if (!("Resekonto").Equals(users[foundReceiverUser].accounts[foundReceiverUserAccount].accountName) &&
+                        !("Resekonto").Equals(user.accounts[foundWithdrawalAccount].accountName))
+                    
                     {
-                        withdrawalAccountCurrency = " kr";
-                        depositAccountCurrency = " kr";
-                    }*/
+                        withdrawalAccountCurrency = "kr";
+                        depositAccountCurrency = "kr";
+                    }
 
                     decimal depositAccountPostTransfer =
          users[foundReceiverUser].accounts[foundReceiverUserAccount].accountValue + transferAmount;
                     decimal withdrawalAccountPostTransfer =
          user.accounts[foundWithdrawalAccount].accountValue - transferAmount;
 
-                    Console.WriteLine("Du har nu överfört " + transferAmount + " kr från ditt " +
+                    Console.WriteLine("Du har nu överfört " + transferAmount + " " + withdrawalAccountCurrency + " från ditt " +
                     user.accounts[foundWithdrawalAccount].accountName + ". Kvar på det kontot finns nu " +
-                    withdrawalAccountPostTransfer + " kr. Och på " +
+                    withdrawalAccountPostTransfer + " " + withdrawalAccountCurrency + ". Och på " +
                     users[foundReceiverUser].name + "s " + users[foundReceiverUser].accounts[foundReceiverUserAccount].accountName +
-                    " finns nu " + depositAccountPostTransfer + " kr.");
+                    " finns nu " + depositAccountPostTransfer + " " + depositAccountCurrency);
                     notSufficientFunds = false;
                 }
             } while (notSufficientFunds);
