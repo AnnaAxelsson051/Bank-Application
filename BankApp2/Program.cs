@@ -339,7 +339,7 @@ class Program
                 string? input = Console.ReadLine();
                 try
                 {
-                    withdrawalAccount = Int32.Parse(input);
+                    withdrawalAccount = int.Parse(input);
                     inCorrectInput = false;
                 }
                 catch (FormatException)
@@ -506,6 +506,30 @@ class Program
             return;
         }
 
+
+
+        /*int CheckUserAccountSelection(string move)
+        {
+            int account = 0;
+            bool invalidTransferAmount = true;
+            do
+            {
+                try
+                {
+                    Console.WriteLine("Var god ange önskat konto att flytta pengar " + move);
+                    string? input = Console.ReadLine();
+                    account = int.Parse(input);
+                    invalidTransferAmount = false;
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Oj, du måste ha gjort en oriktig inmatning. Var vänlig försök igen. " +
+                        "Ange önskad summa");
+                }
+            } while (invalidTransferAmount);
+            return account;
+        }*/
+
         decimal CheckUserInput()
         {
             decimal transferAmount = 0;
@@ -514,18 +538,44 @@ class Program
             {
                 try
                 {
-                    Console.WriteLine("Var god ange den summa du önskar överföra");
+                    Console.WriteLine("Var god ange önskad summa");
                     string? input = Console.ReadLine();
                     transferAmount = decimal.Parse(input);
                     invalidTransferAmount = false;
                 }
                 catch (FormatException)
                 {
-                    Console.WriteLine("Oj, du måste ha gjort en oriktig inmatning. Var vänlig försök igen. " +
-                        "Ange den summa du vill överföra");
+                    Console.WriteLine("Oj, du måste ha gjort en oriktig inmatning. Var vänlig försök igen.");
                 }
             } while (invalidTransferAmount);
             return transferAmount;
+        }
+
+        void TestUserPinCode(User user)
+        {
+            int userTries = 0;
+            bool testPincode = true;
+            do
+            {
+                Console.WriteLine("Var god ange din pinkod");
+                string? userPinCode = Console.ReadLine();
+
+                if (user.pinCode.Equals(userPinCode))
+                {
+                    //Console.WriteLine(user.pinCode);
+                    //Console.WriteLine(userPinCode);
+                    testPincode = false;
+                }
+                userTries++;
+                if (userTries > 2)
+                {
+                    Console.WriteLine("Du har angett fel pinkod tre gånger, var god vänta 3 minuter innan du försöker igen");
+                    //Console.WriteLine("Sleep for 3 minutes");
+                    Thread.Sleep(180000);
+                }
+
+            } while (testPincode);
+            return;
         }
 
         bool CheckIfTravelAccount(int account, User user)
@@ -555,6 +605,7 @@ class Program
         {
             TestUserPinCode(user);
             ListAccountsForTransfer(user);
+
             int foundWithdrawalAccount = SelectWithdrawalAccount(user);
             bool isTravelAccount = CheckIfTravelAccount(foundWithdrawalAccount, user);
 
@@ -565,54 +616,14 @@ class Program
             Console.ReadLine();
         }
 
-        void TestUserPinCode(User user)
-        {
-            int userTries = 0;
-            bool testPincode = true;
-            do
-            {
-                Console.WriteLine("Var god ange din pinkod");
-                string? userPinCode = Console.ReadLine();
-
-                if (user.pinCode.Equals(userPinCode))
-                {
-                    Console.WriteLine(user.pinCode);
-                    Console.WriteLine(userPinCode);
-                    testPincode = false;
-                }
-
-                userTries++;
-                if (userTries > 1)
-                {
-                    Console.WriteLine("Du har angett fel pinkod tre gånger, var god vänta 3 minuter innan du försöker igen");
-                    Console.WriteLine("Sleep for 3 minutes");
-                    Thread.Sleep(180000);
-                }
-
-            } while (testPincode);
-            return;
-        }
-
-
 
         void MakeWithdrawal(int foundWithdrawalAccount, bool isTravelAccount, User user)
         {
             bool notSufficientFunds = true;
-            decimal withdrawalAmount = 0;
+            //decimal withdrawalAmount = 0;
+            decimal withdrawalAmount = CheckUserInput();
             do
             {
-                Console.WriteLine("Var god ange den summa du önskar ta ut");
-                string? input = Console.ReadLine();
-                try
-                {
-                    withdrawalAmount = Int32.Parse(input);
-                    notSufficientFunds = false;
-                }
-                catch (FormatException)
-                {
-                    Console.WriteLine("Oj, du måste ha angivit en oriktig inmatning. Var vänlig ange den summa " +
-                        "du önskar ta ut");
-                }
 
                 if (user.accounts[foundWithdrawalAccount].accountValue < withdrawalAmount)
                 {
@@ -621,17 +632,17 @@ class Program
                 }
                 else
                 {
-                    string currency = " kr";
+                    string currency = "kr";
                     if (isTravelAccount)
                     {
-                        currency = " euro";
+                        currency = "euro";
                     }
                     decimal withdrawalAccountPostTransfer =
          user.accounts[foundWithdrawalAccount].accountValue - withdrawalAmount;
 
-                    Console.WriteLine("Du har nu tagit ut " + withdrawalAmount + currency + "från ditt " +
+                    Console.WriteLine("Du har nu tagit ut " + withdrawalAmount + " " + currency + " från ditt " +
                     user.accounts[foundWithdrawalAccount].accountName + ". Kvar på det kontot finns nu " +
-                    withdrawalAccountPostTransfer + currency);
+                    withdrawalAccountPostTransfer + " " + currency);
                     notSufficientFunds = false;
                 }
             } while (notSufficientFunds);
