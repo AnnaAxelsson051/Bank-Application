@@ -424,32 +424,6 @@ class Program
 
             bool withdrawalAccountIsTravelAccount = CheckIfTravelAccount(foundWithdrawalAccount, user);
             bool depositAccountIsTravelAccount = CheckIfTravelAccount(foundDepositAccount, user);
-
-            /*string depositAccountCurrency = "";
-            string withdrawalAccountCurrency = "";
-            if (withdrawalAccountIsTravelAccount && !depositAccountIsTravelAccount)
-            {
-                transferAmount *= (decimal)11.20;
-                withdrawalAccountCurrency = " euro";
-                depositAccountCurrency = " kr";
-            }
-            if (depositAccountIsTravelAccount && !withdrawalAccountIsTravelAccount)
-            {
-                transferAmount /= (decimal)11.20;
-                withdrawalAccountCurrency = " kr";
-                depositAccountCurrency = " euro";
-            }
-            if (depositAccountIsTravelAccount && withdrawalAccountIsTravelAccount)
-            {
-                withdrawalAccountCurrency = " euro";
-                depositAccountCurrency = " euro";
-            }
-            if (!depositAccountIsTravelAccount && !withdrawalAccountIsTravelAccount)
-            {
-                withdrawalAccountCurrency = " kr";
-                depositAccountCurrency = " kr";
-
-            }*/
             bool notSufficientFunds = true;
             do
             {
@@ -596,7 +570,6 @@ class Program
             Console.WriteLine();
             Console.WriteLine("Tryck enter för att komma till huvudmenyn");
             Console.ReadLine();
-            MainMenu(user);
         }
 
 
@@ -724,13 +697,10 @@ class Program
 
         void CreateAccountWithNameAndSumb(User user, string newAccountName, decimal depositAmount)
         {
-            /*Array.Resize(ref user.accounts, user.accounts.Length + 1);
-            user.accounts[user.accounts.Length - 1] = new Account(newAccountName, depositAmount);*/
+            Account[] tempAccounts = user.accounts;
+            Array.Resize(ref tempAccounts, user.accounts.Length + 1);
+            user.accounts[user.accounts.Length - 1] = new Account(newAccountName, depositAmount);
 
-            user.accounts = new Account[]
-            {
-            new Account(newAccountName)
-            };
             return;
         }
 
@@ -765,6 +735,7 @@ class Program
             Console.WriteLine("Tryck enter för att komma till huvudmenyn");
             Console.ReadLine();
         }
+        //
 
         void MakeTransferOfFundsToDifferentUser(int foundWithdrawalAccount, int foundReceiverUser,
             int foundReceiverUserAccount, decimal transferAmount, User user)
@@ -772,17 +743,44 @@ class Program
             bool notSufficientFunds = true;
             do
             {
-                if (user.accounts[foundWithdrawalAccount].accountValue < transferAmount +1)
+                if (user.accounts[foundWithdrawalAccount].accountValue < transferAmount)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(transferAmount), "Det finns inte tillräckligt med pengar " +
-                        "på kontot du vill överföra ifrån");
+                    Console.WriteLine("Du har angett en summa som är högre än den som finns på kontot, kontrollera ditt" +
+                        "saldo och ange en ny summa");
+                    string input = Console.ReadLine();
+                    transferAmount = decimal.Parse(input);
+
+
                 }
                 else
                 {
-                    notSufficientFunds = false;
-                }
-            } while (notSufficientFunds);
-         
+                   /* string depositAccountCurrency = "";
+                    string withdrawalAccountCurrency = "";
+                    if (user.accounts[foundWithdrawalAccount].accountName.Equals("Resekonto") &&
+                        users[foundReceiverUser].accounts[foundReceiverUserAccount].accountName.!Equals("Resekonto")
+                    {
+                        transferAmount *= (decimal)11.20;
+                        withdrawalAccountCurrency = " euro";
+                        depositAccountCurrency = " kr";
+                    }
+                    if (users[foundReceiverUser].accounts[foundReceiverUserAccount].accountName.Equals("Resekonto") &&
+                        (user.accounts[foundWithdrawalAccount].accountName.!Equals("Resekonto")
+                    {
+                        transferAmount /= (decimal)11.20;
+                        withdrawalAccountCurrency = " kr";
+                        depositAccountCurrency = " euro";
+                    }
+                    if (depositAccountIsTravelAccount && withdrawalAccountIsTravelAccount)
+                    {
+                        withdrawalAccountCurrency = " euro";
+                        depositAccountCurrency = " euro";
+                    }
+                    if (!depositAccountIsTravelAccount && !withdrawalAccountIsTravelAccount)
+                    {
+                        withdrawalAccountCurrency = " kr";
+                        depositAccountCurrency = " kr";
+                    }*/
+
                     decimal depositAccountPostTransfer =
          users[foundReceiverUser].accounts[foundReceiverUserAccount].accountValue + transferAmount;
                     decimal withdrawalAccountPostTransfer =
@@ -794,7 +792,8 @@ class Program
                     users[foundReceiverUser].name + "s " + users[foundReceiverUser].accounts[foundReceiverUserAccount].accountName +
                     " finns nu " + depositAccountPostTransfer + " kr.");
                     notSufficientFunds = false;
-            
+                }
+            } while (notSufficientFunds);
             return;
         }
 
