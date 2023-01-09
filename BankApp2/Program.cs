@@ -678,7 +678,7 @@ class Program
                         decimal depositAmount = decimal.Parse(inputAmount);
                         nonsuccessfulDeposit = false;
                         CreateAccountWithNameAndSumb(user, newAccountName, depositAmount);
-                        Console.WriteLine("Ditt nya konto " + newAccountName + " har skapats och "
+                        Console.WriteLine("Ditt nya konto men namnet " + newAccountName + " har skapats och "
                             + inputAmount + " kr finns nu på detta konto");
                     }
                     catch (FormatException)
@@ -687,10 +687,10 @@ class Program
                     }
                 } while (nonsuccessfulDeposit);
             }
-            else if (userChoice.Equals("Nej"))
+            else if (string.Equals(userChoice, "Nej", StringComparison.OrdinalIgnoreCase))
             {
                 CreateAccountWithName(user, newAccountName);
-                Console.WriteLine("Ditt nya konto " + newAccountName + " har skapats");
+                Console.WriteLine("Ditt nya konto med namnet " + newAccountName + " har skapats");
             }
             Console.WriteLine();
             Console.WriteLine("Tryck enter för att komma till huvudmenyn");
@@ -710,10 +710,9 @@ class Program
         void CreateAccountWithName(User user, string newAccountName)
         {
 
-            user.accounts = new Account[]
-            {
-            new Account(newAccountName)
-            };
+            Account[] tempAccounts = user.accounts;
+            Array.Resize(ref tempAccounts, user.accounts.Length + 1);
+            user.accounts[user.accounts.Length - 1] = new Account(newAccountName);
             return;
         }
 
