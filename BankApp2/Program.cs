@@ -786,6 +786,7 @@ class Program
             int foundReceiverUserAccount, decimal transferAmount, User user)
         {
             bool notSufficientFunds = true;
+            decimal transferAmountPreConversion = transferAmount;
             do
             {
                 if (user.accounts[foundWithdrawalAccount].accountValue < transferAmount)
@@ -830,16 +831,15 @@ class Program
                         depositAccountCurrency = "kr";
                     }
 
-                    decimal depositAccountPostTransfer =
-         users[foundReceiverUser].accounts[foundReceiverUserAccount].accountValue + transferAmount;
-                    decimal withdrawalAccountPostTransfer =
-         user.accounts[foundWithdrawalAccount].accountValue - transferAmount;
+                   
+         users[foundReceiverUser].accounts[foundReceiverUserAccount].accountValue += transferAmount;
+         user.accounts[foundWithdrawalAccount].accountValue -= transferAmountPreConversion;
 
-                    Console.WriteLine("Du har nu överfört " + transferAmount + " " + withdrawalAccountCurrency + " från ditt " +
+                    Console.WriteLine("Du har nu överfört " + transferAmountPreConversion + " " + withdrawalAccountCurrency + " från ditt " +
                     user.accounts[foundWithdrawalAccount].accountName + ". Kvar på det kontot finns nu " +
-                    withdrawalAccountPostTransfer + " " + withdrawalAccountCurrency + ". Och på " +
+                    user.accounts[foundWithdrawalAccount].accountValue + " " + withdrawalAccountCurrency + ". Och på " +
                     users[foundReceiverUser].name + "s " + users[foundReceiverUser].accounts[foundReceiverUserAccount].accountName +
-                    " finns nu " + depositAccountPostTransfer + " " + depositAccountCurrency);
+                    " finns nu " + users[foundReceiverUser].accounts[foundReceiverUserAccount].accountValue + " " + depositAccountCurrency);
                     notSufficientFunds = false;
                 }
             } while (notSufficientFunds);
