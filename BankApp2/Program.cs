@@ -8,12 +8,14 @@ using System.Threading;
 //using Internal;
 using static BankApp2.Program;
 
-//TODOChange getters and setters to private?
+//Change getters and setters to private?
 
 //TODO It's a good practice to create each new class in a different source file. In Visual Studio,
 //you can right-click on the project, and select add class to add a new class in a new file.
 //In Visual Studio Code, select File then New to create a new source file. In either tool, name
 //the file to match the class: InterestEarningAccount.cs, LineOfCreditAccount.cs, and GiftCardAccount.cs.
+
+//TODO fix log in so can check username and pin seperately and exit/sleep if 3 pincode fails
 
 //TODO make it so that users own accounts are not listed when selecting other user to 
 
@@ -230,13 +232,6 @@ class Program
                         inCorrectUserName = false;
                         Console.WriteLine("Var god ange din pinkod");
                         string? userPinCode = Console.ReadLine();
-
-                        /*SecureString pin = hidePin();
-                        string pinCode = new System.Net.NetworkCredential(String.Empty, pin).Password;
-                        Console.WriteLine();*/
-                        /*SecureString pin = hidePin();
-                        string userPinCode = new System.Net.NetworkCredential(String.Empty, pin).Password;
-                        Console.WriteLine();*/
                         if (user.pinCode.Equals(userPinCode))
                         {
                             Console.WriteLine(user.pinCode);
@@ -249,13 +244,13 @@ class Program
                         }
                         if (userTries > 2 && !userPinCode.Equals(user.pinCode))
                         {
-                            Console.WriteLine("Du har angett fel pinkod tre gånger, programmet stängs av");
+                            /*Console.WriteLine("Du har angett fel pinkod tre gånger, programmet stängs av");
                             Thread.Sleep(3000);
-                            Environment.Exit(0);
-                            //Console.WriteLine("Du har angett fel pinkod tre gånger, var god vänta 3 minuter
-                            //innan du försöker igen");
-                            //Console.WriteLine("Sleep for 3 minutes");
-                            //Thread.Sleep(180000);.
+                            Environment.Exit(0);*/
+                            Console.WriteLine("Du har angett fel pinkod tre gånger, var god vänta 3 minuter " +
+                                "innan du försöker igen");
+                            Console.WriteLine("Sleep for 3 minutes");
+                            Thread.Sleep(180000);
                         }
                     }
                 }
@@ -611,11 +606,12 @@ class Program
 
         void WithdrawFunds(User user)
         {
-            TestUserPinCode(user);
             ListAccountsForTransfer(user);
 
             int foundWithdrawalAccount = SelectWithdrawalAccount(user);
             decimal transferAmount = GetTransferAmount();
+
+            TestUserPinCode(user);
             bool isTravelAccount = CheckIfTravelAccount(foundWithdrawalAccount, user);
 
             MakeWithdrawal(foundWithdrawalAccount, isTravelAccount, transferAmount, user);
@@ -644,12 +640,12 @@ class Program
                     {
                         currency = "euro";
                     }
-                    decimal withdrawalAccountPostTransfer =
-         user.accounts[foundWithdrawalAccount].accountValue - transferAmount;
+               
+         user.accounts[foundWithdrawalAccount].accountValue -= transferAmount;
 
                     Console.WriteLine("Du har nu tagit ut " + transferAmount + " " + currency + " från ditt " +
                     user.accounts[foundWithdrawalAccount].accountName + ". Kvar på det kontot finns nu " +
-                    withdrawalAccountPostTransfer + " " + currency);
+                    user.accounts[foundWithdrawalAccount].accountValue + " " + currency);
                     notSufficientFunds = false;
                 }
             } while (notSufficientFunds);
@@ -684,12 +680,11 @@ class Program
             {
                 currency = "euro";
             }
-            decimal depositAccountPostTransfer =
-         user.accounts[foundDepositAccount].accountValue + transferAmount;
+         user.accounts[foundDepositAccount].accountValue += transferAmount;
 
             Console.WriteLine("Du har nu satt in " + transferAmount + " " + currency + " på ditt " +
             user.accounts[foundDepositAccount].accountName + ". På det kontot finns nu " +
-            depositAccountPostTransfer + " " + currency);
+            user.accounts[foundDepositAccount].accountValue + " " + currency);
             return;
         }
 
