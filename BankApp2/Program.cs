@@ -801,6 +801,7 @@ class Program
                         "saldo och ange en ny summa");
                     string input = Console.ReadLine();
                     transferAmount = decimal.Parse(input);
+                    transferAmountPreConversion = transferAmount;
                     Console.WriteLine();
 
 
