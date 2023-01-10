@@ -19,9 +19,6 @@ using static BankApp2.Program;
 
 //TODO make it so that users own accounts are not listed when selecting other user to 
 
-//Lägg till så att om användaren skriver fel pinkod tre gånger stängs inloggning för den
-//användaren av i tre minuter istället för att programmet måste starta om.
-
 ////TODO Lägg till så att saldon för alla konton för alla användare sparas mellan körningarna
 ///av programmet så att saldon inte återställs. —spara i fil
 
@@ -82,7 +79,7 @@ class Program
 
             new User
             {
-                name = "D",
+                name = "Daniel",
                 userName = "Daniel",
                 pinCode = "4444",
                 accounts = new Account[]
@@ -99,7 +96,7 @@ class Program
 
             new User
             {
-                name = "E",
+                name = "Emily",
                 userName = "Emily",
                 pinCode = "5555",
                 accounts = new Account[]
@@ -335,6 +332,7 @@ class Program
             Console.ReadLine();
         }
 
+        /****** Tansfer Section *******/
 
         void ListAccountsForTransfer(User user)
         {
@@ -356,7 +354,6 @@ class Program
             }
         }
 
-        /****** Tansfer Section *******/
 
         //Main method for fund transfer using 3 helper methods
 
@@ -480,8 +477,9 @@ class Program
                         "på kontot du vill överföra ifrån");*/
                     Console.WriteLine("Du har angett en summa som är högre än den som finns på kontot, kontrollera ditt" +
                         "saldo och ange en ny summa");
-                    //string input = Console.ReadLine();
-                    //transferAmount = decimal.Parse(input);
+                    string input = Console.ReadLine();
+                    transferAmount = decimal.Parse(input);
+                    Console.WriteLine();
 
 
                 }
@@ -630,8 +628,13 @@ class Program
 
                 if (user.accounts[foundWithdrawalAccount].accountValue < transferAmount)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(transferAmount), "Det finns inte tillräckligt med pengar " +
-                        "på kontot du vill överföra ifrån");
+                    // throw new ArgumentOutOfRangeException(nameof(transferAmount), "Det finns inte tillräckligt med pengar " +
+                    //     "på kontot du vill överföra ifrån");
+                    Console.WriteLine("Du har angett en summa som är högre än den som finns på kontot, kontrollera ditt" +
+                        "saldo och ange en ny summa");
+                    string input = Console.ReadLine();
+                    transferAmount = decimal.Parse(input);
+                    Console.WriteLine();
                 }
                 else
                 {
@@ -798,6 +801,7 @@ class Program
                         "saldo och ange en ny summa");
                     string input = Console.ReadLine();
                     transferAmount = decimal.Parse(input);
+                    Console.WriteLine();
 
 
                 }
