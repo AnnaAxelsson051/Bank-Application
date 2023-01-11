@@ -209,8 +209,10 @@ class Program
         } 
         */
 
-        LogInMenu();
-        void LogInMenu()
+        //LogInMenu();
+        //void LogInMenu()
+        // {
+        while (true)
         {
             Console.WriteLine("---------- Log in ----------");
             Console.WriteLine("Välkommen till login sidan");
@@ -254,6 +256,7 @@ class Program
 
             } while (inCorrectUserName);
         }
+        
 
 
 
@@ -298,7 +301,7 @@ class Program
                     case "E":
                         Console.WriteLine("E har valts, du loggas nu ut");
                         mainMenu = false;
-                        LogInMenu();
+                        //LogInMenu();
                         break;
                     default:
                         Console.WriteLine("Ogiltigt val. Var god ange antingen val 1-6 eller E och tryck enter");
