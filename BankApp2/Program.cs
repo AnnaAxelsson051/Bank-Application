@@ -152,10 +152,10 @@ class Program
                             }
                             else if (!userPinCode.Equals(user.pinCode) && userTries > 1)
                             {
+         
                                 Console.WriteLine("Du har angett fel pinkod tre gånger, var god vänta 3 minuter " +
                                     "innan du försöker igen");
-                                //Console.WriteLine("Sleep for 3 minutes");
-                            
+                                Thread.Sleep(180000);
                             }
                         }
                     }
