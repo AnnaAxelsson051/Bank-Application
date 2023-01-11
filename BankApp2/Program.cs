@@ -920,7 +920,7 @@ class Program
 
 
 
-    public class Account
+    /*public class Account
     {
 
         public Account(string accountName, decimal accountValue)
@@ -941,28 +941,104 @@ class Program
         public decimal accountValue { get; set; }*/
 
     }
-    
 
-    public class User
-    {
-        public string name { get; set; }
-        public string userName { get; set; }
-        public string pinCode { get; set; }
-        public Account[] accounts { get; set; }
-    }
+
+/*public class User
+{
+    public string name { get; set; }
+    public string userName { get; set; }
+    public string pinCode { get; set; }
+    public Account[] accounts { get; set; }
 }
+}*/
 
-    /*public class User
-    {
-        public string name { get; set; }
-        public string userName { get; set; }
-        public string pinCode { get; set; }
-        public Account[] accounts { get; set; }
+/*public class User
+{
+    public string name { get; set; }
+    public string userName { get; set; }
+    public string pinCode { get; set; }
+    public Account[] accounts { get; set; }
 
-    }
+}
 }*/
 
 
+public class Account
+{
+
+    public Account(string accountName, decimal accountValue)
+    {
+        this.accountName = accountName;
+        this.accountValue = accountValue;
+
+    }
+
+    public Account(string accountName)
+    {
+        this.accountName = accountName;
+
+    }
+    //private string accountName;
+    //private decimal accountValue;
+
+    private string _accountName;
+    public string accountName
+    {
+        get { return _accountName; }
+        set { _accountName = value; }
+    }
+
+    private decimal _accountValue;
+    public decimal accountValue
+    {
+        get { return _accountValue; }
+        set { _accountValue = value; }
+    }
+
+    /*public string accountName { get; set; }
+    public decimal accountValue { get; set; }*/
+    /*public string accountName { get; set; }
+    public decimal accountValue { get; set; }*/
+
+}
+
+
+public class User
+{
+    private string _name;
+    public string name
+    {
+        get { return _name; }
+        set { _name = value; }
+    }
+
+    private string _userName;
+    public string userName
+    {
+        get { return _userName; }
+        set { _userName = value; }
+    }
+
+    private string _pinCode;
+    public string pinCode
+    {
+        get { return _pinCode; }
+        set { _pinCode = value; }
+    }
+
+    private Account[] _accounts;
+    public Account[] accounts
+    {
+        get { return _accounts; }
+        set { _accounts = value; }
+    }
+
+
+    /*public string name { get; set; }
+    public string userName { get; set; }
+    public string pinCode { get; set; }*/
+    //public Account[] accounts { get; set; }
+}
 
 
 
