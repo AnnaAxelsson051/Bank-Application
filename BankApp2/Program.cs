@@ -8,14 +8,6 @@ using System.Threading;
 //using Internal;
 using static BankApp2.Program;
 
-//Change getters and setters to private?
-
-//TODO It's a good practice to create each new class in a different source file. In Visual Studio,
-//you can right-click on the project, and select add class to add a new class in a new file.
-//In Visual Studio Code, select File then New to create a new source file. In either tool, name
-//the file to match the class: InterestEarningAccount.cs, LineOfCreditAccount.cs, and GiftCardAccount.cs.
-
-//TODO fix log in so can check username and pin seperately and exit/sleep if 3 pincode fails
 
 //TODO make it so that users own accounts are not listed when selecting other user to 
 
@@ -829,47 +821,7 @@ class Program
 
 
 
-    /*public class Account
-    {
-
-        public Account(string accountName, decimal accountValue)
-        {
-            this.accountName = accountName;
-            this.accountValue = accountValue;
-
-        }
-
-        public Account(string accountName)
-        {
-            this.accountName = accountName;
-
-        }
-        public string accountName { get; set; }
-        public decimal accountValue { get; set; }
-        /*public string accountName { get; set; }
-        public decimal accountValue { get; set; }*/
-
-    }
-
-
-/*public class User
-{
-    public string name { get; set; }
-    public string userName { get; set; }
-    public string pinCode { get; set; }
-    public Account[] accounts { get; set; }
-}
-}*/
-
-/*public class User
-{
-    public string name { get; set; }
-    public string userName { get; set; }
-    public string pinCode { get; set; }
-    public Account[] accounts { get; set; }
-
-}
-}*/
+    
 
 
 public class Account
@@ -882,13 +834,11 @@ public class Account
 
     }
 
-    public Account(string accountName)
-    {
-        this.accountName = accountName;
+        public Account(string accountName)
+        {
+            this.accountName = accountName;
 
-    }
-    //private string accountName;
-    //private decimal accountValue;
+        }
 
     private string _accountName;
     public string accountName
@@ -904,49 +854,41 @@ public class Account
         set { _accountValue = value; }
     }
 
-    /*public string accountName { get; set; }
-    public decimal accountValue { get; set; }*/
-    /*public string accountName { get; set; }
-    public decimal accountValue { get; set; }*/
-
 }
 
 
-public class User
-{
-    private string _name;
-    public string name
+    public class User
     {
-        get { return _name; }
-        set { _name = value; }
+        private string _name;
+        public string name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
+
+        private string _userName;
+        public string userName
+        {
+            get { return _userName; }
+            set { _userName = value; }
+        }
+
+        private string _pinCode;
+        public string pinCode
+        {
+            get { return _pinCode; }
+            set { _pinCode = value; }
+        }
+
+        private Account[] _accounts;
+        public Account[] accounts
+        {
+            get { return _accounts; }
+            set { _accounts = value; }
+        }
+
+
     }
-
-    private string _userName;
-    public string userName
-    {
-        get { return _userName; }
-        set { _userName = value; }
-    }
-
-    private string _pinCode;
-    public string pinCode
-    {
-        get { return _pinCode; }
-        set { _pinCode = value; }
-    }
-
-    private Account[] _accounts;
-    public Account[] accounts
-    {
-        get { return _accounts; }
-        set { _accounts = value; }
-    }
-
-
-    /*public string name { get; set; }
-    public string userName { get; set; }
-    public string pinCode { get; set; }*/
-    //public Account[] accounts { get; set; }
 }
 
 
