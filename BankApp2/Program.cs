@@ -122,7 +122,7 @@ class Program
             Console.WriteLine("Välkommen till login sidan");
             Console.WriteLine("Var god ange ditt användarnamn");
             bool inCorrectUserName = true;
-            int userTries = 0;
+            int userTries = 2;
             do
             {
                 string? userName = Console.ReadLine();
@@ -144,13 +144,12 @@ class Program
                                 inCorrectPinCode = false;
                                 MainMenu(user);
                             }
-                            else if (!userPinCode.Equals(user.pinCode) && userTries < 2)
+                            else if (!userPinCode.Equals(user.pinCode) && userTries > 0 )
                             {
-                                Console.WriteLine("Du har angett fel pinkod var god försök igen");
-
-                                userTries++;
+                                Console.WriteLine("Du har angett fel pinkod var god försök igen, du har " + userTries + " försök kvar");
+                                userTries--;
                             }
-                            else if (!userPinCode.Equals(user.pinCode) && userTries > 1)
+                            else if (!userPinCode.Equals(user.pinCode) && userTries == 0)
                             {
          
                                 Console.WriteLine("Du har angett fel pinkod tre gånger, var god vänta 3 minuter " +
