@@ -13,6 +13,8 @@ using static BankApp2.Program;
 
 ////TODO Lägg till så att saldon för alla konton för alla användare sparas mellan körningarna
 ///av programmet så att saldon inte återställs. —spara i fil
+///
+//TODO endast visa två decimaled vid utskrift
 
 
 
