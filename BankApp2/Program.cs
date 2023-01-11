@@ -133,30 +133,33 @@ class Program
                     {
                         Console.WriteLine("Välkommen " + userName);
                         inCorrectUserName = false;
+                        bool inCorrectPinCode = true;
                         Console.WriteLine("Var god ange din pinkod");
-                        string? userPinCode = Console.ReadLine();
-                        if (user.pinCode.Equals(userPinCode))
+                        while (inCorrectPinCode)
                         {
-                            Console.WriteLine(user.pinCode);
-                            MainMenu(user);
-                        }
-                        if (userTries < 3 && !userPinCode.Equals(user.pinCode))
-                        {
-                            Console.WriteLine("Du har angett fel pinkod var god försök igen");
-                            userTries++;
-                        }
-                        if (userTries > 2 && !userPinCode.Equals(user.pinCode))
-                        {
-                            /*Console.WriteLine("Du har angett fel pinkod tre gånger, programmet stängs av");
-                            Thread.Sleep(3000);
-                            Environment.Exit(0);*/
-                            Console.WriteLine("Du har angett fel pinkod tre gånger, var god vänta 3 minuter " +
-                                "innan du försöker igen");
-                            Console.WriteLine("Sleep for 3 minutes");
-                            Thread.Sleep(180000);
+                            string? userPinCode = Console.ReadLine();
+                            if (user.pinCode.Equals(userPinCode))
+                            {
+                                Console.WriteLine(user.pinCode);
+                                inCorrectPinCode = false;
+                                MainMenu(user);
+                            }
+                            else if (!userPinCode.Equals(user.pinCode) && userTries < 2)
+                            {
+                                Console.WriteLine("Du har angett fel pinkod var god försök igen");
+
+                                userTries++;
+                            }
+                            else if (!userPinCode.Equals(user.pinCode) && userTries > 1)
+                            {
+                                Console.WriteLine("Du har angett fel pinkod tre gånger, var god vänta 3 minuter " +
+                                    "innan du försöker igen");
+                                //Console.WriteLine("Sleep for 3 minutes");
+                            
+                            }
                         }
                     }
-                }
+                } 
 
             } while (inCorrectUserName);
         }
