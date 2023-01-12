@@ -15,6 +15,8 @@ using static BankApp2.Program;
 ///av programmet så att saldon inte återställs. —spara i fil
 ///
 //TODO endast visa två decimaled vid utskrift
+//TODO vid 49 om hur man gör annan variant av sleep, ej ha sleep pga det påv alla anv byta till exit?
+//TODO 1000-3000 ord totalt i hela readmen?
 
 
 
@@ -633,6 +635,7 @@ class Program
                         decimal depositAmount = decimal.Parse(inputAmount);
                         nonsuccessfulDeposit = false;
                         CreateAccountWithNameAndSumb(user, newAccountName, depositAmount);
+                        //Anropa CreateAccount
                         Console.WriteLine("Ditt nya konto men namnet " + newAccountName + " har skapats och "
                             + inputAmount + " kr finns nu på detta konto");
                     }
@@ -644,7 +647,8 @@ class Program
             }
             else if (string.Equals(userChoice, "Nej", StringComparison.OrdinalIgnoreCase))
             {
-                CreateAccountWithName(user, newAccountName);
+                //CreateAccountWithName(user, newAccountName);
+                //Anropa CreateAccount
                 Console.WriteLine("Ditt nya konto med namnet " + newAccountName + " har skapats");
             }
             Console.WriteLine();
@@ -652,7 +656,7 @@ class Program
             Console.ReadLine();
         }
 
-        void CreateAccountWithNameAndSumb(User user, string newAccountName, decimal depositAmount)
+        /*void CreateAccountWithNameAndSumb(User user, string newAccountName, decimal depositAmount)
         {
             Account[] tempAccounts = user.accounts;
             Array.Resize(ref tempAccounts, user.accounts.Length + 1);
@@ -669,7 +673,7 @@ class Program
             Array.Resize(ref tempAccounts, user.accounts.Length + 1);
             user.accounts[user.accounts.Length - 1] = new Account(newAccountName);
             return;
-        }
+        }*/
 
         /********** Transfers between users Section ************/
 
@@ -890,6 +894,24 @@ class Program
             set { _accounts = value; }
         }
 
+        void CreateAccount(User user, string newAccountName, decimal depositAmount)
+        {
+            Account[] tempAccounts = user.accounts;
+            Array.Resize(ref tempAccounts, user.accounts.Length + 1);
+            user.accounts[user.accounts.Length - 1] = new Account(newAccountName, depositAmount);
+
+            return;
+        }
+
+
+        void CreateAccount(User user, string newAccountName)
+        {
+
+            Account[] tempAccounts = user.accounts;
+            Array.Resize(ref tempAccounts, user.accounts.Length + 1);
+            user.accounts[user.accounts.Length - 1] = new Account(newAccountName);
+            return;
+        }
 
     }
 }
