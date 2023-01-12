@@ -634,8 +634,6 @@ class Program
                     {
                         decimal depositAmount = decimal.Parse(inputAmount);
                         nonsuccessfulDeposit = false;
-                        //CreateAccountWithNameAndSumb(user, newAccountName, depositAmount);
-                        //Anropa CreateAccount
                         user.CreateAccount(newAccountName, depositAmount);
                         Console.WriteLine("Ditt nya konto men namnet " + newAccountName + " har skapats och "
                             + inputAmount + " kr finns nu på detta konto");
@@ -648,33 +646,13 @@ class Program
             }
             else if (string.Equals(userChoice, "Nej", StringComparison.OrdinalIgnoreCase))
             {
-                //CreateAccountWithName(user, newAccountName);
-                //user.CreateAccount(newAccountName);
+                user.CreateAccount(newAccountName);
                 Console.WriteLine("Ditt nya konto med namnet " + newAccountName + " har skapats");
             }
             Console.WriteLine();
             Console.WriteLine("Tryck enter för att komma till huvudmenyn");
             Console.ReadLine();
         }
-
-        /*void CreateAccountWithNameAndSumb(User user, string newAccountName, decimal depositAmount)
-        {
-            Account[] tempAccounts = user.accounts;
-            Array.Resize(ref tempAccounts, user.accounts.Length + 1);
-            user.accounts[user.accounts.Length - 1] = new Account(newAccountName, depositAmount);
-
-            return;
-        }
-
-
-        void CreateAccountWithName(User user, string newAccountName)
-        {
-
-            Account[] tempAccounts = user.accounts;
-            Array.Resize(ref tempAccounts, user.accounts.Length + 1);
-            user.accounts[user.accounts.Length - 1] = new Account(newAccountName);
-            return;
-        }*/
 
         /********** Transfers between users Section ************/
 
@@ -905,24 +883,11 @@ class Program
             return;
         }
 
-        /******/
-
-        void CreateAccount(User user, string newAccountName, decimal depositAmount)
+        public void CreateAccount(string newAccountName)
         {
-            Account[] tempAccounts = user.accounts;
-            Array.Resize(ref tempAccounts, user.accounts.Length + 1);
-            user.accounts[user.accounts.Length - 1] = new Account(newAccountName, depositAmount);
-
-            return;
-        }
-
-
-        void CreateAccount(User user, string newAccountName)
-        {
-
-            Account[] tempAccounts = user.accounts;
-            Array.Resize(ref tempAccounts, user.accounts.Length + 1);
-            user.accounts[user.accounts.Length - 1] = new Account(newAccountName);
+            Account[] tempAccounts = _accounts;
+            Array.Resize(ref tempAccounts, _accounts.Length + 1);
+            accounts[_accounts.Length - 1] = new Account(newAccountName);
             return;
         }
 
