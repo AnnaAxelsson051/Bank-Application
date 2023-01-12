@@ -136,6 +136,7 @@ class Program
                             {
                                 Console.WriteLine(user.pinCode);
                                 inCorrectPinCode = false;
+                                userTries = 2;
                                 MainMenu(user);
                             }
                             else if (!userPinCode.Equals(user.pinCode) && userTries > 0 )
