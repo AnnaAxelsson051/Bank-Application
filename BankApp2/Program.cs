@@ -634,8 +634,9 @@ class Program
                     {
                         decimal depositAmount = decimal.Parse(inputAmount);
                         nonsuccessfulDeposit = false;
-                        CreateAccountWithNameAndSumb(user, newAccountName, depositAmount);
+                        //CreateAccountWithNameAndSumb(user, newAccountName, depositAmount);
                         //Anropa CreateAccount
+                        user.CreateAccount(newAccountName, depositAmount);
                         Console.WriteLine("Ditt nya konto men namnet " + newAccountName + " har skapats och "
                             + inputAmount + " kr finns nu på detta konto");
                     }
@@ -648,7 +649,7 @@ class Program
             else if (string.Equals(userChoice, "Nej", StringComparison.OrdinalIgnoreCase))
             {
                 //CreateAccountWithName(user, newAccountName);
-                //Anropa CreateAccount
+                //user.CreateAccount(newAccountName);
                 Console.WriteLine("Ditt nya konto med namnet " + newAccountName + " har skapats");
             }
             Console.WriteLine();
@@ -893,6 +894,18 @@ class Program
             get { return _accounts; }
             set { _accounts = value; }
         }
+
+        /******/
+
+        public void CreateAccount(string newAccountName, decimal depositAmount)
+        {
+            Account[] tempAccounts = _accounts;
+            Array.Resize(ref tempAccounts, _accounts.Length + 1);
+            accounts[_accounts.Length - 1] = new Account(newAccountName, depositAmount);
+            return;
+        }
+
+        /******/
 
         void CreateAccount(User user, string newAccountName, decimal depositAmount)
         {
