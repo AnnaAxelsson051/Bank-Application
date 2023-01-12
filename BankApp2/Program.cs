@@ -37,8 +37,8 @@ class Program
             pinCode = "1111",
             accounts = new Account[]
             {
-            new Account("Lönekonto", 100),
-            new Account("Sparkonto", 200)
+            new Account("Lönekonto", 101),
+            new Account("Sparkonto", 201)
             }
         },
 
@@ -50,9 +50,9 @@ class Program
             pinCode = "2222",
             accounts = new Account[]
         {
-            new Account("Lönekonto", 100),
-            new Account("Sparkonto", 200),
-            new Account("Resekonto", 300)      //with euros?
+            new Account("Lönekonto", 102),
+            new Account("Sparkonto", 202),
+            new Account("Resekonto", 302)      //with euros?
         }
         },
 
@@ -63,10 +63,10 @@ class Program
                 pinCode = "3333",
                 accounts = new Account[]
         {
-            new Account("Lönekonto", 100),
-            new Account("Sparkonto", 200),
-            new Account("Resekonto", 300),
-            new Account("Välgörenhetskonto", 400)
+            new Account("Lönekonto", 103),
+            new Account("Sparkonto", 203),
+            new Account("Resekonto", 303),
+            new Account("Välgörenhetskonto", 403)
         }
 
             },
@@ -78,11 +78,11 @@ class Program
                 pinCode = "4444",
                 accounts = new Account[]
         {
-            new Account("Lönekonto", 100),
-            new Account("Sparkonto", 200),
-            new Account("Resekonto", 300),
-            new Account("Välgörenhetskonto", 400),
-            new Account("Renoveringskonto", 500)
+            new Account("Lönekonto", 104),
+            new Account("Sparkonto", 204),
+            new Account("Resekonto", 304),
+            new Account("Välgörenhetskonto", 404),
+            new Account("Renoveringskonto", 504)
         }
 
             },
@@ -95,17 +95,17 @@ class Program
                 pinCode = "5555",
                 accounts = new Account[]
         {
-            new Account("Lönekonto", 100),
-            new Account("Sparkonto", 200),
-            new Account("Resekonto", 300),
-            new Account("Välgörenhetskonto", 400),
-            new Account("Renoveringskonto", 500),
-            new Account("Reparationskonto", 600),
+            new Account("Lönekonto", 105),
+            new Account("Sparkonto", 205),
+            new Account("Resekonto", 305),
+            new Account("Välgörenhetskonto", 405),
+            new Account("Renoveringskonto", 505),
+            new Account("Reparationskonto", 605),
         }
             }
         };
 
-        
+
 
         //LogInMenu();
         //void LogInMenu()
@@ -139,25 +139,25 @@ class Program
                                 userTries = 2;
                                 MainMenu(user);
                             }
-                            else if (!userPinCode.Equals(user.pinCode) && userTries > 0 )
+                            else if (!userPinCode.Equals(user.pinCode) && userTries > 0)
                             {
                                 Console.WriteLine("Du har angett fel pinkod var god försök igen, du har " + userTries + " försök kvar");
                                 userTries--;
                             }
                             else if (!userPinCode.Equals(user.pinCode) && userTries == 0)
                             {
-         
+
                                 Console.WriteLine("Du har angett fel pinkod tre gånger, var god vänta 3 minuter " +
                                     "innan du försöker igen");
                                 Thread.Sleep(180000);
                             }
                         }
                     }
-                } 
+                }
 
             } while (inCorrectUserName);
         }
-        
+
 
 
 
@@ -548,8 +548,8 @@ class Program
                     {
                         currency = "euro";
                     }
-               
-         user.accounts[foundWithdrawalAccount].accountValue -= transferAmount;
+
+                    user.accounts[foundWithdrawalAccount].accountValue -= transferAmount;
 
                     Console.WriteLine("Du har nu tagit ut " + transferAmount + " " + currency + " från ditt " +
                     user.accounts[foundWithdrawalAccount].accountName + ". Kvar på det kontot finns nu " +
@@ -588,7 +588,7 @@ class Program
             {
                 currency = "euro";
             }
-         user.accounts[foundDepositAccount].accountValue += transferAmount;
+            user.accounts[foundDepositAccount].accountValue += transferAmount;
 
             Console.WriteLine("Du har nu satt in " + transferAmount + " " + currency + " på ditt " +
             user.accounts[foundDepositAccount].accountName + ". På det kontot finns nu " +
@@ -824,18 +824,18 @@ class Program
 
 
 
-    
 
 
-public class Account
-{
 
-    public Account(string accountName, decimal accountValue)
+    public class Account
     {
-        this.accountName = accountName;
-        this.accountValue = accountValue;
 
-    }
+        public Account(string accountName, decimal accountValue)
+        {
+            this.accountName = accountName;
+            this.accountValue = accountValue;
+
+        }
 
         public Account(string accountName)
         {
@@ -843,21 +843,21 @@ public class Account
 
         }
 
-    private string _accountName;
-    public string accountName
-    {
-        get { return _accountName; }
-        set { _accountName = value; }
-    }
+        private string _accountName;
+        public string accountName
+        {
+            get { return _accountName; }
+            set { _accountName = value; }
+        }
 
-    private decimal _accountValue;
-    public decimal accountValue
-    {
-        get { return _accountValue; }
-        set { _accountValue = value; }
-    }
+        private decimal _accountValue;
+        public decimal accountValue
+        {
+            get { return _accountValue; }
+            set { _accountValue = value; }
+        }
 
-}
+    }
 
 
     public class User
@@ -893,10 +893,3 @@ public class Account
 
     }
 }
-
-
-
-
-
-
-
