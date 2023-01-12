@@ -5,7 +5,7 @@ using System.Diagnostics.Metrics;
 using System.Reflection;
 using System.Security;
 using System.Threading;
-//using Internal;
+
 using static BankApp2.Program;
 
 
@@ -52,7 +52,7 @@ class Program
         {
             new Account("Lönekonto", 102),
             new Account("Sparkonto", 202),
-            new Account("Resekonto", 302)      //with euros?
+            new Account("Resekonto", 302)     
         }
         },
 
@@ -202,7 +202,7 @@ class Program
                     case "E":
                         Console.WriteLine("E har valts, du loggas nu ut");
                         mainMenu = false;
-                        //LogInMenu();
+                        
                         break;
                     default:
                         Console.WriteLine("Ogiltigt val. Var god ange antingen val 1-6 eller E och tryck enter");
@@ -423,9 +423,7 @@ class Program
                     user.accounts[foundWithdrawalAccount].accountValue + " " + withdrawalAccountCurrency + " Och på ditt " +
                     user.accounts[foundDepositAccount].accountName + " finns nu " +
                     user.accounts[foundDepositAccount].accountValue + " " + depositAccountCurrency);
-                    /*Console.WriteLine();
-                    Console.WriteLine("Tryck enter för att komma till huvudmenyn");
-                    Console.ReadLine();*/
+                 
                     notSufficientFunds = false;
                 }
             } while (notSufficientFunds);
