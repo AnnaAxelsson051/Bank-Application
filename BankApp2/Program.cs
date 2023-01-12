@@ -10,12 +10,10 @@ using static BankApp2.Program;
 
 
 //TODO make it so that users own accounts are not listed when selecting other user to 
-
-////TODO Lägg till så att saldon för alla konton för alla användare sparas mellan körningarna
-///av programmet så att saldon inte återställs. —spara i fil
 ///
 //TODO endast visa två decimaled vid utskrift
-//TODO vid 49 om hur man gör annan variant av sleep, ej ha sleep pga det påv alla anv byta till exit?
+//TODO dölja pincode vid inlogg
+//TODO vid 49 om hur man gör annan variant av sleep, ej ha sleep pga det påv alla anv 
 //TODO 1000-3000 ord totalt i hela readmen?
 
 
