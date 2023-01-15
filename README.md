@@ -4,7 +4,7 @@
 
 >I kursen Programmering i C# på Chas Academy skulle vi redovisa våra kunskaper i C# genom att bygga en bank applikation. Detta är min redovisning från denna kurs. Parallellt med kursen på Chas Academy läste jag även av eget fördjupningsintresse online-kursen *Complete C# Masterclass* på Udemy.
 
-### Genom kursen Programmering i C# på Chas Academy har jag fått mycket kunskaper om
+### Genom kursen Programmering i C# på Chas Academy har jag fått mycket kunskaper om:
 
 #### Collections
 > - Dictionaries som erbjuder lagring av data i form av key-value pair 
