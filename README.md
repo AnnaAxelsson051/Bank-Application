@@ -26,7 +26,7 @@
 > - Hur man effektivt kan använda git pull för att i team samarbeta kring ett projekt
 #### SqlLite
  > - Hur man kan koppla C# till SqlLite för att komma åt värden i en databas
-
+<br>
 ## Projektbeskrivning 
 
 >Det här är en bankapplikation som erbjuder flera användare möjligheten att logga in med pinkod och användarnamn och från en lista av menyval utföra olika bankärenden så som transaktioner mellan egna konton, transaktioner till en annan användare, vanliga uttag och insättningar samt möjligheten att öppna nya konton med bara namn eller namn och summa. Användarna i banken har konton med olika valuta och appen håller reda på vilken valuta som finns på respektive konto, och valuta omvandlas vid överföringar mellan konton. Efter tre misslyckade försök stängs inloggningningen av i tre minuter.
@@ -46,13 +46,15 @@ Framtida förbättring: Jag hade även säkert kunnat använda try catch på vis
 > Jag har strävat efter att bygga upp en grundstruktur som ska vara lätt att överblicka för den som ser koden för första gången, där varje funktionalitet i programmet består av 1-4 metoder där varje metod så gått det går getts en uppgift för att så långt det går följa Single responsibility principle. Jag har exempelvis delat upp funktionaliteten för att leta upp rätt mottagaranvändare för exv en överföring i en metod, och väljandet av överföringsbelopp i en annan. Mycket på grund av att jag extensivt velat testa inmatningar för att undvika krascher och även hålla mig till DRY-principen - och undvika upprepningar.
 Kritik: Jag hade kanske kunnat lägga all kod som tillhör en funktionalitet i samma metod, det hade blivit långa metoder med en del upprepningar men kanske vunnit i överblickbarhet. Jag föredrar dock det sätt jag gjorde på grund av att jag personligen tycker det blir mer funktionellt att återanvända mycket kod.
 <br>
+
 > Min tanke bakom strukturen: I fall då en viss funktionalitet (Exv överföringar) kräver fler än 1 metod har jag valt att bygga upp det så att den kronologiskt översta metoden (huvudmetoden) i varje funktionsslinga (exv metoden “transaktions”), som också är den som anropas från användarmenyn, i sin tur anropar olika hjälpmetoder under denna för att exv välja ut rätt konto, välja ut rätt överföringsmottagare - på det sättet kan man i huvudmetoden snabbt få en överblick över vad som sker i koden och sen vidare undersöka hur de olika anropade hjälpmetoderna är uppbyggda. 
 Ev förbättringar: Om jag hade haft mer tid skulle jag kanske även försöka samla all kod som tillhör konvertering av valuta i en egen metod istället för att ha det i MakeTransaction, så att det på det viset blir så att säga en sektion med valutakonverteringsmetoder och för att MakeTransaction ska bli kortare.
 <br>
+
 >Om jag hade haft mer tid hade jag säkert kunnat göra ännu fler återanvändningar för att minska kodmängden än ytterligare, och det är något jag gillar och vill tänka ytterligare på i en framtida version.
 Jag hade också gärna utvecklat applikationen till att bestå av fler Filer/klasser, dels av säkerhetsskäl men också för än ökad överblickbarhet.
 
-###Om jag haft mer tid skulle jag också: 
+### Om jag haft mer tid skulle jag också: 
 > - Bygga ett flödesschema för appen som ger bra överblick 
 > - Implementera en front end del med en välkomnande bank log in sida
 > - Kanske funktionalitet för ett varningssljud om anv trycker fel pinkod
