@@ -14,7 +14,7 @@ using static BankApp2.Program;
 //TODO endast visa två decimaled vid utskrift
 //TODO dölja pincode vid inlogg
 //TODO vid 49 om hur man gör annan variant av sleep, ej ha sleep pga det påv alla anv 
-//TODO 1000-3000 ord totalt i hela readmen? //
+//TODO 1000-3000 ord totalt i hela readmen? /
 
 
 
