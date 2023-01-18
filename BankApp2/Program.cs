@@ -160,7 +160,11 @@ class Program
 
 
 
-
+        //Main menu method that lists various optinos for user and lets user choose an option,
+        //each option represents a bank errand that user can make in the bank
+        //as well as an option for exiting /logging out
+        //After each bank errand has been executed user is taken back to this method and is offered
+        //the ability to choose preferred bank errand again
 
         void MainMenu(User user)
         {
@@ -212,7 +216,7 @@ class Program
             }
         }
 
-
+        //method that lists accounts for user to see, listing name, sumb and currency for each account
         void ListAccounts(User user)
         {
             Console.WriteLine("Nedan listas alla dina konton");
@@ -238,6 +242,10 @@ class Program
 
         /****** Tansfer Section *******/
 
+        //The transfer section handles transactions between users own accounts
+
+
+        //Displays available accounts for transfer to user
         void ListAccountsForTransfer(User user)
         {
             Console.WriteLine("Nedan listas alla dina konton");
@@ -259,8 +267,12 @@ class Program
         }
 
 
-        //Main method for fund transfer using 3 helper methods
-
+        //Main method for fund transfer using 5 helper methods
+        //Calls ListAccountsForTransfer method - to display user accounts
+        //Calls SelectWithdrawalAccount method - to let user choose a withdrawal account
+        //Calls SelectDepositAccount method - to let user choose deposit account
+        //Calls GetTransferAmount method - to let user choose a transaction amount
+        //Calls MakeTransfer method - to make the actual transaction
         void TransferFunds(User user)
         {
             ListAccountsForTransfer(user);
@@ -274,7 +286,8 @@ class Program
             Console.ReadLine();
         }
 
-        //Enables user to select index for withdrawal account using 1 helper method:
+        //SelectWithdrawalAccount method enables user to select withdrawal account by selecting
+        //a number respresenting the account listed by the ListAccountsForTransfer method
 
         int SelectWithdrawalAccount(User user)
         {
@@ -304,7 +317,8 @@ class Program
             return foundWithdrawalAccount;
         }
 
-        //Loops to find the withdrawal account from the accounts array:
+        //FindWithdrawalAccount recieves selected index from SelectWithdrawalAccount method
+        //and loops the accounts array to find the selected account
 
         int FindWithdrawalAccount(int withdrawalAccount, User user)
         {
@@ -320,7 +334,8 @@ class Program
             return selectedWithDrawalAccount;
         }
 
-        //Enables user to select index for withdrawal account using 1 helper method:
+        //SelectDepositAccount method enables user to select deposit account by selecting
+        //a number respresenting the account listed by the ListAccountsForTransfer method
 
         int SelectDepositAccount(User user)
         {
@@ -348,7 +363,8 @@ class Program
             return foundDepositAccount;
         }
 
-        //Loops to find the deposit account from the accounts array:
+        //FindDepositAccount recieves selected index from SelectDepositAccount method
+        //and loops the accounts array to find the selected account
 
         int FindDepositAccount(int depositAccount, User user)
         {
@@ -364,7 +380,9 @@ class Program
             return selectedDepositAccount;
         }
 
-        //Makes the actual transfer of funds:
+        //MakeTransfer method the actual transfer of funds
+        //Calls CheckIfTravelAccount on both withdrawal and depositaccount to check to see
+        //what currency is to be used when calculating transfer amount and displaying it to user
 
         void MakeTransfer(int foundWithdrawalAccount, int foundDepositAccount, decimal transferAmount, User user)
         {
@@ -385,9 +403,11 @@ class Program
                     transferAmount = decimal.Parse(input);
                     transferAmountPreConversion = transferAmount;
                     Console.WriteLine();
-
-
                 }
+                //The below codeblock calculates transaction currency depending on if withdrawal
+                //and deposit account is travelaccount or not (=has euro currency or not), and sets the output
+                //string values for currency that is included in the message that is displayed to user when
+                //transaction is finished
                 else
                 {
                     transferAmountPreConversion = transferAmount;
@@ -415,9 +435,11 @@ class Program
                         withdrawalAccountCurrency = "kr";
                         depositAccountCurrency = "kr";
                     }
+
+                    //calculate transfer
                     user.accounts[foundDepositAccount].accountValue += transferAmount;
                     user.accounts[foundWithdrawalAccount].accountValue -= transferAmountPreConversion;
-
+                    //display output message to user post transaction:
                     Console.WriteLine("Du har nu överfört " + transferAmountPreConversion + " " + withdrawalAccountCurrency + " från ditt " +
                     user.accounts[foundWithdrawalAccount].accountName + ". Kvar på det kontot finns nu " +
                     user.accounts[foundWithdrawalAccount].accountValue + " " + withdrawalAccountCurrency + " Och på ditt " +
