@@ -454,7 +454,8 @@ class Program
 
 
 
-
+        //GetTransferAmount method asks user for method he/she would like to transfer and tests so that
+        //input has correct format
 
         decimal GetTransferAmount()
         {
@@ -477,6 +478,7 @@ class Program
             return transferAmount;
         }
 
+        //TestUserPinCode validates user pin code, if 3 missed tries user has to wait for 3 mins to try again
         void TestUserPinCode(User user)
         {
             int userTries = 0;
@@ -496,7 +498,6 @@ class Program
                 if (userTries > 2)
                 {
                     Console.WriteLine("Du har angett fel pinkod tre gånger, var god vänta 3 minuter innan du försöker igen");
-                    //Console.WriteLine("Sleep for 3 minutes");
                     Thread.Sleep(180000);
                 }
 
@@ -504,6 +505,8 @@ class Program
             return;
         }
 
+        //CheckIfTravelAccount checks if a received account is named "Resekonto" and if yes sets
+        //bool travelaccount to true 
         bool CheckIfTravelAccount(int account, User user)
         {
             bool travelAccount = false;
@@ -524,9 +527,15 @@ class Program
 
 
         /******** Withdrawal Section **********/
+        //Handles withdrawals from accounts
 
-        //Main method for withdrawing funds using 3 helper methods
-
+        //WithdrawFunds is main method for withdrawing funds using 3 helper methods
+        //Calls ListAccountsForTransfer method - to lisy accounts to user
+        //Calls SelectWithdrawalAccount method - to let user select account for withdrawal
+        //calls GetTransferAmount method - to let user choose withdrawal amount
+        //Calls TestUserPincode method - to get and check user pincode
+        //Calls CheckIfTravelaccount method - to check if selected account is travelaccount to set currency
+        //Calls MakeWithdrawal method - that makes the actual withdrawal of funds
         void WithdrawFunds(User user)
         {
             ListAccountsForTransfer(user);
