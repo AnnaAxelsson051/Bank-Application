@@ -529,13 +529,13 @@ class Program
         /******** Withdrawal Section **********/
         //Handles withdrawals from accounts
 
-        //WithdrawFunds is main method for withdrawing funds using 3 helper methods
-        //Calls ListAccountsForTransfer method - to lisy accounts to user
+        //WithdrawFunds is main method for withdrawing funds using 6 helper methods
+        //Calls ListAccountsForTransfer method - to list accounts to user
         //Calls SelectWithdrawalAccount method - to let user select account for withdrawal
         //calls GetTransferAmount method - to let user choose withdrawal amount
         //Calls TestUserPincode method - to get and check user pincode
         //Calls CheckIfTravelaccount method - to check if selected account is travelaccount to set currency
-        //Calls MakeWithdrawal method - that makes the actual withdrawal of funds
+        //Calls MakeWithdrawal method - makes the actual withdrawal of funds
         void WithdrawFunds(User user)
         {
             ListAccountsForTransfer(user);
@@ -553,7 +553,8 @@ class Program
             Console.ReadLine();
         }
 
-
+        //MakeWithdrawal method makes the actual withdrawal and displays a resultmessage to user of what accounts were effected
+        //how much was withdrawn and how much is left on the account
         void MakeWithdrawal(int foundWithdrawalAccount, bool isTravelAccount, decimal transferAmount, User user)
         {
             bool notSufficientFunds = true;
@@ -590,12 +591,18 @@ class Program
         }
 
         /******* Deposit Section ********/
+        //DepositFunds is main method for depositing funds using 5 helper methods
+        //Calls ListAccountsForTransfer method - to list accounts to user
+        //Calls SelectDepositAccount method - to let user select account for deposit
+        //calls GetTransferAmount method - to let user choose deposit amount
+        //Calls CheckIfTravelaccount method - to check if selected account is travelaccount to set currency
+        //Calls MakeDeposit method - makes the actual deposit of funds
+        //(No pincode checks because this app is currently supportive of "fraudulent deposits" aka donations) 
 
         //Main method for depositing funds using 1 helper method
-
         void DepositFunds(User user)
         {
-            //TestUserPinCode(user);
+            
             ListAccountsForTransfer(user);
 
             int foundDepositAccount = SelectDepositAccount(user);
@@ -609,7 +616,7 @@ class Program
             Console.ReadLine();
         }
 
-
+        //MakeDeposit method makes the actual deposit, sets currency and displays a resultmessage to user
         void MakeDeposit(int foundDepositAccount, decimal transferAmount, bool isTravelAccount, User user)
         {
             string currency = "kr";
@@ -628,6 +635,9 @@ class Program
         /********* Create Accounts Section ***********/
 
         //Main method for creating new accounts using 2 helper methods
+        //Asks user what name the new account should have and if user wishes to deposit funds into it
+        //and if so how much. Then calls one out of 2 CreateAccount methods in the User class depending on
+        //if account should be created with or without a sumb
 
         void CreateNewAccount(User user)
         {
