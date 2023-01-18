@@ -15,6 +15,7 @@ using static BankApp2.Program;
 //TODO dölja pincode vid inlogg
 //TODO vid 49 om hur man gör annan variant av sleep, ej ha sleep pga det påv alla anv 
 //TODO 1000-3000 ord totalt i hela readmen? /
+//TODO add commenst for each method and codebits whos purpouse is not obvious
 
 
 
@@ -107,9 +108,8 @@ class Program
 
 
 
-        //LogInMenu();
-        //void LogInMenu()
-        // {
+        //Log in functionality used for logging user into the bank
+        //Asking user for userName and pinCode, after 3 attempts login is paused for 3 mins
         while (true)
         {
             Console.WriteLine("---------- Log in ----------");
