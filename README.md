@@ -1,4 +1,4 @@
-# Bank Applicatio
+# Bank Application
 
 ## Inledning
 
