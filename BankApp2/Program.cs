@@ -27,7 +27,7 @@ class Program
     {
 
 
-        //create array of users
+        //create users
 
         User[] users = new User[]
         {
@@ -53,7 +53,7 @@ class Program
         {
             new Account("Lönekonto", 102),
             new Account("Sparkonto", 202),
-            new Account("Resekonto", 302)     
+            new Account("Resekonto", 302)
         }
         },
 
@@ -108,8 +108,8 @@ class Program
 
 
 
-        //Log in functionality used for logging user into the bank
-        //Asking user for userName and pinCode, after 3 attempts login is paused for 3 mins
+        //Loggs user into the bank, asks for user name and pincode - if correct redirects
+        //user to MainMenu
         while (true)
         {
             Console.WriteLine("---------- Log in ----------");
@@ -120,7 +120,6 @@ class Program
             do
             {
                 string? userName = Console.ReadLine();
-                //
                 foreach (var user in users)
                 {
                     if (string.Equals(user.userName, userName, StringComparison.OrdinalIgnoreCase))
@@ -160,11 +159,8 @@ class Program
 
 
 
-        //Main menu method that lists various optinos for user and lets user choose an option,
-        //each option represents a bank errand that user can make in the bank
-        //as well as an option for exiting /logging out
-        //After each bank errand has been executed user is taken back to this method and is offered
-        //the ability to choose preferred bank errand again
+        //Lets user choose from a list of bank errands to execute
+        //Or choose to log out and is then returned to log in
 
         void MainMenu(User user)
         {
@@ -177,10 +173,10 @@ class Program
                 Console.WriteLine();
                 Console.WriteLine("1 Se konton och saldon");
                 Console.WriteLine("2 Överföringar");
-                Console.WriteLine("3 Överföringar till annan användare");
-                Console.WriteLine("4 Ta ut pengar");
-                Console.WriteLine("5 Sätta in pengar");
-                Console.WriteLine("6 Skapa nytt konto");
+                Console.WriteLine("3 Ta ut pengar");
+                Console.WriteLine("4 Sätta in pengar");
+                Console.WriteLine("5 Skapa nytt konto");
+                Console.WriteLine("6 Överföringar till annan användare");
                 Console.WriteLine("E Exit");
                 string? choice = Console.ReadLine().ToUpper();
                 switch (choice)
@@ -206,7 +202,7 @@ class Program
                     case "E":
                         Console.WriteLine("E har valts, du loggas nu ut");
                         mainMenu = false;
-                        
+
                         break;
                     default:
                         Console.WriteLine("Ogiltigt val. Var god ange antingen val 1-6 eller E och tryck enter");
@@ -216,7 +212,7 @@ class Program
             }
         }
 
-        //method that lists accounts for user to see, listing name, sumb and currency for each account
+        //Lists user accounts with name, sumb and currency 
         void ListAccounts(User user)
         {
             Console.WriteLine("Nedan listas alla dina konton");
@@ -241,11 +237,9 @@ class Program
         }
 
         /****** Tansfer Section *******/
+        //Handles transactions between users own accounts
 
-        //The transfer section handles transactions between users own accounts
-
-
-        //Displays available accounts for transfer to user
+        //Displays available accounts for transfer 
         void ListAccountsForTransfer(User user)
         {
             Console.WriteLine("Nedan listas alla dina konton");
@@ -267,12 +261,7 @@ class Program
         }
 
 
-        //Main method for fund transfer using 5 helper methods
-        //Calls ListAccountsForTransfer method - to display user accounts
-        //Calls SelectWithdrawalAccount method - to let user choose a withdrawal account
-        //Calls SelectDepositAccount method - to let user choose deposit account
-        //Calls GetTransferAmount method - to let user choose a transaction amount
-        //Calls MakeTransfer method - to make the actual transaction
+        //Main method for organizing fund transfer using 5 helper methods
         void TransferFunds(User user)
         {
             ListAccountsForTransfer(user);
@@ -286,14 +275,11 @@ class Program
             Console.ReadLine();
         }
 
-        //SelectWithdrawalAccount method enables user to select withdrawal account by selecting
-        //a number respresenting the account listed by the ListAccountsForTransfer method
-
+        //Lets user select withdrawal account and returns its ID
         int SelectWithdrawalAccount(User user)
         {
             Console.WriteLine("Var god välj ett konto mellan 1 - " + user.accounts.Length +
                 " att flytta pengar ifrån");
-            int foundWithdrawalAccount = 0;
             int withdrawalAccount = 0;
             bool inCorrectInput = true;
             do
@@ -313,37 +299,16 @@ class Program
             } while (inCorrectInput);
 
             withdrawalAccount -= 1;
-            foundWithdrawalAccount = FindWithdrawalAccount(withdrawalAccount, user);
-            return foundWithdrawalAccount;
+            return withdrawalAccount;
         }
 
-        //FindWithdrawalAccount recieves selected index from SelectWithdrawalAccount method
-        //and loops the accounts array to find the selected account
-
-        int FindWithdrawalAccount(int withdrawalAccount, User user)
-        {
-            int selectedWithDrawalAccount = 0;
-            for (int i = 0; i < user.accounts.Length; i++)
-            {
-                if (withdrawalAccount == i)
-                {
-                    Console.WriteLine("Du har angett kontot " + user.accounts[i].accountName);
-                    selectedWithDrawalAccount = i;
-                }
-            }
-            return selectedWithDrawalAccount;
-        }
-
-        //SelectDepositAccount method enables user to select deposit account by selecting
-        //a number respresenting the account listed by the ListAccountsForTransfer method
-
+        //Lets user select deposit account and returns its ID
         int SelectDepositAccount(User user)
         {
             Console.WriteLine("Var god välj ett konto mellan 1 - " + user.accounts.Length +
                   " att flytta pengar till");
             bool inCorrectInput2 = true;
             int depositAccount = 0;
-            int foundDepositAccount = 0;
             do
             {
                 string? input2 = Console.ReadLine();
@@ -359,31 +324,10 @@ class Program
                 }
             } while (inCorrectInput2);
             depositAccount -= 1;
-            foundDepositAccount = FindDepositAccount(depositAccount, user);
-            return foundDepositAccount;
+            return depositAccount;
         }
 
-        //FindDepositAccount recieves selected index from SelectDepositAccount method
-        //and loops the accounts array to find the selected account
-
-        int FindDepositAccount(int depositAccount, User user)
-        {
-            int selectedDepositAccount = 0;
-            for (int i = 0; i < user.accounts.Length; i++)
-            {
-                if (depositAccount == i)
-                {
-                    Console.WriteLine("Du har angett kontot " + user.accounts[i].accountName);
-                    selectedDepositAccount = i;
-                }
-            }
-            return selectedDepositAccount;
-        }
-
-        //MakeTransfer method the actual transfer of funds
-        //Calls CheckIfTravelAccount on both withdrawal and depositaccount to check to see
-        //what currency is to be used when calculating transfer amount and displaying it to user
-
+        //Makes the actual transfer of funds
         void MakeTransfer(int foundWithdrawalAccount, int foundDepositAccount, decimal transferAmount, User user)
         {
 
@@ -395,8 +339,6 @@ class Program
             {
                 if (user.accounts[foundWithdrawalAccount].accountValue < transferAmount)
                 {
-                    /*throw new ArgumentOutOfRangeException(nameof(transferAmount), "Det finns inte tillräckligt med pengar " +
-                        "på kontot du vill överföra ifrån");*/
                     Console.WriteLine("Du har angett en summa som är högre än den som finns på kontot, kontrollera ditt" +
                         "saldo och ange en ny summa");
                     string input = Console.ReadLine();
@@ -404,10 +346,6 @@ class Program
                     transferAmountPreConversion = transferAmount;
                     Console.WriteLine();
                 }
-                //The below codeblock calculates transaction currency depending on if withdrawal
-                //and deposit account is travelaccount or not (=has euro currency or not), and sets the output
-                //string values for currency that is included in the message that is displayed to user when
-                //transaction is finished
                 else
                 {
                     transferAmountPreConversion = transferAmount;
@@ -435,17 +373,13 @@ class Program
                         withdrawalAccountCurrency = "kr";
                         depositAccountCurrency = "kr";
                     }
-
-                    //calculate transfer
                     user.accounts[foundDepositAccount].accountValue += transferAmount;
                     user.accounts[foundWithdrawalAccount].accountValue -= transferAmountPreConversion;
-                    //display output message to user post transaction:
                     Console.WriteLine("Du har nu överfört " + transferAmountPreConversion + " " + withdrawalAccountCurrency + " från ditt " +
                     user.accounts[foundWithdrawalAccount].accountName + ". Kvar på det kontot finns nu " +
                     user.accounts[foundWithdrawalAccount].accountValue + " " + withdrawalAccountCurrency + " Och på ditt " +
                     user.accounts[foundDepositAccount].accountName + " finns nu " +
                     user.accounts[foundDepositAccount].accountValue + " " + depositAccountCurrency);
-                 
                     notSufficientFunds = false;
                 }
             } while (notSufficientFunds);
@@ -454,9 +388,7 @@ class Program
 
 
 
-        //GetTransferAmount method asks user for method he/she would like to transfer and tests so that
-        //input has correct format
-
+        //Lets user choose a transfer amount and returns it
         decimal GetTransferAmount()
         {
             decimal transferAmount = 0;
@@ -478,7 +410,7 @@ class Program
             return transferAmount;
         }
 
-        //TestUserPinCode validates user pin code, if 3 missed tries user has to wait for 3 mins to try again
+        //Validates user pin code
         void TestUserPinCode(User user)
         {
             int userTries = 0;
@@ -490,8 +422,6 @@ class Program
 
                 if (user.pinCode.Equals(userPinCode))
                 {
-                    //Console.WriteLine(user.pinCode);
-                    //Console.WriteLine(userPinCode);
                     testPincode = false;
                 }
                 userTries++;
@@ -500,13 +430,11 @@ class Program
                     Console.WriteLine("Du har angett fel pinkod tre gånger, var god vänta 3 minuter innan du försöker igen");
                     Thread.Sleep(180000);
                 }
-
             } while (testPincode);
             return;
         }
 
-        //CheckIfTravelAccount checks if a received account is named "Resekonto" and if yes sets
-        //bool travelaccount to true 
+        //Checks if account is "Resekonto" and returns a bool 
         bool CheckIfTravelAccount(int account, User user)
         {
             bool travelAccount = false;
@@ -524,18 +452,10 @@ class Program
             return travelAccount;
         }
 
-
-
         /******** Withdrawal Section **********/
-        //Handles withdrawals from accounts
 
-        //WithdrawFunds is main method for withdrawing funds using 6 helper methods
-        //Calls ListAccountsForTransfer method - to list accounts to user
-        //Calls SelectWithdrawalAccount method - to let user select account for withdrawal
-        //calls GetTransferAmount method - to let user choose withdrawal amount
-        //Calls TestUserPincode method - to get and check user pincode
-        //Calls CheckIfTravelaccount method - to check if selected account is travelaccount to set currency
-        //Calls MakeWithdrawal method - makes the actual withdrawal of funds
+
+        //Main method for organizing withdrawals using 6 helper methods
         void WithdrawFunds(User user)
         {
             ListAccountsForTransfer(user);
@@ -553,18 +473,14 @@ class Program
             Console.ReadLine();
         }
 
-        //MakeWithdrawal method makes the actual withdrawal and displays a resultmessage to user of what accounts were effected
-        //how much was withdrawn and how much is left on the account
+        //Makes the actual withdrawal 
         void MakeWithdrawal(int foundWithdrawalAccount, bool isTravelAccount, decimal transferAmount, User user)
         {
             bool notSufficientFunds = true;
             do
             {
-
                 if (user.accounts[foundWithdrawalAccount].accountValue < transferAmount)
                 {
-                    // throw new ArgumentOutOfRangeException(nameof(transferAmount), "Det finns inte tillräckligt med pengar " +
-                    //     "på kontot du vill överföra ifrån");
                     Console.WriteLine("Du har angett en summa som är högre än den som finns på kontot, kontrollera ditt" +
                         "saldo och ange en ny summa");
                     string input = Console.ReadLine();
@@ -578,7 +494,6 @@ class Program
                     {
                         currency = "euro";
                     }
-
                     user.accounts[foundWithdrawalAccount].accountValue -= transferAmount;
 
                     Console.WriteLine("Du har nu tagit ut " + transferAmount + " " + currency + " från ditt " +
@@ -591,24 +506,15 @@ class Program
         }
 
         /******* Deposit Section ********/
-        //DepositFunds is main method for depositing funds using 5 helper methods
-        //Calls ListAccountsForTransfer method - to list accounts to user
-        //Calls SelectDepositAccount method - to let user select account for deposit
-        //calls GetTransferAmount method - to let user choose deposit amount
-        //Calls CheckIfTravelaccount method - to check if selected account is travelaccount to set currency
-        //Calls MakeDeposit method - makes the actual deposit of funds
-        //(No pincode checks because this app is currently supportive of "fraudulent deposits" aka donations) 
 
-        //Main method for depositing funds using 1 helper method
+        //Main method for organizing deposits using 5 helper methods
         void DepositFunds(User user)
         {
-            
             ListAccountsForTransfer(user);
 
             int foundDepositAccount = SelectDepositAccount(user);
             decimal transferAmount = GetTransferAmount();
             bool isTravelAccount = CheckIfTravelAccount(foundDepositAccount, user);
-
 
             MakeDeposit(foundDepositAccount, transferAmount, isTravelAccount, user);
             Console.WriteLine();
@@ -616,7 +522,7 @@ class Program
             Console.ReadLine();
         }
 
-        //MakeDeposit method makes the actual deposit, sets currency and displays a resultmessage to user
+        //Makes the actual deposit
         void MakeDeposit(int foundDepositAccount, decimal transferAmount, bool isTravelAccount, User user)
         {
             string currency = "kr";
@@ -635,10 +541,6 @@ class Program
         /********* Create Accounts Section ***********/
 
         //Main method for creating new accounts using 2 helper methods
-        //Asks user what name the new account should have and if user wishes to deposit funds into it
-        //and if so how much. Then calls one out of 2 CreateAccount methods in the User class depending on
-        //if account should be created with or without a sumb
-
         void CreateNewAccount(User user)
         {
             Console.WriteLine("Vad god ange namnet på det nya konto du vill skapa");
@@ -661,7 +563,6 @@ class Program
 
             bool nonsuccessfulDeposit = true;
             if (string.Equals(userChoice, "Ja", StringComparison.OrdinalIgnoreCase))
-            //string.Equals(val, "astringvalue",  StringComparison.OrdinalIgnoreCase)
             {
                 do
                 {
@@ -692,19 +593,12 @@ class Program
         }
 
         /********** Transfers between users Section ************/
-        //Handles transfers from one user to another user account
 
-        //Main method for fund transfer using 5 helper methods
-        //Calls ListAccountsForTransfer method - to display user accounts
-        //Calls SelectWithdrawalAccount method - to let user choose a withdrawal account
-        //Calls SelectReceiverUser method - to let user choose what other user to transfer frund to
-        //Calls SelectReceiverUserAccount method - to let user choose deposit account
-        //Calls GetTransferAmount method - to let user choose a transaction amount
-        //Calls TestUserPinCode method - to verify user identity prior to transfer
-        //Calls MakeTransferOfFundsToDifferentUser method - to make the actual transaction
+        //Main method for organizing transfers between users using 7 helper methods
         void TransferFundsToDifferentUser(User user)
         {
             ListAccountsForTransfer(user);
+
             int foundWithdrawalAccount = SelectWithdrawalAccount(user);
             int foundReceiverUser = SelectReceiverUser();
             int foundReceiverUserAccount = SelectReceiverUserAccount(foundReceiverUser);
@@ -719,13 +613,14 @@ class Program
             Console.ReadLine();
         }
 
-        //SelectReceiverUser method lets user select what other user to transfer funds to
+
+
+        //Let's user select user to transfer funds to and returns its ID
         int SelectReceiverUser()
         {
-            int receiverUser = 0;
             Console.WriteLine("Var god välj vilken av följande användare du vill flytta pengar till");
             int counter = 1;
-            for (int i = 0; i < users.Length; i++)        //Loop users
+            for (int i = 0; i < users.Length; i++)
             {
                 Console.WriteLine(counter + ". " + users[i].name);
                 counter++;
@@ -733,27 +628,19 @@ class Program
             Console.WriteLine();
             Console.WriteLine("Gör ditt val genom att skriva in en siffra mellan 1 - " + users.Length);
             string? input = Console.ReadLine();
-            int selectedUserIndex = Int32.Parse(input);    //Receiver user
+            int selectedUserIndex = Int32.Parse(input);
             selectedUserIndex -= 1;
-            for (int i = 0; i < users.Length; i++)    //Find recipient in users array 
-            {
-                if (selectedUserIndex == i)
-                {
-                    receiverUser = i;       
-                }
-            }
-            return receiverUser;
+            return selectedUserIndex;
         }
 
-        //SelectReceiverUserAccount lets user select which account belonging to the other user he/she wants
-        //to transfer funds to
+        //Let's user select user account to transfer funds to and returns its ID
         int SelectReceiverUserAccount(int foundReceiverUser)
         {
             int receiverAccount = 0;
             Console.WriteLine("Du har valt att föra över pengar till ett av " + users[foundReceiverUser].name + "s konton");
             Console.WriteLine("Var god välj vilket konto du vill flytta pengarna till");
             int counter = 1;
-            for (int i = 0; i < users[foundReceiverUser].accounts.Length; i++)     //loop receiveruser accounts
+            for (int i = 0; i < users[foundReceiverUser].accounts.Length; i++)
             {
                 if (users[foundReceiverUser].accounts[i].accountName.Equals("Resekonto"))
                 {
@@ -771,18 +658,12 @@ class Program
             string? input2 = Console.ReadLine();
             int selectedReceiverAccount = Int32.Parse(input2);
             selectedReceiverAccount -= 1;
-            for (int i = 0; i < users[foundReceiverUser].accounts.Length; i++)
-            {
-                if (selectedReceiverAccount == i)
-                {
-                    receiverAccount = i;
-                    Console.WriteLine("Du har valt att föra över pengar till " + users[foundReceiverUser].name
-                        + "s " + users[foundReceiverUser].accounts[receiverAccount].accountName);
-                }
-            }
-            return receiverAccount;
+            Console.WriteLine("Du har valt att föra över pengar till " + users[foundReceiverUser].name
+                        + "s " + users[foundReceiverUser].accounts[selectedReceiverAccount].accountName);
+            return selectedReceiverAccount;
         }
 
+        //Makes the actual transfer of funds to different user account, converts currency
         void MakeTransferOfFundsToDifferentUser(int foundWithdrawalAccount, int foundReceiverUser,
             int foundReceiverUserAccount, decimal transferAmount, User user)
         {
@@ -798,8 +679,6 @@ class Program
                     transferAmount = decimal.Parse(input);
                     transferAmountPreConversion = transferAmount;
                     Console.WriteLine();
-
-
                 }
                 else
                 {
@@ -833,6 +712,7 @@ class Program
                         withdrawalAccountCurrency = "kr";
                         depositAccountCurrency = "kr";
                     }
+
                     users[foundReceiverUser].accounts[foundReceiverUserAccount].accountValue += transferAmount;
                     user.accounts[foundWithdrawalAccount].accountValue -= transferAmountPreConversion;
 
@@ -847,10 +727,6 @@ class Program
             return;
         }
     }
-
-
-
-
 
 
     public class Account
@@ -916,8 +792,7 @@ class Program
             set { _accounts = value; }
         }
 
-        /******/
-
+        //Creates new account with name and amount
         public void CreateAccount(string newAccountName, decimal depositAmount)
         {
             Account[] tempAccounts = _accounts;
@@ -926,6 +801,7 @@ class Program
             return;
         }
 
+        //Creates new account with name
         public void CreateAccount(string newAccountName)
         {
             Account[] tempAccounts = _accounts;
