@@ -692,12 +692,19 @@ class Program
         }
 
         /********** Transfers between users Section ************/
+        //Handles transfers from one user to another user account
 
+        //Main method for fund transfer using 5 helper methods
+        //Calls ListAccountsForTransfer method - to display user accounts
+        //Calls SelectWithdrawalAccount method - to let user choose a withdrawal account
+        //Calls SelectReceiverUser method - to let user choose what other user to transfer frund to
+        //Calls SelectReceiverUserAccount method - to let user choose deposit account
+        //Calls GetTransferAmount method - to let user choose a transaction amount
+        //Calls TestUserPinCode method - to verify user identity prior to transfer
+        //Calls MakeTransferOfFundsToDifferentUser method - to make the actual transaction
         void TransferFundsToDifferentUser(User user)
         {
             ListAccountsForTransfer(user);
-
-            //int foundDepositAccount = SelectDepositAccount(user);
             int foundWithdrawalAccount = SelectWithdrawalAccount(user);
             int foundReceiverUser = SelectReceiverUser();
             int foundReceiverUserAccount = SelectReceiverUserAccount(foundReceiverUser);
@@ -711,7 +718,70 @@ class Program
             Console.WriteLine("Tryck enter för att komma till huvudmenyn");
             Console.ReadLine();
         }
-        //
+
+        //SelectReceiverUser method lets user select what other user to transfer funds to
+        int SelectReceiverUser()
+        {
+            int receiverUser = 0;
+            Console.WriteLine("Var god välj vilken av följande användare du vill flytta pengar till");
+            int counter = 1;
+            for (int i = 0; i < users.Length; i++)        //Loop users
+            {
+                Console.WriteLine(counter + ". " + users[i].name);
+                counter++;
+            }
+            Console.WriteLine();
+            Console.WriteLine("Gör ditt val genom att skriva in en siffra mellan 1 - " + users.Length);
+            string? input = Console.ReadLine();
+            int selectedUserIndex = Int32.Parse(input);    //Receiver user
+            selectedUserIndex -= 1;
+            for (int i = 0; i < users.Length; i++)    //Find recipient in users array 
+            {
+                if (selectedUserIndex == i)
+                {
+                    receiverUser = i;       
+                }
+            }
+            return receiverUser;
+        }
+
+        //SelectReceiverUserAccount lets user select which account belonging to the other user he/she wants
+        //to transfer funds to
+        int SelectReceiverUserAccount(int foundReceiverUser)
+        {
+            int receiverAccount = 0;
+            Console.WriteLine("Du har valt att föra över pengar till ett av " + users[foundReceiverUser].name + "s konton");
+            Console.WriteLine("Var god välj vilket konto du vill flytta pengarna till");
+            int counter = 1;
+            for (int i = 0; i < users[foundReceiverUser].accounts.Length; i++)     //loop receiveruser accounts
+            {
+                if (users[foundReceiverUser].accounts[i].accountName.Equals("Resekonto"))
+                {
+                    Console.Write(counter + ". " + users[foundReceiverUser].accounts[i].accountName + "\n");
+                    Console.Write(users[foundReceiverUser].accounts[i].accountValue + " euro\n");
+                }
+                else
+                {
+                    Console.Write(counter + ". " + users[foundReceiverUser].accounts[i].accountName + "\n");
+                    Console.Write(users[foundReceiverUser].accounts[i].accountValue + " kr\n");
+                }
+                counter++;
+            }
+
+            string? input2 = Console.ReadLine();
+            int selectedReceiverAccount = Int32.Parse(input2);
+            selectedReceiverAccount -= 1;
+            for (int i = 0; i < users[foundReceiverUser].accounts.Length; i++)
+            {
+                if (selectedReceiverAccount == i)
+                {
+                    receiverAccount = i;
+                    Console.WriteLine("Du har valt att föra över pengar till " + users[foundReceiverUser].name
+                        + "s " + users[foundReceiverUser].accounts[receiverAccount].accountName);
+                }
+            }
+            return receiverAccount;
+        }
 
         void MakeTransferOfFundsToDifferentUser(int foundWithdrawalAccount, int foundReceiverUser,
             int foundReceiverUserAccount, decimal transferAmount, User user)
@@ -763,8 +833,6 @@ class Program
                         withdrawalAccountCurrency = "kr";
                         depositAccountCurrency = "kr";
                     }
-
-
                     users[foundReceiverUser].accounts[foundReceiverUserAccount].accountValue += transferAmount;
                     user.accounts[foundWithdrawalAccount].accountValue -= transferAmountPreConversion;
 
@@ -777,68 +845,6 @@ class Program
                 }
             } while (notSufficientFunds);
             return;
-        }
-
-
-        int SelectReceiverUser()
-        {
-            int receiverUser = 0;
-            Console.WriteLine("Var god välj vilken av följande användare du vill flytta pengar till");
-            int counter = 1;
-            for (int i = 0; i < users.Length; i++)
-            {
-                Console.WriteLine(counter + ". " + users[i].name);
-                counter++;
-            }
-            Console.WriteLine();
-            Console.WriteLine("Gör ditt val genom att skriva in en siffra mellan 1 - " + users.Length);
-            string? input = Console.ReadLine();
-            int selectedUserIndex = Int32.Parse(input);    //välja mottagare
-            selectedUserIndex -= 1;
-            for (int i = 0; i < users.Length; i++)    //Hitta mottagare
-            {
-                if (selectedUserIndex == i)
-                {
-                    receiverUser = i;
-                }
-            }
-            return receiverUser;
-        }
-
-        int SelectReceiverUserAccount(int foundReceiverUser)
-        {
-            int receiverAccount = 0;
-            Console.WriteLine("Du har valt att föra över pengar till ett av " + users[foundReceiverUser].name + "s konton");
-            Console.WriteLine("Var god välj vilket konto du vill flytta pengarna till");
-            int counter = 1;
-            for (int i = 0; i < users[foundReceiverUser].accounts.Length; i++)
-            {
-                if (users[foundReceiverUser].accounts[i].accountName.Equals("Resekonto"))
-                {
-                    Console.Write(counter + ". " + users[foundReceiverUser].accounts[i].accountName + "\n");
-                    Console.Write(users[foundReceiverUser].accounts[i].accountValue + " euro\n");
-                }
-                else
-                {
-                    Console.Write(counter + ". " + users[foundReceiverUser].accounts[i].accountName + "\n");
-                    Console.Write(users[foundReceiverUser].accounts[i].accountValue + " kr\n");
-                }
-                counter++;
-            }
-
-            string? input2 = Console.ReadLine();
-            int selectedReceiverAccount = Int32.Parse(input2);
-            selectedReceiverAccount -= 1;
-            for (int i = 0; i < users[foundReceiverUser].accounts.Length; i++)
-            {
-                if (selectedReceiverAccount == i)
-                {
-                    receiverAccount = i;
-                    Console.WriteLine("Du har valt att föra över pengar till " + users[foundReceiverUser].name
-                        + "s " + users[foundReceiverUser].accounts[receiverAccount].accountName);
-                }
-            }
-            return receiverAccount;
         }
     }
 
