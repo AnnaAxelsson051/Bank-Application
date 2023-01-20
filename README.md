@@ -6,7 +6,12 @@
 
 ## Projektbeskrivning 
 
->Det här är en bankapplikation som erbjuder flera användare möjligheten att logga in med pinkod och användarnamn och sedan från en lista av menyval utföra olika bankärenden så som transaktioner mellan egna konton, transaktioner till annan användare, vanliga uttag och insättningar samt möjligheten att öppna nya konton med bara namn eller namn och summa. Användarna i banken har konton med olika valuta och appen håller reda på vilken valuta som finns på respektive konto, valuta omvandlas sedan vid överföringar mellan konton. Efter tre misslyckade försök stängs inloggningningen av i tre minuter.
+> Det här är en bankapplikation som erbjuder flera användare möjligheten att logga in med pinkod och användarnamn och sedan från en lista av menyval utföra olika bankärenden så som transaktioner mellan egna konton, transaktioner till annan användare, vanliga uttag och insättningar samt möjligheten att öppna nya konton med bara namn eller namn och summa. Användarna i banken har konton med olika valuta och appen håller reda på vilken valuta som finns på respektive konto, valuta omvandlas sedan vid överföringar mellan konton. 
+
+### Säkerhet
+
+> Om användaren anger fel pinkod tre gånger i rad stängs inloggnigen av i tre minuter
+> Krav på angivande av pinkod vid uttag och överföringar
 
 ### Val av metod 
 
@@ -20,12 +25,12 @@ Framtida förbättring: Jag hade även säkert kunnat använda try catch och exc
 
 ### Struktur
 
-> Jag har strävat efter att bygga upp en grundstruktur som ska vara lätt att överblicka för den som ser koden för första gången, där varje funktionalitet i programmet består av 1-8 metoder där varje metod så gott det går getts en uppgift för att så långt som möjligt följa Single responsibility principle. Jag har exempelvis delat upp funktionaliteten för väljandet av överföringsbelopp, från och till konto, och själva överföringen i olika metoder etc. Mycket på grund av att jag extensivt velat testa inmatningar för att undvika krascher, hålla mig till DRY-principen - och undvika upprepningar.
-Kritik: Jag hade kanske kunnat lägga all kod som tillhör en funktionalitet i samma metod, det hade blivit långa metoder med en del upprepningar men kanske vunnit i överblickbarhet. Jag föredrar dock det sätt jag gjorde på grund av att jag personligen tycker det blir mer funktionellt att återanvända mycket kod och med kortare metoder. Jag hade kanske även kunnat ha en metod som loopar konton och som jag återanvänder varje gång jag ber användaren att välja ett från eller till konto, men då förlorat möjligheten att ha ett mer precist felmeddelande vid felaktig inmatning. Exv skriver jag nu ut "Oj felaktig inmatning, vad god välj konto att flytta pengar ifrån", detta meddelande hade kunnat bytas ut mot ett mer neutralt "Felaktig inmatning, var god försök igen" och jag hade då kunnat skala bort några metoder ur appen. Det är kanske en smaksak, jag gillar mer precisa felutskrifter därför valde jag att göra som jag gjorde.
+> Jag har strävat efter att bygga upp en grundstruktur som ska vara lätt att överblicka för den som ser koden för första gången, där varje funktionalitet i programmet består av 1-8 metoder och där varje metod så gott det går getts en uppgift för att så långt som möjligt följa Single responsibility principle. Jag har exempelvis delat upp funktionaliteten för väljandet av överföringsbelopp, väljandet av överförings och mottagar konto, och själva överföringen i olika metoder etc. Mycket på grund av att jag extensivt velat testa inmatningar för att undvika krascher, hålla mig till DRY-principen - och undvika upprepningar.
+Kritik: Jag hade kanske kunnat lägga all kod som tillhör en funktionalitet i samma metod, det hade blivit långa metoder med en del upprepningar men kanske vunnit i överblickbarhet. Jag föredrar dock det sätt jag gjorde på grund av att jag personligen tycker det blir mer funktionellt att återanvända mycket kod och med kortare metoder. 
 <br>
 
-> Min tanke bakom strukturen: I fall då en viss funktionalitet (Exv överföringar) kräver fler än 1 metod har jag valt att bygga upp det så att den kronologiskt översta metoden (huvudmetoden) i varje funktionsslinga (exv metoden “transaktions”), som också är den som anropas från användarmenyn, i sin tur anropar olika hjälpmetoder (ofta) under denna för att exv välja ut rätt konto, välja ut rätt överföringsmottagare etc - på det sättet kan man i huvudmetoden snabbt få en överblick över vad som sker i koden och sen vidare undersöka hur de olika anropade hjälpmetoderna är uppbyggda. 
-Eventuella förbättringar: Om jag hade haft mer tid skulle jag kanske även försöka samla all kod som tillhör konvertering av valuta i en egen metod istället för att ha det också i MakeTransaction, så att den blir kortare.
+> Min tanke bakom strukturen: I fall då en viss funktionalitet (Exv överföringar) kräver fler än 1 metod har jag valt att bygga upp det så att den kronologiskt översta metoden (huvudmetoden) i varje funktionsslinga (exv metoden “transaktions”), som också är den som anropas från användarmenyn, i sin tur anropar olika hjälpmetoder (ofta liggandes) under denna för att exv välja ut rätt konto, välja ut rätt överföringsmottagare etc - på det sättet kan man i huvudmetoden snabbt få en överblick över vad som sker i koden och sen vidare undersöka hur de olika anropade hjälpmetoderna är uppbyggda. 
+Eventuella förbättringar: Om jag hade haft mer tid skulle jag kanske även försöka samla all kod som tillhör konvertering av valuta i en egen metod istället för att ha det också i MakeTransaction, så att den metoden blev kortare.
 <br>
 
 >Om jag hade haft mer tid hade jag säkert också kunnat göra ännu fler återanvändningar för att minska kodmängden ännu mer, och det är något jag gillar och vill tänka ytterligare på i en framtida version.
@@ -45,7 +50,7 @@ Jag hade också gärna utvecklat applikationen till att bestå av fler filer/kla
 > - Ett “help” - alternativ i menyn där användaren kan se svar på de vanligaste frågorna
 > - En kontaktsektion där användaren kan kontakta banken 
 
-### Genom kursen Programmering i C# på Chas Academy och vid byggande och research kring detta projekt har jag fått mycket kunskaper om:
+### Genom kursen Programmering i C# på Chas Academy och vid byggande och research kring detta projekt har jag fått fördjupade kunskaper om:
 
 #### Collections
 > - Dictionaries som erbjuder lagring av data i form av key-value pair
@@ -66,5 +71,5 @@ Jag hade också gärna utvecklat applikationen till att bestå av fler filer/kla
 #### Git
 > - Hur man effektivt kan använda bland annat git pull för att i team samarbeta kring ett projekt
 #### SqlLite
- > - Översiktligt - hur man kan koppla C# till SqlLite för att komma åt värden i en databas
+ > - Hur man kan koppla C# till SqlLite för att komma åt värden i en databas
 <br>
