@@ -50,6 +50,8 @@ Jag hade också gärna utvecklat applikationen till att bestå av fler filer/kla
 > - Ett “help” - alternativ i menyn där användaren kan se svar på de vanligaste frågorna
 > - En kontaktsektion där användaren kan kontakta banken 
 
+<br>
+
 ### Genom kursen Programmering i C# på Chas Academy och vid byggande och research kring detta projekt har jag fått fördjupade kunskaper om:
 
 #### Collections
@@ -72,4 +74,4 @@ Jag hade också gärna utvecklat applikationen till att bestå av fler filer/kla
 > - Hur man effektivt kan använda bland annat git pull för att i team samarbeta kring ett projekt
 #### SqlLite
  > - Hur man kan koppla C# till SqlLite för att komma åt värden i en databas
-<br>
+
