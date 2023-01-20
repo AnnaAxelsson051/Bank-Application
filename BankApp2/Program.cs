@@ -214,7 +214,7 @@ class Program
         }
 
         //Lists user accounts with name, sumb and currency 
-        void ListAccounts(User user)
+       void ListAccounts(User user)
         {
             Console.WriteLine("Nedan listas alla dina konton");
             int counter = 1;
