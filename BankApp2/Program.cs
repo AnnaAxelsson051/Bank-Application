@@ -164,6 +164,7 @@ class Program
 
         void MainMenu(User user)
         {
+            Console.WriteLine();
             Console.WriteLine("---------- Huvudmeny ----------");
             Console.WriteLine("Välkommen till huvudmenyn");
             bool mainMenu = true;
@@ -188,16 +189,16 @@ class Program
                         TransferFunds(user);
                         break;
                     case "3":
-                        TransferFundsToDifferentUser(user);
-                        break;
-                    case "4":
                         WithdrawFunds(user);
                         break;
-                    case "5":
+                    case "4":
                         DepositFunds(user);
                         break;
-                    case "6":
+                    case "5":
                         CreateNewAccount(user);
+                        break;
+                    case "6":
+                        TransferFundsToDifferentUser(user);        
                         break;
                     case "E":
                         Console.WriteLine("E har valts, du loggas nu ut");
@@ -729,7 +730,7 @@ class Program
     }
 
 
-    public class Account
+    /*public class Account
     {
 
         public Account(string accountName, decimal accountValue)
@@ -759,10 +760,10 @@ class Program
             set { _accountValue = value; }
         }
 
-    }
+    }*/
 
 
-    public class User
+    /*public class User
     {
         private string _name;
         public string name
@@ -810,5 +811,5 @@ class Program
             return;
         }
 
-    }
+    }*/
 }
