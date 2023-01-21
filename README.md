@@ -2,7 +2,7 @@
 
 ## Inledning
 
->I kursen Programmering i C# på Chas Academy skulle vi redovisa våra kunskaper i C# genom att bygga en bank applikation. Detta är min redovisning från denna kurs. Parallellt med kursen på Chas Academy läste jag även av eget fördjupningsintresse online-kursen *Complete C# Masterclass* på Udemy.
+>I kursen Programmering i C# på Chas Academy skulle vi redovisa våra kunskaper i C# genom att bygga en bankapplikation. Detta är min redovisning från denna kurs. Parallellt med kursen på Chas Academy läste jag även av eget fördjupningsintresse online-kursen *Complete C# Masterclass* på Udemy.
 
 ## Projektbeskrivning 
 
@@ -20,12 +20,13 @@ Annan ev lösning som övervägts: Jag funderade först på att bygga appen med 
 
 ### Programmets struktur
 
-> Programmet består av tre klasser - Program, User och Account och en Mainmetod. I Main byggs först objekten där varje user utifrån objektklassen User tilldelas respektive uppgifter som användarnamn, pinkod etc och en array av konton var, här finns också kod som hanterar inloggningen. I Program finns merparten av de metoder som används i programmet, för exv transaktioner, uttag, insättningar etc i kronologisk ordning sett till hur de presenteras för användaren i menyn. Med några vanligt förekommande hjälpmetoder placerade i mitten av klassen. Userklassen innehåller förutom publika och privata fält, getters och setters också två metoder för skapande av konto. På det här sättet har jag velat skydda fält och filer så mycket det går och också åstadkomma en bra överblickbarhet. Jag kunde dock ha delat upp programmet i ännu fler filer ur säkerhetssynvinkel men också för att vinna ännu mer i överblickbarnet. 
+> Programmet består av tre klasser - Program, User och Account och en Mainmetod. I Main byggs först objekten där varje user utifrån objektklassen User tilldelas respektive uppgifter som användarnamn, pinkod etc och en array av konton var, här finns också kod som hanterar inloggningen. I Program finns merparten av de metoder som används i programmet, så som metoder för exv transaktioner, uttag, insättningar etc, i kronologisk ordning sett till hur de presenteras för användaren i menyn. Med några vanligt förekommande hjälpmetoder placerade i mitten av klassen. Userklassen innehåller förutom publika och privata fält, getters och setters också två metoder för skapande av konto. På det här sättet har jag velat skydda fält och filer så mycket det går och också åstadkomma en bra överblickbarhet. Jag hade dock kanske velat dela upp programmet i ännu fler filer ur säkerhetssynvinkel men också för att vinna ännu mer i överblickbarnet. 
 
 ### Felhantering
 
-> För att undvika att applikationen kraschar vid felaktig inmatning har jag extensivt använt try catch block, undantagshantering och if-satser, samt tester innan överföringar och uttag för att undvika eventuella kvarvarande minusbelopp på uttagskontot. 
+> För att undvika att applikationen kraschar vid felaktig inmatning har jag extensivt använt try catch block, undantagshantering och if-satser, samt tester innan överföringar och uttag för att undvika eventuella kvarvarande minusbelopp på uttagskontot.
 Framtida förbättring: Jag hade även säkert kunnat använda try catch och exception på vissa ställen där jag i koden istället testat med if, och det är något jag kan förbättra i en framtida version.
+Jag har varit noga att ta höjd för användares eventuella varierande användning av versaler vid olika val som involverar bokstäver genom att använda mig av toUpper respektive ignorecase.
 
 ### Programflöde
 
@@ -43,7 +44,11 @@ Eventuella förbättringar: Om jag hade haft mer tid skulle jag kanske även fö
 
 >Om jag hade haft mer tid hade jag säkert också kunnat göra ännu fler återanvändningar för att minska kodmängden ännu mer, och det är något jag gillar och vill tänka ytterligare på i en framtida version.
 
-### Om jag haft mer tid skulle jag också: 
+### Version control
+
+> Jag har använt Git för version control och uppdaterat löpande under arbetets gång. En sak jag vill förbättra framöver när det gäller just det är att då jag skriver längre commitmeddelanden dela upp dem i rubrik och undertext/punktlista.
+
+### Om jag haft mer tid skulle jag vilja lägga till följande funktionalitet till projektet: 
 > - Koppla till databas och läsa in användare / saldon som sparas mellan körningar
 > - Bygga ett flödesschema för appen som ger bra överblick 
 > - Implementera en front end del med en välkomnande bank log in sida
