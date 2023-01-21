@@ -157,12 +157,13 @@ class Program
             } while (inCorrectUserName);
         }
 
+    
 
 
-        //Lets user choose from a list of bank errands to execute
-        //Or choose to log out and is then returned to log in
+    //Lets user choose from a list of bank errands to execute
+    //Or choose to log out and is then returned to log in
 
-        void MainMenu(User user)
+    void MainMenu(User user)
         {
             Console.WriteLine();
             Console.WriteLine("---------- Huvudmeny ----------");

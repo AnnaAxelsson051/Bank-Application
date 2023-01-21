@@ -15,32 +15,43 @@
 
 ### Val av metod 
 
-> Jag valde att använda mig av Objektorienterad programmering i detta projekt eftersom det är en modell som passar bra till appar där man strävar efter en hög säkerhet och det är också ett bra och effektivt sätt att förse objekt, så som i det här fallet användare, med olika konton. 
+> Jag valde att använda mig av Objektorienterad programmering i detta projekt eftersom OOP är en modell som passar bra till appar där man strävar efter en hög säkerhet och det är också ett bra och effektivt sätt att förse objekt, så som i det här fallet användare, med olika konton. 
 Annan ev lösning som övervägts: Jag funderade först på att bygga appen med (enbart) jagged arrays och inte OOP för att lära mig extra om det och för att jobba mer praktiskt med jagged arrays, men det landade i OOP på grund av att jag kände att det skulle passa den här typen av app bättre till följd av säkerhetsaspekten och möjligheten att gömma data med privata fält så att andra delar av programmet inte kan komma åt och påverka den.
+
+### Programmets struktur
+
+> Programmet består av tre klasser - Program, User och Account och en Mainmetod. I Main byggs först objekten och här finns kod som hanterar inloggningen. I Program finns merpartem av de metoder som används i programmet, för exv transaktioner, uttag, insättningar etc i kronologisk ordning sett till hur de presenteras för användaren i menyn. Med några vanligt förekommande hjälpmetoder placerade i mitten av klassen. Userklassen innehåller förutom publika och privata fält, getters och setters också två metoder för skapande av konto. På det här sättet har jag velat skydda fält och filer så mycket det går och också åstadkomma en bra överblickbarhet. Jag kunde ha delat upp programmet i ännu fler filer ur säkerhetssynvinkel men också för att vinna ännu mer i överblickbarnet. 
 
 ### Felhantering
 
 > För att undvika att applikationen kraschar vid felaktig inmatning har jag extensivt använt try catch block, undantagshantering och if-satser, samt tester innan överföringar och uttag för att undvika eventuella kvarvarande minusbelopp på uttagskontot. 
 Framtida förbättring: Jag hade även säkert kunnat använda try catch och exception på vissa ställen där jag i koden istället testat med if, och det är något jag kan förbättra i en framtida version.
 
-### Struktur
+### Programflöde
 
-> Jag har strävat efter att bygga upp en grundstruktur som ska vara lätt att överblicka för den som ser koden för första gången, där varje funktionalitet i programmet består av 1-8 metoder och där varje metod så gott det går getts en uppgift för att så långt som möjligt följa Single responsibility principle. Jag har exempelvis delat upp funktionaliteten för väljandet av överföringsbelopp, väljandet av överförings och mottagar konto, och själva överföringen i olika metoder etc. Mycket på grund av att jag extensivt velat testa inmatningar för att undvika krascher, hålla mig till DRY-principen - och undvika upprepningar.
+> När användaren lyckats logga in får han/hon möjlighet att ur menyn välja ett bankärende som ska utföras, beroende på val skickas användaren sedan vidare till den/de metoder som hanterar vald funktionalitet och tas efter bankärendets slut vid entertryckning åter till huvudmenyn. Under programmets körning och vid varje bankärende lagras eventuell förändrad data i objekten så att dessa hålls uppdaterade vilket gör att en användare kan logga ut och en annan kan logga in och förändringarna kvarstår. Vilket gör appen mycket dynamisk och simuleringen blir lik en verklig bank. En fördel hade här varit att läsa in objekten direkt från en databas för att sedan spara in ändringarna i databasen och kunna ha dem kvar efter det att programmet startas om. Det är något jag vill implementera i en framtida version med SQL.
+
+### Metodmässig struktur
+
+> Jag har strävat efter att bygga upp en grundstruktur som ska vara lätt att överblicka för den som ser koden för första gången, där varje funktionalitet i programmet består av 1-8 metoder och där varje metod så gott det går getts en uppgift för att så långt som möjligt följa Single responsibility principle. Jag har exempelvis delat upp funktionaliteten för test av pinkod, väljande av överföringsbelopp, test av valuta, och själva överföringen i olika metoder etc. Mycket på grund av att jag extensivt velat testa inmatningar för att undvika krascher, hålla mig till DRY-principen - och undvika upprepningar.
 Kritik: Jag hade kanske kunnat lägga all kod som tillhör en funktionalitet i samma metod, det hade blivit långa metoder med en del upprepningar men kanske vunnit i överblickbarhet. Jag föredrar dock det sätt jag gjorde på grund av att jag personligen tycker det blir mer funktionellt att återanvända mycket kod och med kortare metoder. 
 <br>
 
-> Min tanke bakom strukturen: I fall då en viss funktionalitet (Exv överföringar) kräver fler än 1 metod har jag valt att bygga upp det så att den kronologiskt översta metoden (huvudmetoden) i varje funktionsslinga (exv metoden “transaktions”), som också är den som anropas från användarmenyn, i sin tur anropar olika hjälpmetoder (ofta liggandes) under denna för att exv välja ut rätt konto, välja ut rätt överföringsmottagare etc - på det sättet kan man i huvudmetoden snabbt få en överblick över vad som sker i koden och sen vidare undersöka hur de olika anropade hjälpmetoderna är uppbyggda. 
+> Min tanke bakom strukturen: I fall då en viss funktionalitet (Exv överföringar) kräver fler än 1 metod har jag valt att bygga upp det så att den kronologiskt översta metoden (huvudmetoden) i varje funktionsslinga (exv metoden “transaktions”), som också är den som anropas från användarmenyn, i sin tur anropar olika hjälpmetoder (ofta liggandes) under denna för att exv välja välja ut rätt överföringsmottagare, göra överföringen etc - på det sättet kan man i huvudmetoden snabbt få en överblick över vad som sker i koden och sen vidare undersöka hur de olika anropade hjälpmetoderna är uppbyggda. 
 Eventuella förbättringar: Om jag hade haft mer tid skulle jag kanske även försöka samla all kod som tillhör konvertering av valuta i en egen metod istället för att ha det också i MakeTransaction, så att den metoden blev kortare.
 <br>
 
 >Om jag hade haft mer tid hade jag säkert också kunnat göra ännu fler återanvändningar för att minska kodmängden ännu mer, och det är något jag gillar och vill tänka ytterligare på i en framtida version.
-Jag hade också gärna utvecklat applikationen till att bestå av fler filer/klasser, dels av säkerhetsskäl men också för än ökad överblickbarhet.
 
 ### Om jag haft mer tid skulle jag också: 
 > - Koppla till databas och läsa in användare / saldon som sparas mellan körningar
 > - Bygga ett flödesschema för appen som ger bra överblick 
-> - Implementera en front end del med en snygg välkomnande bank log in sida
+> - Implementera en front end del med en välkomnande bank log in sida
+> - Maskerad pinkod vid inmatning
+> - Endast visa 2 decimaler vid utskrift
+> - Ha en paus-i-tre-minuter-vid-fel-pinkod endast för den användare som skrev fel
 > - Kanske funktionalitet för ett varningssljud om anv trycker fel pinkod
+> - Göra så att användarens egent konto inte listas när han/hon ska välja annan användare att överföra till
 > - Fler användare i banken
 > - Hantering av ännu fler valutor
 > - Möjlighet att lägga till fler användare dvs möjlighet för någon ny att bli medlem i banken
@@ -73,5 +84,5 @@ Jag hade också gärna utvecklat applikationen till att bestå av fler filer/kla
 #### Git
 > - Hur man effektivt kan använda bland annat git pull för att i team samarbeta kring ett projekt
 #### SqlLite
- > - Hur man kan koppla C# till SqlLite för att komma åt värden i en databas
+ > - Översiktligt - Hur man kan koppla C# till SqlLite för att komma åt värden i en databas
 
