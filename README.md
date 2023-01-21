@@ -10,8 +10,8 @@
 
 ### Säkerhet
 
-> Om användaren anger fel pinkod tre gånger i rad stängs inloggnigen av i tre minuter
-> Krav på angivande av pinkod vid uttag och överföringar
+> - Om användaren anger fel pinkod tre gånger i rad stängs inloggnigen av i tre minuter
+> - Krav på angivande av pinkod vid uttag och överföringar
 
 ### Val av metod 
 
@@ -20,7 +20,7 @@ Annan ev lösning som övervägts: Jag funderade först på att bygga appen med 
 
 ### Programmets struktur
 
-> Programmet består av tre klasser - Program, User och Account och en Mainmetod. I Main byggs först objekten och här finns kod som hanterar inloggningen. I Program finns merpartem av de metoder som används i programmet, för exv transaktioner, uttag, insättningar etc i kronologisk ordning sett till hur de presenteras för användaren i menyn. Med några vanligt förekommande hjälpmetoder placerade i mitten av klassen. Userklassen innehåller förutom publika och privata fält, getters och setters också två metoder för skapande av konto. På det här sättet har jag velat skydda fält och filer så mycket det går och också åstadkomma en bra överblickbarhet. Jag kunde ha delat upp programmet i ännu fler filer ur säkerhetssynvinkel men också för att vinna ännu mer i överblickbarnet. 
+> Programmet består av tre klasser - Program, User och Account och en Mainmetod. I Main byggs först objekten där varje user utifrån objektklassen User tilldelas respektive uppgifter som användarnamn, pinkod etc och en array av konton var, här finns också kod som hanterar inloggningen. I Program finns merparten av de metoder som används i programmet, för exv transaktioner, uttag, insättningar etc i kronologisk ordning sett till hur de presenteras för användaren i menyn. Med några vanligt förekommande hjälpmetoder placerade i mitten av klassen. Userklassen innehåller förutom publika och privata fält, getters och setters också två metoder för skapande av konto. På det här sättet har jag velat skydda fält och filer så mycket det går och också åstadkomma en bra överblickbarhet. Jag kunde dock ha delat upp programmet i ännu fler filer ur säkerhetssynvinkel men också för att vinna ännu mer i överblickbarnet. 
 
 ### Felhantering
 
@@ -37,7 +37,7 @@ Framtida förbättring: Jag hade även säkert kunnat använda try catch och exc
 Kritik: Jag hade kanske kunnat lägga all kod som tillhör en funktionalitet i samma metod, det hade blivit långa metoder med en del upprepningar men kanske vunnit i överblickbarhet. Jag föredrar dock det sätt jag gjorde på grund av att jag personligen tycker det blir mer funktionellt att återanvända mycket kod och med kortare metoder. 
 <br>
 
-> Min tanke bakom strukturen: I fall då en viss funktionalitet (Exv överföringar) kräver fler än 1 metod har jag valt att bygga upp det så att den kronologiskt översta metoden (huvudmetoden) i varje funktionsslinga (exv metoden “transaktions”), som också är den som anropas från användarmenyn, i sin tur anropar olika hjälpmetoder (ofta liggandes) under denna för att exv välja välja ut rätt överföringsmottagare, göra överföringen etc - på det sättet kan man i huvudmetoden snabbt få en överblick över vad som sker i koden och sen vidare undersöka hur de olika anropade hjälpmetoderna är uppbyggda. 
+> Min tanke bakom strukturen: I fall då en viss funktionalitet (Exv överföringar) kräver fler än 1 metod har jag valt att bygga upp det så att den kronologiskt översta metoden (huvudmetoden) i varje funktionsslinga (exv metoden “TransferFunds”), som också är den som anropas från användarmenyn, i sin tur anropar olika hjälpmetoder (ofta liggandes) under denna för att exv välja välja ut rätt överföringsmottagare, göra överföringen etc - på det sättet kan man i huvudmetoden snabbt få en överblick över vad som sker i koden och sen vidare undersöka hur de olika anropade hjälpmetoderna är uppbyggda. 
 Eventuella förbättringar: Om jag hade haft mer tid skulle jag kanske även försöka samla all kod som tillhör konvertering av valuta i en egen metod istället för att ha det också i MakeTransaction, så att den metoden blev kortare.
 <br>
 
