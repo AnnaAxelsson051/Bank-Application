@@ -8,17 +8,6 @@ using System.Threading;
 
 using static BankApp2.Program;
 
-
-//TODO make it so that users own accounts are not listed when selecting other user to 
-///
-//TODO endast visa två decimaled vid utskrift
-//TODO dölja pincode vid inlogg
-//TODO vid 49 om hur man gör annan variant av sleep, ej ha sleep pga det påv alla anv 
-//TODO 1000-3000 ord totalt i hela readmen? /
-//TODO add commenst for each method and codebits whos purpouse is not obvious
-
-
-
 namespace BankApp2;
 class Program
 {
